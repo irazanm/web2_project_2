@@ -17,6 +17,7 @@ and open the template in the editor.
         echo "new code";
         echo "<p>Hello</p>";
         echo "<p>Yara</p>";
+        echo "<p> Lama</p>";
         ?>
     </body>
 </html>
