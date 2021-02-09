@@ -14,6 +14,7 @@ and open the template in the editor.
         <?php
         // put your code here
         //....
+        echo "new code";
         echo "<p>Hello</p>";
         echo "<p>Yara</p>";
         ?>
