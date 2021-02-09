@@ -17,6 +17,7 @@ and open the template in the editor.
         echo "<p>Yara</p>";
         echo "<p> Lama</p>";
         echo '<p>Razan<p>';
+        echo '<p>Razan<p>';
         ?>
     </body>
 </html>
