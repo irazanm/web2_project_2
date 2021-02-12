@@ -157,14 +157,14 @@ for the logo in the bar , must add it at all the pages
             <br>
         </footer>
         <script>
-            const switchers = [...document.querySelectorAll('.switcher')]
+            const switchers = [...document.querySelectorAll('.switcher')];
 
             switchers.forEach(item => {
                 item.addEventListener('click', function () {
-                    switchers.forEach(item => item.parentElement.classList.remove('is-active'))
-                    this.parentElement.classList.add('is-active')
-                })
-            })
+                    switchers.forEach(item => item.parentElement.classList.remove('is-active'));
+                    this.parentElement.classList.add('is-active');
+                });
+            });
 
         </script>
     </body>
