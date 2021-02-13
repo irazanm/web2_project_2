@@ -77,6 +77,33 @@ and open the template in the editor.
                 font-size: 50px;
                 line-height: 1.125;
             }
+            /*--the line above the text--*/
+            del {
+                --color: var(--del-color, teal);
+                text-decoration: none;
+                padding: 0 .5em;
+                background-repeat: no-repeat;
+                background-image: 
+                    linear-gradient(to left, rgba(255, 255, 255, .5), transparent),
+                    linear-gradient(2deg, var(--color) 50%, transparent 50%),
+                    linear-gradient(-.9deg, var(--color) 50%, transparent 50%),
+                    linear-gradient(-60deg, var(--color) 50%, transparent 50%),
+                    linear-gradient(120deg, var(--color) 50%, transparent 50%);
+
+                background-size: 
+                    30% 1.5px,
+                    calc(100% - 20px) 10px, 
+                    calc(100% - 20px) 10px,
+                    10px 10px,
+                    8px 8px; 
+
+                background-position: 
+                    100% calc(50% + 2px),
+                    center center, 
+                    center center, 
+                    2px 50%, 
+                    calc(100% - 3px) calc(50% + 1px);
+            }
             .contained{
                 margin: 0 auto;
                 width: 90%;
@@ -87,7 +114,7 @@ and open the template in the editor.
                     width: 80%;
                 }
             }
-           
+
             @media (min-width: 600px){
                 .contained{
                     width: 60%;
@@ -101,7 +128,7 @@ and open the template in the editor.
                 z-index: 5;
             }
             /*--small scren --*/
-             @media (max-width: 500px){
+            @media (max-width: 500px){
                 header video{
                     display:none;
                 }
@@ -160,7 +187,7 @@ and open the template in the editor.
                     <ul>
                         <li>
                             <!-- the user name by java  -->
-                            Welcome []!
+                            <del > <strong>Welcome [  ] !</strong></del>
                         </li>
                     </ul>
                     <ul>
@@ -180,11 +207,11 @@ and open the template in the editor.
                 <source src="https://cdn.videvo.net/videvo_files/video/free/2018-05/small_watermarked/180419_Boxing_13_14_preview.webm" type="video/mp4">
             </video>
         </header>
-       <!-- the content  -->
-       <!-- you can use this class at css or you can change everthing here  -->
+        <!-- the content  -->
+        <!-- you can use this class at css or you can change everthing here  -->
         <main >
             <div class="contained">
-                <h1>Zoom on Scroll Hero Image</h1>
+                <h1><del>Zoom on Scroll Hero Image</del></h1>
                 <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Maecenas sed diam eget risus varius blandit sit amet non magna. Nulla vitae elit libero, a pharetra augue. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
                 <p>Curabitur blandit tempus porttitor. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
                 <h2>Vehicula Euismod Aenean</h2>
