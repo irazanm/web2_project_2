@@ -8,12 +8,477 @@ and open the template in the editor.
 <html>
 
     <head>
-        <title>class</title>
+        <title>Fitness Class Information</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="image/Logo1.png" type="image/gif" sizes="16x16">
+        <link rel="stylesheet" href="newcss.css">
+        <script src="javaS/home.js"></script>
+        
+        <style>
+            /*--after we finsh we can put this code at an external css file--*/
+            body {
+                overflow-x: hidden;
+                font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+                margin: 0;
+                line-height: 24px;
+            }
+            /*----header----*/
+            .menu-container {
+                position: relative;
+                display: flex;
+                align-items: center;
+                margin: 0px;
+                background: #3b4465;
+                color: #cdcdcd;
+                padding: 20px;
+                z-index: 1;
+                -webkit-user-select: none;
+                user-select: none;
+                box-sizing: border-box;
+            }
+
+            .menu-logo {
+                line-height: 0;
+                margin: 0 20px;
+            }
+
+            .menu-logo img {
+                max-height: 40px;
+                max-width: 100px;
+                flex-shrink: 0;
+            }
+
+            .menu-container a {
+                text-decoration: none;
+                color: #cdcdcd;
+                transition: color 0.3s ease;
+            }
+
+            .menu-container a:hover {
+                color: #a7e245;
+            }
+
+
+            .menu ul {
+                list-style: none;
+            }
+
+            .menu li {
+                padding: 10px 0;
+                font-size: 22px;
+            }
+            .menu {
+                position: relative;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            /* --- the content and the video --- */
+            h1{
+                font-size: 50px;
+                line-height: 1.125;
+            }
+            /*--the line above the text--*/
+            del {
+                --color: var(--del-color, teal);
+                text-decoration: none;
+                padding: 0 .5em;
+                background-repeat: no-repeat;
+                background-image: 
+                    linear-gradient(to left, rgba(255, 255, 255, .5), transparent),
+                    linear-gradient(2deg, var(--color) 50%, transparent 50%),
+                    linear-gradient(-.9deg, var(--color) 50%, transparent 50%),
+                    linear-gradient(-60deg, var(--color) 50%, transparent 50%),
+                    linear-gradient(120deg, var(--color) 50%, transparent 50%);
+
+                background-size: 
+                    30% 1.5px,
+                    calc(100% - 20px) 10px, 
+                    calc(100% - 20px) 10px,
+                    10px 10px,
+                    8px 8px; 
+
+                background-position: 
+                    100% calc(50% + 2px),
+                    center center, 
+                    center center, 
+                    2px 50%, 
+                    calc(100% - 3px) calc(50% + 1px);
+            }
+            .contained{
+                margin: 0 auto;
+                width: 90%;
+
+            }
+            @media (min-width: 500px){
+                .contained{
+                    width: 80%;
+                }
+            }
+
+            @media (min-width: 600px){
+                .contained{
+                    width: 60%;
+                }
+            }
+            main{
+                padding: 1em 0;
+                position: relative;
+                background: #f5f5f5;
+                box-shadow: 0px -10px 60px rgba(0,0,0,0.25);
+                z-index: 5;
+            }
+            /*--small scren --*/
+            @media (max-width: 500px){
+                header video{
+                    display:none;
+                }
+            }
+
+            /* --- Important Pen Styles --- */
+            header{
+                overflow: hidden;
+                /*padding-bottom determines the height of the header*/
+                padding-bottom: 55%;
+                z-index: 5;
+            }
+            @media (min-width: 600px){
+                header{
+                    padding-bottom: 50%;
+                }
+            }
+            @media (min-width: 700px){
+                header{
+                    padding-bottom: 45%;
+                }
+            }
+            header video{
+                width: 100%;
+                max-width: none;
+                position: fixed;
+                pandding:0px;
+                margin: 0px ;
+                top: 0%;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: -1;
+            }
+            /*---makeing the sign out icon moves-----*/
+            .hvr-float {
+                -moz-osx-font-smoothing: grayscale;
+                transition-duration: 0.3s;
+                transition-property: transform;
+                transition-timing-function: ease-out;
+            }
+            .hvr-float:hover,
+            .hvr-float:focus,
+            .hvr-float:active {  
+                transform: translateX(8px);
+            }
+
+             .limiter {
+              width: 100%;
+              margin: 0 auto;
+            }
+
+            .container-table100 {
+              width: 100%;
+              min-height: 70vh;
+              display: -webkit-box;
+              display: -webkit-flex;
+              display: -moz-box;
+              display: -ms-flexbox;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-wrap: wrap;
+            }
+
+            .wrap-table100 {
+              width: 1170px;
+            }
+           /*--------------------- Table --------------*/
+            table {  
+              border-spacing: 1;
+              border-collapse: collapse;
+              background-color: white;
+              border-radius: 10px;
+              overflow: hidden;
+              width: 100%;
+              height: 300px;
+              margin: 0 auto;
+              position: relative;
+            }
+            
+            table * {
+              position: relative;
+            }
+            
+            table td, table th {
+              padding-left: 8px;
+            }
+            
+            table thead tr {
+              height: 60px;
+              background: #36304a;
+            }
+            
+            table tbody tr {
+              height: 50px;
+              background: #f5f5f5;
+             
+            }
+            
+            table tbody tr:last-child {
+              border: 0;
+              background: #f5f5f5;
+            }
+            
+            table td, table th {
+              text-align: left;
+            }
+            
+            table td.l, table th.l {
+              text-align: right;
+            }
+            
+            table td.c, table th.c {
+              text-align: center;
+            }
+            
+            table td.r, table th.r {
+              text-align: center;
+            }
+            
+            .table100-head th{
+              font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+              font-size: 24px;
+              color: #fff;
+              line-height: 1.2;
+              font-weight: unset;
+            }
+
+            tbody tr:nth-child(even) {
+              background-color: white;
+            }
+
+            tbody tr {
+              font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+              font-size: 18px;
+              color: #808080;
+              line-height: 1.2;
+              background-color:white;
+            }
+
+            tbody tr:hover {
+              color: #555555;
+              background-color: #f5f5f5;
+            }
+
+            .column1 {
+              width: 260px;
+              padding-left: 40px;
+              
+            }
+
+            .column2 {
+              width: 160px;
+            }
+
+            .column3 {
+              width: 245px;
+            }
+
+            @media screen and (max-width: 992px) {
+            table {
+              display: block;
+            }
+            table > *, table tr, table td, table th {
+              display: block;
+            }
+            table thead {
+              display: none;
+            }
+            table tbody tr {
+              height: auto;
+              padding: 37px 0;
+            }
+            table tbody tr td {
+              padding-left: 40% !important;
+              margin-bottom: 24px;
+            }
+            table tbody tr td:last-child {
+              margin-bottom: 0;
+            }
+            table tbody tr td:before {
+              font-family: OpenSans-Regular;
+              font-size: 14px;
+              color: #999999;
+              line-height: 1.2;
+              font-weight: unset;
+              position: absolute;
+              width: 40%;
+              left: 30px;
+              top: 0;
+            }
+            table tbody tr td:nth-child(1):before {
+              content: "Course";
+            }
+            table tbody tr td:nth-child(2):before {
+              content: "Status";
+            }
+            table tbody tr td:nth-child(3):before {
+              content: "";
+            }
+            
+            .column1,
+            .column2,
+            .column3 {
+              width: 100%;
+            }
+
+            tbody tr {
+              font-size: 14px;
+            }
+          }
+
+          @media (max-width: 576px) {
+            .container-table100 {
+              padding-left: 15px;
+              padding-right: 15px;
+            }
+          }
+        </style>
     </head>
     <body>
-        <div>TODO write content</div>
+        <header class="zoom-me">
+            <nav class="menu-container">
+                <!-- logo -->
+                <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
+                <!-- menu items -->
+                <div class="menu">
+                    <ul>
+                        <li>
+                            <!-- the user name by java  -->
+                            <del > <strong>Welcome [  ] !</strong></del>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <!--sign out -->
+                            <a href="index.html">
+                                <svg class="hvr-float" width="30" height="30" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 1C2.44771 1 2 1.44772 2 2V13C2 13.5523 2.44772 14 3 14H10.5C10.7761 14 11 13.7761 11 13.5C11 13.2239 10.7761 13 10.5 13H3V2L10.5 2C10.7761 2 11 1.77614 11 1.5C11 1.22386 10.7761 1 10.5 1H3ZM12.6036 4.89645C12.4083 4.70118 12.0917 4.70118 11.8964 4.89645C11.7012 5.09171 11.7012 5.40829 11.8964 5.60355L13.2929 7H6.5C6.22386 7 6 7.22386 6 7.5C6 7.77614 6.22386 8 6.5 8H13.2929L11.8964 9.39645C11.7012 9.59171 11.7012 9.90829 11.8964 10.1036C12.0917 10.2988 12.4083 10.2988 12.6036 10.1036L14.8536 7.85355C15.0488 7.65829 15.0488 7.34171 14.8536 7.14645L12.6036 4.89645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                                <title>sign out</title>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <video height="850"  autoplay  loop>
+                <source src="https://cdn.videvo.net/videvo_files/video/free/2018-05/small_watermarked/180419_Boxing_13_14_preview.webm" type="video/mp4">
+            </video>
+        </header>
+        <!-- the content  -->
+        <!-- you can use this class at css or you can change everthing here  -->
+        <main >
+            <button type="submit" id="E"><img src="image/pen-.png" alt="Edit" width="25px;" height="25px"></button>
+           
+            
+            <h3 class="Headers">Fitness Class Information </h3>
+            <div class="contained2">
+                <div class="subInfo"> <img src="image/className1.png" alt="sportIcon" width="70px" height="70px"> <br><strong class="subInfoH">  Name:</strong> <p>Zumba Class</p> </div>
+                    <div class="subInfo"><img src="image/Level.png" alt="Level" width="80px" height="80px"> <br><strong class="subInfoH">  Level:</strong> <p>MEDIUM</p></div>
+                    <div class="subInfo"><img src="image/descrip1.png" alt="Description" width="70px" height="70px"> <br> <strong class="subInfoH">Description:</strong> <p>Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit. Nam accumsan
+                            <br>  </p></div>  
+            </div>
+            
+            <div class="contained">
+                
+                <div class="limiter">
+                    <div class="container-table100">
+			<div class="wrap-table100">
+            <div class="table100">
+				<table>
+                                    <thead>
+					<tr class="table100-head">
+                                            <th class="column1">Trainee Name</th>
+                                            <th class="column2">Email</th>
+                                            <th class="column3">Date of joining</th>
+					</tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="column1">Nora</td>
+                                            <td class="column2">Nora@gmail.com</td>
+                                            <td class="column3">4/3/2019</td>
+					</tr>
+					<tr>
+                                            <td class="column1">Areeb</td>
+                                            <td class="column2">Areeb@gmail.com</td>
+                                           <td class="column2">6/8/2020</td>
+					</tr>
+					<tr>
+                                            <td class="column1">Reem </td>
+                                            <td class="column2">Remm@gmail.com</td>
+                                            <td class="column2">5/11/2020</td>
+                                            
+					</tr>
+                                    </tbody>
+				</table>
+            </div>
+                                     </div>
+			</div>
+                    </div>
+                </div>
+            
+            <button type="submit" id="dropClass"><img src="image/Trash-remove.png" alt="Drop" width="25px" height="25px"></button> 
+            
+        </main>
+            <footer style="">
+                <!-- logo -->
+                <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
+
+                <section class="social">
+                    <ul>
+                        <li>
+                            <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
+                                <i class="fab fa-youtube" ></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
+                                <i class="fab fa-youtube" ></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
+                                <i class="fab fa-youtube" ></i>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </section>
+
+            </footer>
+        <script>
+            //it simple keep it. 
+            //unless you will add an extra code , add this to an external file with your code and save it at javaS folder
+            $(window).scroll(function () {
+                var scroll = $(window).scrollTop();
+                $(".zoom-me video").css({
+                    width: (100 + scroll / 5) + "%",
+                    top: -(scroll / 10) + "%",
+                    "-webkit-filter": "blur(" + (scroll / 200) + "px)",
+                    filter: "blur(" + (scroll / 200) + "px)"
+                });
+            });
+        </script>
     </body>
 </html>
 
