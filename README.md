@@ -1,5 +1,5 @@
 # project web 2
 - Razan --> home page   
-- Shatha -->  coach page  
-- Yara -->  trainee home page  
-- Lama -->class info page
+- Shatha --> trainee home page  
+- Yara --> coach page  
+- Lama --> class info page  

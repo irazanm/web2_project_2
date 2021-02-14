@@ -183,7 +183,53 @@ and open the template in the editor.
             button:hover {
                 cursor: pointer;
             }
+            h3{
+                font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+                font-size: 24px;
+            }
+            
+            /*---------------------------footer------------------------------*/
+                footer {
+                    border: 1px solid red;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    margin: 0px;
+                    background-color:  #3b4465;
+                    color: #cdcdcd;
+                    padding: 20px;
+                    z-index: 1;
+                    -webkit-user-select: none;
+                    /*user-select: none;*/
+                    box-sizing: border-box;
+                }
 
+                footer ul {
+                    list-style: none;
+                    display: flex;
+                }
+
+                footer li {
+                    padding: 0px 10px;
+                    font-size: 28px;
+                }
+                /*---media at footer---*/
+                footer li a {
+                    display: inline-block;
+                    transition-duration:  .3s;
+                    transition-property: transform;
+                    transform: translateZ(0);
+                    color: #cdcdcd;
+
+                }
+                footer li a:hover {
+                    transform: scale(1.68);
+                }
+                footer section {
+                    border: 1px solid red;
+                    float: left;
+                }
+               
             
             /*-----------------------------------Table--------------------------------------*/
             
@@ -194,7 +240,7 @@ and open the template in the editor.
 
             .container-table100 {
               width: 100%;
-              min-height: 100vh;
+              min-height: 70vh;
               display: -webkit-box;
               display: -webkit-flex;
               display: -moz-box;
@@ -209,13 +255,14 @@ and open the template in the editor.
               width: 1170px;
             }
 
-            table {
+            table {  
               border-spacing: 1;
               border-collapse: collapse;
               background: white;
               border-radius: 10px;
               overflow: hidden;
               width: 100%;
+              height: 300px;
               margin: 0 auto;
               position: relative;
             }
@@ -258,8 +305,8 @@ and open the template in the editor.
             }
             
             .table100-head th{
-              font-family: OpenSans-Regular;
-              font-size: 18px;
+              font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+              font-size: 24px;
               color: #fff;
               line-height: 1.2;
               font-weight: unset;
@@ -270,8 +317,8 @@ and open the template in the editor.
             }
 
             tbody tr {
-              font-family: OpenSans-Regular;
-              font-size: 15px;
+              font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+              font-size: 18px;
               color: #808080;
               line-height: 1.2;
               font-weight: unset;
@@ -296,63 +343,64 @@ and open the template in the editor.
             }
 
             @media screen and (max-width: 992px) {
-              table {
-                display: block;
-              }
-              table > *, table tr, table td, table th {
-                display: block;
-              }
-              table thead {
-                display: none;
-              }
-              table tbody tr {
-                height: auto;
-                padding: 37px 0;
-              }
-              table tbody tr td {
-                padding-left: 40% !important;
-                margin-bottom: 24px;
-              }
-              table tbody tr td:last-child {
-                margin-bottom: 0;
-              }
-              table tbody tr td:before {
-                font-family: OpenSans-Regular;
-                font-size: 14px;
-                color: #999999;
-                line-height: 1.2;
-                font-weight: unset;
-                position: absolute;
-                width: 40%;
-                left: 30px;
-                top: 0;
-              }
-              table tbody tr td:nth-child(1):before {
-                content: "Name";
-              }
-              table tbody tr td:nth-child(2):before {
-                content: "Status";
-              }
-              table tbody tr td:nth-child(3):before {
-                content: "";
-
-              .column1,.column2,.column3 {
-                width: 100%;
-              }
-              tbody tr {
-                font-size: 14px;
-              }
+            table {
+              display: block;
+            }
+            table > *, table tr, table td, table th {
+              display: block;
+            }
+            table thead {
+              display: none;
+            }
+            table tbody tr {
+              height: auto;
+              padding: 37px 0;
+            }
+            table tbody tr td {
+              padding-left: 40% !important;
+              margin-bottom: 24px;
+            }
+            table tbody tr td:last-child {
+              margin-bottom: 0;
+            }
+            table tbody tr td:before {
+              font-family: OpenSans-Regular;
+              font-size: 14px;
+              color: #999999;
+              line-height: 1.2;
+              font-weight: unset;
+              position: absolute;
+              width: 40%;
+              left: 30px;
+              top: 0;
+            }
+            table tbody tr td:nth-child(1):before {
+              content: "Course";
+            }
+            table tbody tr td:nth-child(2):before {
+              content: "Status";
+            }
+            table tbody tr td:nth-child(3):before {
+              content: "";
+            }
+            
+            .column1,
+            .column2,
+            .column3 {
+              width: 100%;
             }
 
-            @media (max-width: 576px) {
-              .container-table100 {
-                padding-left: 15px;
-                padding-right: 15px;
-              }
+            tbody tr {
+              font-size: 14px;
             }
-            h3 {
-                margin: 50px;
+          }
+
+          @media (max-width: 576px) {
+            .container-table100 {
+              padding-left: 15px;
+              padding-right: 15px;
             }
+          }
         </style>
     </head>
     <body>
@@ -387,9 +435,9 @@ and open the template in the editor.
         </header>
         <!-- the content  -->
         <!-- you can use this class at css or you can change everything here  -->
-        <main >
-            <h3>Available Fitness Classes</h3>
+        <main>
             <div class="contained">
+                <h3>Available Fitness Classes</h3>
                 <div class="limiter">
                     <div class="container-table100">
 			<div class="wrap-table100">
@@ -426,6 +474,33 @@ and open the template in the editor.
                 </div>
             </div>
         </main>
+         <footer style="">
+                <!-- logo -->
+                <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
+
+                <section class="social">
+                    <ul>
+                        <li>
+                            <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
+                                <i class="fab fa-youtube" ></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
+                                <i class="fab fa-youtube" ></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
+                                <i class="fab fa-youtube" ></i>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </section>
+
+            </footer>
         <script>
             //it simple keep it. 
             //unless you will add an extra code , add this to an external file with your code and save it at javaS folder
