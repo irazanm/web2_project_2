@@ -8,12 +8,425 @@ and open the template in the editor.
 <html>
 
     <head>
-        <title>Coach</title>
+        <title>Trainee</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="image/Logo1.png" type="image/gif" sizes="16x16">
+        <link rel="stylesheet" href="file:///E:/fontawesome/css/all.">
+        <style>
+            /*--after we finsh we can put this code at an external css file--*/
+            body {
+                overflow-x: hidden;
+                font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+                margin: 0;
+                line-height: 24px;
+            }
+            /*----header----*/
+            .menu-container {
+                position: relative;
+                display: flex;
+                align-items: center;
+                margin: 0px;
+                background: #3b4465;
+                color: #cdcdcd;
+                padding: 20px;
+                z-index: 1;
+                -webkit-user-select: none;
+                user-select: none;
+                box-sizing: border-box;
+            }
+
+            .menu-logo {
+                line-height: 0;
+                margin: 0 20px;
+            }
+
+            .menu-logo img {
+                max-height: 40px;
+                max-width: 100px;
+                flex-shrink: 0;
+            }
+
+            .menu-container a {
+                text-decoration: none;
+                color: #cdcdcd;
+                transition: color 0.3s ease;
+            }
+
+            .menu-container a:hover {
+                color: #a7e245;
+            }
+
+
+            .menu ul {
+                list-style: none;
+            }
+
+            .menu li {
+                padding: 10px 0;
+                font-size: 22px;
+            }
+            .menu {
+                position: relative;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            /* --- the content and the video --- */
+            h1{
+                font-size: 50px;
+                line-height: 1.125;
+            }
+            /*--the line above the text--*/
+            del {
+                --color: var(--del-color, teal);
+                text-decoration: none;
+                padding: 0 .5em;
+                background-repeat: no-repeat;
+                background-image: 
+                    linear-gradient(to left, rgba(255, 255, 255, .5), transparent),
+                    linear-gradient(2deg, var(--color) 50%, transparent 50%),
+                    linear-gradient(-.9deg, var(--color) 50%, transparent 50%),
+                    linear-gradient(-60deg, var(--color) 50%, transparent 50%),
+                    linear-gradient(120deg, var(--color) 50%, transparent 50%);
+
+                background-size: 
+                    30% 1.5px,
+                    calc(100% - 20px) 10px, 
+                    calc(100% - 20px) 10px,
+                    10px 10px,
+                    8px 8px; 
+
+                background-position: 
+                    100% calc(50% + 2px),
+                    center center, 
+                    center center, 
+                    2px 50%, 
+                    calc(100% - 3px) calc(50% + 1px);
+            }
+            .contained{
+                margin: 0 auto;
+                width: 90%;
+
+            }
+            @media (min-width: 500px){
+                .contained{
+                    width: 80%;
+                }
+            }
+
+            @media (min-width: 600px){
+                .contained{
+                    width: 60%;
+                }
+            }
+            main{
+                padding: 1em 0;
+                position: relative;
+                background: #f5f5f5;
+                box-shadow: 0px -10px 60px rgba(0,0,0,0.25);
+                z-index: 5;
+            }
+            /*--small scren --*/
+            @media (max-width: 500px){
+                header video{
+                    display:none;
+                }
+            }
+
+            /* --- Important Pen Styles --- */
+            header{
+                overflow: hidden;
+                /*padding-bottom determines the height of the header*/
+                padding-bottom: 55%;
+                z-index: 5;
+            }
+            @media (min-width: 600px){
+                header{
+                    padding-bottom: 50%;
+                }
+            }
+            @media (min-width: 700px){
+                header{
+                    padding-bottom: 45%;
+                }
+            }
+            
+            /*---makeing the sign out icon moves-----*/
+            .hvr-float {
+                -moz-osx-font-smoothing: grayscale;
+                transition-duration: 0.3s;
+                transition-property: transform;
+                transition-timing-function: ease-out;
+            }
+            .hvr-float:hover,
+            .hvr-float:focus,
+            .hvr-float:active {  
+                transform: translateX(8px);
+            }
+            
+            button {
+                outline: none !important;
+                background: transparent;
+            }
+
+            button:hover {
+                cursor: pointer;
+            }
+            h3{
+                font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+                font-size: 24px;
+            }
+            
+            /*---------------------------footer------------------------------*/
+                footer {
+                    border: 1px solid red;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    margin: 0px;
+                    background-color:  #3b4465;
+                    color: #cdcdcd;
+                    padding: 20px;
+                    z-index: 1;
+                    -webkit-user-select: none;
+                    /*user-select: none;*/
+                    box-sizing: border-box;
+                }
+
+                footer ul {
+                    list-style: none;
+                    display: flex;
+                }
+
+                footer li {
+                    padding: 0px 10px;
+                    font-size: 28px;
+                }
+                /*---media at footer---*/
+                footer li a {
+                    display: inline-block;
+                    transition-duration:  .3s;
+                    transition-property: transform;
+                    transform: translateZ(0);
+                    color: #cdcdcd;
+
+                }
+                footer li a:hover {
+                    transform: scale(1.68);
+                }
+                footer section {
+                    border: 1px solid red;
+                    float: left;
+                }
+               /*---------------------------table------------------------------*/
+               .Shatha_table{
+                   border-collapse:collapse;
+                   margin:25px 0;
+                   font-size:0.9em;
+                   min-width: 400px;
+                   border-radius: 5px 5px 0 0 ;
+                   overflow: hidden; 
+                   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+               }
+               
+               .Shatha_table caption{
+                   color:#3b4465;
+                   font-weight: bold;
+                   font-size: 20px;
+               }
+               
+               .Shatha_table thead tr{
+                   background-color:#3b4465;
+                   text-align: left;
+                   color: #fff;
+                   font-weight: bold;
+               }
+               
+               .Shatha_table th, .Shatha_table td{
+                   padding: 12px 15px; 
+               }
+               
+               .Shatha_table tbody tr{
+                  border-bottom: 1px solid #dddddd; 
+               }
+               
+               .Shatha_table tbody tr:nth-of-type(even){
+                   background-color: #f3f3f3;
+               }
+               
+               .Shatha_table tfoot tr:last-of-type{
+                   border-bottom: 2px solid #3b4465;
+                   background-color: #f3f3f3;
+                   font-weight: bold;
+               }
+             /*---------------------------form------------------------------*/  
+          
+
+/*// MODAL STARTS HERE //*/
+
+.bg-modal {
+	background-color: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.modal-contents {
+	height: 300px;
+	width: 500px;
+	background-color: white;
+	text-align: center;
+	padding: 20px;
+	position: relative;
+	border-radius: 4px;
+}
+
+input {
+	margin: 15px auto;
+	display: block;
+	width: 50%;
+	padding: 8px;
+	border: 1px solid gray;
+}
+
+.close {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	font-size: 42px;
+	color: #333;
+	transform: rotate(45deg);
+	cursor: pointer;
+	&:hover {
+		color: #666;
+	}
+}
+
+             
+        </style>
     </head>
     <body>
-        <div>TODO write content</div>
+        <header class="zoom-me">
+            <nav class="menu-container">
+                <!-- logo -->
+                <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
+                <!-- menu items -->
+                <div class="menu">
+                    <ul>
+                        <li>
+                            <!-- the user name by java  -->
+                            <del > <strong>Welcome [  ] !</strong></del>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <!--sign out -->
+                            <a href="index.html">
+                                <svg class="hvr-float" width="30" height="30" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 1C2.44771 1 2 1.44772 2 2V13C2 13.5523 2.44772 14 3 14H10.5C10.7761 14 11 13.7761 11 13.5C11 13.2239 10.7761 13 10.5 13H3V2L10.5 2C10.7761 2 11 1.77614 11 1.5C11 1.22386 10.7761 1 10.5 1H3ZM12.6036 4.89645C12.4083 4.70118 12.0917 4.70118 11.8964 4.89645C11.7012 5.09171 11.7012 5.40829 11.8964 5.60355L13.2929 7H6.5C6.22386 7 6 7.22386 6 7.5C6 7.77614 6.22386 8 6.5 8H13.2929L11.8964 9.39645C11.7012 9.59171 11.7012 9.90829 11.8964 10.1036C12.0917 10.2988 12.4083 10.2988 12.6036 10.1036L14.8536 7.85355C15.0488 7.65829 15.0488 7.34171 14.8536 7.14645L12.6036 4.89645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                                <title>sign out</title>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+        </header>
+        <!-- the content  -->
+        <!-- you can use this class at css or you can change everything here  -->
+        <main>
+            <div class="contained">
+            <table class="Shatha_table" >
+              <caption>Available Classes</caption>
+              <thead>
+                 <tr>
+                    <th colspan="3">Course</th>
+                 </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Zomba</td>
+                <td>Display Trainees list</td>
+                <td>Edit</td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                  <td colspan="3"> <a href="#" id="button" class="button">+ add fitness class</a></td>
+              </tr>
+              </tfoot>
+            </table>
+<!--               -------------------form-------------- -->
+
+             
+
+<!-- Modal Section -->
+
+<div class="bg-modal">
+	<div class="modal-contents">
+
+		<div class="close">+</div>
+		<img src="https://richardmiddleton.me/comic-100.png" alt="">
+
+		<form action="">
+			<input type="text" placeholder="Name">
+			<input type="email" placeholder="E-Mail">
+			<a href="#" class="button">Submit</a>
+		</form>
+
+	</div>
+</div>
+                <!--<div class = "center">
+                    <div class="container">
+                        <lable for="" class="close-btn fas fa-times"></label>
+                        <div class="text">+ add fitness class</div>
+                        <form action="#">
+                            
+                                <label class="data">
+                                    Title<input type="text" required>
+                                </label>
+                            
+                            <label class="data">
+                                    Level<input type="number" required>
+                                </label>
+                            
+                            <label class="data">
+                                    Description<textarea id="description" 
+                                    name="description" rows="4" cols="50" required></textarea>
+                                </label>
+                            
+                            <label class="submit_btn">
+                                    <button type="submit">Done</button>
+                                </label>
+                            
+                        </form>
+                    </div>
+                </div>
+                
+            </div> -->
+        </main>
+         <footer>
+             <!-- logo -->
+                <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
+
+            <br>
+            <br>
+        </footer>
+        <script>
+            document.getElementById('button').addEventListener("click", function() {
+	document.querySelector('.bg-modal').style.display = "flex";
+});
+
+document.querySelector('.close').addEventListener("click", function() {
+	document.querySelector('.bg-modal').style.display = "none";
+});
+        </script>
     </body>
 </html>
-
