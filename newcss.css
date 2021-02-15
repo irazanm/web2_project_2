@@ -33,6 +33,8 @@ body {
     animation: hideLayer .3s ease-out forwards;
 }
 
+
+
 .form-wrapper.is-active {
     animation: showLayer .3s ease-in forwards;
 }
@@ -348,5 +350,95 @@ body {
     height: 8px;
     border-radius: 50%;
     background: white;
+}
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Lama : Fitness Class Information >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.*/
+
+ 	
+.contained2{
+	
+	  display:flex;	
+	  flex:1;
+          flex-direction:row;
+	  margin:20px auto;
+	  box-sizing:border-box;
+	  justify-content:center;
+	  padding-bottom:20%; 
+          height:300px;
+}
+
+.subInfo {
+	background:linear-gradient(180deg,#e3e3e3 30%, white 50%);
+	position: relative;	
+	align-items:center;
+	margin:20px;
+	padding-top:3%;
+	padding-bottom:15%;
+	border-radius:5px;
+	border:2px solid #5c5cd6;
+	box-shadow:0 6px 10px rgba(0,0,0,0.5);
+        font-family: Times;
+        height:300px;
+	font-size:25px;
+        width: 400px;	
+        text-align:center;
+}
+
+.Headers{
+    text-align:center;
+    color: #5c5cd6;
+    font-family: Times;
+    font-size:230%;
+}
+.subInfoH{
+   color:black;
+   padding-bottom:10%;
+}
+
+#E{
+        background-img: url(“image/pen-”);
+	position:relative;
+	padding:2%;
+	border-color:white;
+	width:150px;
+	padding-bottom:12px;
+	padding-top:12px;
+        border: 1px outset rgba(0, 0, 0, 0.9);
+	border-radius:23px;
+	box-shadow:0 2px 2px rgba(0,0,0,0.5); 
+        margin:5px;
+        margin-left:85%;
+}
+
+
+#E:hover {
+        border: 2px outset rgba(0, 0, 0, 0.9);
+        transform:scale(1.1);
+        transition: 0.2s;
+        text-shadow: 1px 1px 1px rgba(0,0,0, 20);
+        box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+        font-weight: 700px;
+        
+}
+
+
+#dropClass{
+        color: #fbfdff;
+        background: #c0c0c0;
+	position:relative;
+	padding:2%;
+	border-color:#DCDCDC;
+	width:20%;
+	padding-bottom:10px;
+	padding-top:10px;
+	border: 1px solid ;
+	border-radius:23px;
+        font-size: 30px;
+	box-shadow:0 2px 2px rgba(0,0,0,0.5); 
+        margin-left:40%;     
+}
+#dropClass:hover{
+        background: #DC143C;
+        transform:scale(1.1);
+        transition: 0.2s;
 }
 
