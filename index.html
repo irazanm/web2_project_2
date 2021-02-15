@@ -113,7 +113,7 @@ for the logo in the bar , must add it at all the pages
                             <div class="input-block">  
                                 <label>I am : <br> </label>
                                 <label for="Coach" class="container" >Coach &nbsp;&nbsp;
-                                    <input type="radio" id="Coach" name="Type" value="Coach" class="container"required >
+                                    <input type="radio" id="Coach" name="Type" value="Coach" class="container" required >
                                     <span class="checkmark"></span>
                                 </label>
                                 <label for="Trainee" class="container" >Trainee 
@@ -156,7 +156,7 @@ for the logo in the bar , must add it at all the pages
             <br>
             <br>
         </footer>
-        <script>
+        <script type="text/javascript">
             const switchers = [...document.querySelectorAll('.switcher')];
 
             switchers.forEach(item => {
@@ -165,7 +165,22 @@ for the logo in the bar , must add it at all the pages
                     this.parentElement.classList.add('is-active');
                 });
             });
+            /*--to make the submit by the enter key at the keybord--*/
+            $(document).ready(function () {
 
+                var makeAllFormSubmitOnEnter = function () {
+                    $('form input, form select').live('keypress', function (e) {
+                        if (e.which && e.which == 13) {
+                            $(this).parents('form').submit();
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    });
+                };
+
+                makeAllFormSubmitOnEnter();
+            });
         </script>
     </body>
 

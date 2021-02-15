@@ -12,8 +12,11 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="image/Logo1.png" type="image/gif" sizes="16x16">
+        <script src="https://kit.fontawesome.com/48735e6971.js" crossorigin="anonymous"></script>
+
         <style>
             /*--after we finsh we can put this code at an external css file--*/
+
             body {
                 overflow-x: hidden;
                 font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
@@ -21,6 +24,7 @@ and open the template in the editor.
                 line-height: 24px;
             }
             /*----header----*/
+
             .menu-container {
                 position: relative;
                 display: flex;
@@ -56,128 +60,356 @@ and open the template in the editor.
                 color: #a7e245;
             }
 
-
             .menu ul {
                 list-style: none;
             }
 
             .menu li {
                 padding: 10px 0;
-                font-size: 22px;
+                font-size: 28px;
             }
+
             .menu {
                 position: relative;
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
             }
-
-            /* --- the content and the video --- */
-            h1{
-                font-size: 50px;
-                line-height: 1.125;
-            }
             /*--the line above the text--*/
+
             del {
                 --color: var(--del-color, teal);
                 text-decoration: none;
                 padding: 0 .5em;
                 background-repeat: no-repeat;
-                background-image: 
-                    linear-gradient(to left, rgba(255, 255, 255, .5), transparent),
-                    linear-gradient(2deg, var(--color) 50%, transparent 50%),
-                    linear-gradient(-.9deg, var(--color) 50%, transparent 50%),
+                background-image:
+                    linear-gradient(to left, rgba(255, 255, 255, .5), transparent), 
+                    linear-gradient(2deg, var(--color) 50%, transparent 50%), 
+                    linear-gradient(-.9deg, var(--color) 50%, transparent 50%), 
                     linear-gradient(-60deg, var(--color) 50%, transparent 50%),
                     linear-gradient(120deg, var(--color) 50%, transparent 50%);
-
                 background-size: 
-                    30% 1.5px,
-                    calc(100% - 20px) 10px, 
-                    calc(100% - 20px) 10px,
-                    10px 10px,
-                    8px 8px; 
-
-                background-position: 
-                    100% calc(50% + 2px),
-                    center center, 
-                    center center, 
-                    2px 50%, 
+                    30% 1.5px, calc(100% - 20px) 10px, 
+                    calc(100% - 20px) 10px, 10px 10px, 8px 8px;
+                background-position:
+                    100% calc(50% + 2px), center center, center center, 2px 50%, 
                     calc(100% - 3px) calc(50% + 1px);
             }
-            .contained{
+
+            .contained {
                 margin: 0 auto;
                 width: 90%;
-
             }
-            @media (min-width: 500px){
-                .contained{
+
+            @media (min-width: 500px) {
+                .contained {
                     width: 80%;
                 }
             }
 
-            @media (min-width: 600px){
-                .contained{
+            @media (min-width: 600px) {
+                .contained {
                     width: 60%;
                 }
             }
-            main{
+
+            main {
                 padding: 1em 0;
                 position: relative;
                 background: #f5f5f5;
-                box-shadow: 0px -10px 60px rgba(0,0,0,0.25);
+                box-shadow: 0px -10px 60px rgba(0, 0, 0, 0.25);
                 z-index: 5;
             }
             /*--small scren --*/
-            @media (max-width: 500px){
-                header video{
-                    display:none;
+
+            @media (max-width: 500px) {
+                header video {
+                    display: none;
                 }
             }
-
             /* --- Important Pen Styles --- */
-            header{
+
+            header {
                 overflow: hidden;
-                /*padding-bottom determines the height of the header*/
                 padding-bottom: 55%;
-                z-index: 5;
             }
-            @media (min-width: 600px){
-                header{
+
+            @media (min-width: 600px) {
+                header {
                     padding-bottom: 50%;
                 }
             }
-            @media (min-width: 700px){
-                header{
+
+            @media (min-width: 700px) {
+                header {
                     padding-bottom: 45%;
                 }
             }
-            header video{
+
+            header div video {
                 width: 100%;
                 max-width: none;
-                position: fixed;
-                pandding:0px;
-                margin: 0px ;
+                position: absolute;
+                padding: 0px;
+                margin: 0px;
                 top: 0%;
                 left: 50%;
                 transform: translateX(-50%);
                 z-index: -1;
             }
             /*---makeing the sign out icon moves-----*/
+
             .hvr-float {
                 -moz-osx-font-smoothing: grayscale;
-                transition-duration: 0.3s;
+                transition-duration: 0.3s;  
                 transition-property: transform;
                 transition-timing-function: ease-out;
             }
+
             .hvr-float:hover,
             .hvr-float:focus,
-            .hvr-float:active {  
+            .hvr-float:active {
                 transform: translateX(8px);
+            } 
+            /*-------------footer-----------------*/
+
+            footer {
+                /*border: 1px solid red;*/
+                position: relative;
+                display: flex;
+                align-items: center;
+                margin: 0px;
+                background: #3b4465;
+                color: #cdcdcd;
+                padding: 20px;
+                z-index: 1;
+                -webkit-user-select: none;
+                /*user-select: none;*/
+                box-sizing: border-box;
             }
-            
+
+            footer ul {
+                list-style: none;
+                display: flex;
+            }
+
+            footer li {
+                padding: 0px 10px;
+                font-size: 28px;
+            }
+            /*---media at footer---*/
+
+            footer li a {
+                display: inline-block;
+                transition-duration: .3s;
+                transition-property: transform;
+                transform: translateZ(0);
+                color: #cdcdcd;
+            }
+
+            footer li a:hover {
+                transform: scale(1.68);
+            }
+
+            footer section {
+                margin-left:65%;
+            }
+            #copyright{
+                padding: 0px;
+                width: 100%;
+                font-size: 12px;
+                color: #cdcdcd;
+                background-color:#3b4465;
+                display: flex;
+                justify-content: center;
+            }
+            /*-----------------------------------Table--------------------------------------*/
+
+            .limiter {
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .container-table100 {
+                width: 100%;
+                min-height: 70vh;
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .wrap-table100 {
+                width: 1170px;
+            }
+
+            table {
+                border-spacing: 1;
+                border-collapse: collapse;
+                background: white;
+                border-radius: 10px;
+                overflow: hidden;
+                width: 100%;
+                height: 300px;
+                margin: 0 auto;
+                position: relative;
+            }
+
+            table * {
+                position: relative;
+            }
+
+            table td,
+            table th {
+                padding-left: 8px;
+            }
+
+            table thead tr {
+                height: 60px;
+                background: #36304a;
+            }
+
+            table tbody tr {
+                height: 50px;
+            }
+
+            table tbody tr:last-child {
+                border: 0;
+            }
+
+            table td,
+            table th {
+                text-align: left;
+            }
+
+            table td.l,
+            table th.l {
+                text-align: right;
+            }
+
+            table td.c,
+            table th.c {
+                text-align: center;
+            }
+
+            table td.r,
+            table th.r {
+                text-align: center;
+            }
+
+            .table100-head th {
+                font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+                font-size: 24px;
+                color: #fff;
+                line-height: 1.2;
+                font-weight: unset;
+            }
+
+            tbody tr:nth-child(even) {
+                background-color: #f5f5f5;
+            }
+
+            tbody tr {
+                font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+                font-size: 18px;
+                color: #808080;
+                line-height: 1.2;
+                font-weight: unset;
+            }
+
+            tbody tr:hover {
+                color: #555555;
+                background-color: #f5f5f5;
+            }
+
+            .column1 {
+                width: 260px;
+                padding-left: 40px;
+            }
+
+            .column2 {
+                width: 160px;
+            }
+
+            .column3 {
+                width: 245px;
+            }
+
+            @media screen and (max-width: 992px) {
+                table {
+                    display: block;
+                }
+                table>*,
+                table tr,
+                table td,
+                table th {
+                    display: block;
+                }
+                table thead {
+                    display: none;
+                }
+                table tbody tr {
+                    height: auto;
+                    padding: 37px 0;
+                }
+                table tbody tr td {
+                    padding-left: 40% !important;
+                    margin-bottom: 24px;
+                }
+                table tbody tr td:last-child {
+                    margin-bottom: 0;
+                }
+                table tbody tr td:before {
+                    font-family: OpenSans-Regular;
+                    font-size: 14px;
+                    color: #999999;
+                    line-height: 1.2;
+                    font-weight: unset;
+                    position: absolute;
+                    width: 40%;
+                    left: 30px;
+                    top: 0;
+                }
+                table tbody tr td:nth-child(1):before {
+                    content: "Course";
+                }
+                table tbody tr td:nth-child(2):before {
+                    content: "Status";
+                }
+                table tbody tr td:nth-child(3):before {
+                    content: "";
+                }
+                .column1,
+                .column2,
+                .column3 {
+                    width: 100%;
+                }
+                tbody tr {
+                    font-size: 14px;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .container-table100 {
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+            }
+
+
             button {
-                outline: none !important;
-                background: transparent;
+                /*background: transparent;*/
+                border: none;
+                color: red;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
             }
 
             button:hover {
@@ -187,223 +419,13 @@ and open the template in the editor.
                 font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
                 font-size: 24px;
             }
-            
-            /*---------------------------footer------------------------------*/
-                footer {
-                    border: 1px solid red;
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    margin: 0px;
-                    background-color:  #3b4465;
-                    color: #cdcdcd;
-                    padding: 20px;
-                    z-index: 1;
-                    -webkit-user-select: none;
-                    /*user-select: none;*/
-                    box-sizing: border-box;
-                }
 
-                footer ul {
-                    list-style: none;
-                    display: flex;
-                }
-
-                footer li {
-                    padding: 0px 10px;
-                    font-size: 28px;
-                }
-                /*---media at footer---*/
-                footer li a {
-                    display: inline-block;
-                    transition-duration:  .3s;
-                    transition-property: transform;
-                    transform: translateZ(0);
-                    color: #cdcdcd;
-
-                }
-                footer li a:hover {
-                    transform: scale(1.68);
-                }
-                footer section {
-                    border: 1px solid red;
-                    float: left;
-                }
-               
-            
-            /*-----------------------------------Table--------------------------------------*/
-            
-            .limiter {
-              width: 100%;
-              margin: 0 auto;
-            }
-
-            .container-table100 {
-              width: 100%;
-              min-height: 70vh;
-              display: -webkit-box;
-              display: -webkit-flex;
-              display: -moz-box;
-              display: -ms-flexbox;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              flex-wrap: wrap;
-            }
-
-            .wrap-table100 {
-              width: 1170px;
-            }
-
-            table {  
-              border-spacing: 1;
-              border-collapse: collapse;
-              background: white;
-              border-radius: 10px;
-              overflow: hidden;
-              width: 100%;
-              height: 300px;
-              margin: 0 auto;
-              position: relative;
-            }
-            
-            table * {
-              position: relative;
-            }
-            
-            table td, table th {
-              padding-left: 8px;
-            }
-            
-            table thead tr {
-              height: 60px;
-              background: #36304a;
-            }
-            
-            table tbody tr {
-              height: 50px;
-            }
-            
-            table tbody tr:last-child {
-              border: 0;
-            }
-            
-            table td, table th {
-              text-align: left;
-            }
-            
-            table td.l, table th.l {
-              text-align: right;
-            }
-            
-            table td.c, table th.c {
-              text-align: center;
-            }
-            
-            table td.r, table th.r {
-              text-align: center;
-            }
-            
-            .table100-head th{
-              font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-              font-size: 24px;
-              color: #fff;
-              line-height: 1.2;
-              font-weight: unset;
-            }
-
-            tbody tr:nth-child(even) {
-              background-color: #f5f5f5;
-            }
-
-            tbody tr {
-              font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-              font-size: 18px;
-              color: #808080;
-              line-height: 1.2;
-              font-weight: unset;
-            }
-
-            tbody tr:hover {
-              color: #555555;
-              background-color: #f5f5f5;
-            }
-
-            .column1 {
-              width: 260px;
-              padding-left: 40px;
-            }
-
-            .column2 {
-              width: 160px;
-            }
-
-            .column3 {
-              width: 245px;
-            }
-
-            @media screen and (max-width: 992px) {
-            table {
-              display: block;
-            }
-            table > *, table tr, table td, table th {
-              display: block;
-            }
-            table thead {
-              display: none;
-            }
-            table tbody tr {
-              height: auto;
-              padding: 37px 0;
-            }
-            table tbody tr td {
-              padding-left: 40% !important;
-              margin-bottom: 24px;
-            }
-            table tbody tr td:last-child {
-              margin-bottom: 0;
-            }
-            table tbody tr td:before {
-              font-family: OpenSans-Regular;
-              font-size: 14px;
-              color: #999999;
-              line-height: 1.2;
-              font-weight: unset;
-              position: absolute;
-              width: 40%;
-              left: 30px;
-              top: 0;
-            }
-            table tbody tr td:nth-child(1):before {
-              content: "Course";
-            }
-            table tbody tr td:nth-child(2):before {
-              content: "Status";
-            }
-            table tbody tr td:nth-child(3):before {
-              content: "";
-            }
-            
-            .column1,
-            .column2,
-            .column3 {
-              width: 100%;
-            }
-
-            tbody tr {
-              font-size: 14px;
-            }
-          }
-
-          @media (max-width: 576px) {
-            .container-table100 {
-              padding-left: 15px;
-              padding-right: 15px;
-            }
-          }
         </style>
+
     </head>
+
     <body>
+
         <header class="zoom-me">
             <nav class="menu-container">
                 <!-- logo -->
@@ -413,14 +435,14 @@ and open the template in the editor.
                     <ul>
                         <li>
                             <!-- the user name by java  -->
-                            <del > <strong>Welcome [  ] !</strong></del>
+                            <del> <strong >Welcome User !</strong></del>
                         </li>
                     </ul>
                     <ul>
                         <li>
                             <!--sign out -->
                             <a href="index.html">
-                                <svg class="hvr-float" width="30" height="30" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="hvr-float" width="80" height="30" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M3 1C2.44771 1 2 1.44772 2 2V13C2 13.5523 2.44772 14 3 14H10.5C10.7761 14 11 13.7761 11 13.5C11 13.2239 10.7761 13 10.5 13H3V2L10.5 2C10.7761 2 11 1.77614 11 1.5C11 1.22386 10.7761 1 10.5 1H3ZM12.6036 4.89645C12.4083 4.70118 12.0917 4.70118 11.8964 4.89645C11.7012 5.09171 11.7012 5.40829 11.8964 5.60355L13.2929 7H6.5C6.22386 7 6 7.22386 6 7.5C6 7.77614 6.22386 8 6.5 8H13.2929L11.8964 9.39645C11.7012 9.59171 11.7012 9.90829 11.8964 10.1036C12.0917 10.2988 12.4083 10.2988 12.6036 10.1036L14.8536 7.85355C15.0488 7.65829 15.0488 7.34171 14.8536 7.14645L12.6036 4.89645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
                                 <title>sign out</title>
                                 </svg>
@@ -429,90 +451,114 @@ and open the template in the editor.
                     </ul>
                 </div>
             </nav>
-            <video height="850"  autoplay  loop>
-                <source src="https://cdn.videvo.net/videvo_files/video/free/2018-05/small_watermarked/180419_Boxing_13_14_preview.webm" type="video/mp4">
-            </video>
+            <div id="video">
+
+            </div>
         </header>
         <!-- the content  -->
-        <!-- you can use this class at css or you can change everything here  -->
+        <!-- you can use this class at css or you can change everthing here  -->
         <main>
             <div class="contained">
                 <h3>Available Fitness Classes</h3>
                 <div class="limiter">
                     <div class="container-table100">
-			<div class="wrap-table100">
+                        <div class="wrap-table100">
                             <div class="table100">
-				<table>
+                                <table>
                                     <thead>
-					<tr class="table100-head">
+                                        <tr class="table100-head">
                                             <th class="column1">Course</th>
                                             <th class="column2">Status</th>
                                             <th class="column3"></th>
-					</tr>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="column1">Zomba</td>
                                             <td class="column2">Enrolled</td>
                                             <td class="column3"><button type="button" class="">Drop</button></td>
-					</tr>
-					<tr>
+                                        </tr>
+                                        <tr>
                                             <td class="column1">Aerobic beginner</td>
                                             <td class="column2">Enrolled</td>
                                             <td class="column3"><button type="button" class="">Drop</button></td>
-					</tr>
-					<tr>
+                                        </tr>
+                                        <tr>
                                             <td class="column1">Cycling 1</td>
                                             <td class="column2">Enroll</td>
                                             <td class="column3"></td>
-					</tr>
+                                        </tr>
                                     </tbody>
-				</table>
+                                </table>
                             </div>
-			</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
-         <footer style="">
-                <!-- logo -->
-                <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
+        <footer>
+            <!-- logo -->
+            <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
 
-                <section class="social">
-                    <ul>
-                        <li>
-                            <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
-                                <i class="fab fa-youtube" ></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
-                                <i class="fab fa-youtube" ></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
-                                <i class="fab fa-youtube" ></i>
-                            </a>
-                        </li>
+            <section class="social">
+                <ul>
+                    <li>
+                        <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
 
-                    </ul>
+                </ul>
 
-                </section>
+            </section>
 
-            </footer>
+        </footer>
+        <div id="copyright">
+            &copy; &nbsp; KSU, IT Department.Razan,Lama,Shatha,Yara.
+        </div>
         <script>
             //it simple keep it. 
             //unless you will add an extra code , add this to an external file with your code and save it at javaS folder
-            $(window).scroll(function () {
-                var scroll = $(window).scrollTop();
-                $(".zoom-me video").css({
-                    width: (100 + scroll / 5) + "%",
-                    top: -(scroll / 10) + "%",
-                    "-webkit-filter": "blur(" + (scroll / 200) + "px)",
-                    filter: "blur(" + (scroll / 200) + "px)"
-                });
-            });
+            var number = Math.floor(Math.random() * 4); // 0 - 3 
+            switch (number) {
+                case 0:
+                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2018-05/small_watermarked/180419_Boxing_13_14_preview.webm" type="video/mp4"> </video>';
+                    break;
+                case 1:
+                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_17_10_preview.webm" type="video/mp4"> </video>';
+
+                    break;
+                case 2:
+                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2018-09/small_watermarked/180419_Boxing_06_01_preview.webm" type="video/mp4"> </video>';
+
+                    break;
+                case 3:
+                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>';
+                    break;
+            }
+
+            /*
+             $(window).scroll(function () {
+             var scroll = $(window).scrollTop();
+             $(".zoom-me div video").css({
+             width: (100 + scroll / 5) + "%",
+             top: -(scroll / 10) + "%",
+             "-webkit-filter": "blur(" + (scroll / 200) + "px)",
+             filter: "blur(" + (scroll / 200) + "px)"
+             });
+             });
+             */
         </script>
     </body>
+
 </html>
