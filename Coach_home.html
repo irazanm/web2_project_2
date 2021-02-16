@@ -13,9 +13,239 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="image/Logo1.png" type="image/gif" sizes="16x16">
         <script src="https://kit.fontawesome.com/48735e6971.js" crossorigin="anonymous"></script>
-        
+        <script src="javaS/home.js"></script>
+        <link rel="stylesheet" href="home.css">
         <style>
-            /*--after we finsh we can put this code at an external css file--*/
+            /*--after we finsh we can put this code at an external css file 727--*/
+             /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Lama : Fitness Class Information >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.*/
+
+            svg.Edit{
+                float: right;
+                margin:  2px 18px;  
+            }
+            svg.Edit:hover{
+                color: #a7e245;
+            }
+            .Headers{
+                text-align:center;
+                font-size:230%;
+            }
+            
+            #E {
+                background-color:transparent;
+                position:relative;
+                padding:2%;
+                width:150px;
+                padding-bottom:12px;
+                padding-top:12px;
+                margin:5px;
+                margin-left:85%;
+            }
+
+            #E:hover {
+                transform:scale(1.1);
+                transition: 0.2s;
+
+                font-weight: 700px;
+
+            }
+
+
+
+            /*-----Delete button------*/
+
+           
+            .button {
+                display: block;
+                background-color: #c0392b;
+                width: 250px;
+                height: 83px;
+                line-height: 100px;
+                margin: auto;
+                color: #fff;
+                position: relative;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: 5px;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, .3);
+                transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+            }
+            .button span, .button .icon-Delete {
+                display: block;
+                height: 100%;
+                text-align: center;
+                position: absolute;
+            }
+            .button span {
+                width: 72%;
+                line-height: inherit;
+                font-size: 22px;
+                text-transform: uppercase;
+                left: 0;
+                transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+            }
+            .button span:after {
+                content: '';
+                background-color: #a53125;
+                width: 2px;
+                height: 70%;
+                position: absolute;
+                top: 15%;
+                right: -1px;
+            }
+            .button .icon-Delete{
+                width: 28%;
+                right: 0;
+                transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+            }
+            .button .icon-Delete .fa {
+                font-size: 30px;
+                vertical-align: middle;
+                transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4), height 0.25s ease;
+            }
+            .button .icon-Delete .fa-remove {
+                height: 36px;
+            }
+            .button .icon-Delete .fa-check {
+                display: none;
+            }
+            .button.success span, .button:hover span {
+                left: -72%;
+                opacity: 0;
+            }
+            .button.success .icon-Delete, .button:hover .icon-Delete {
+                width: 100%;
+            }
+            .button.success .icon-Delete .fa, .button:hover .icon-Delete .fa {
+                font-size: 45px;
+            }
+            .button.success {
+                background-color: #27ae60;
+            }
+            .button.success .icon-Delete .fa-remove {
+                display: none;
+            }
+            .button.success .icon-Delete .fa-check {
+                display: inline-block;
+            }
+            .button:hover {
+                opacity: 0.9;
+            }
+            .button:hover .icon-Delete .fa-remove {
+                height: 46px;
+            }
+            .button:active {
+                opacity: 1;
+            }
+            /*-----DESCRAPTION CARD-------*/
+            .content {
+                max-width: 1024px;
+                width: 100%;
+                padding: 0 4%;
+                padding-top: 60px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .card {
+                width: 100%;
+                max-width: 300px;
+                min-width: 200px;
+                height: 250px;
+                background-color: #3b4465;
+                margin: 10px;
+                border-radius: 10px;
+                box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.24);
+                border: 2px solid rgba(7, 7, 7, 0.12);
+                font-size: 16px;
+                transition: all 0.3s ease;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .icon {
+                margin: 0 auto;
+                width: 100%;
+                height: 80px;
+                max-width: 80px;
+                background: linear-gradient(90deg, #ff7e7e 0%, #ff4848 40%, rgba(0, 0, 0, 0.28) 60%); /* orange #ff9900*/
+                border-radius: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                transition: all 0.8s ease;
+                background-position: 0px;
+                background-size: 200px;
+            }
+            .material-icons.md-18 {
+                font-size: 18px;
+            }
+            .material-icons.md-24 {
+                font-size: 24px;
+            }
+            .material-icons.md-36 {
+                font-size: 36px;
+            }
+            .material-icons.md-48 {
+                font-size: 48px;
+            }
+            .card .title {
+                width: 100%;
+                margin: 0;
+                text-align: center;
+                margin-top: 30px;
+                color: white;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 4px;
+            }
+            .card .text {
+                width: 80%;
+                margin: 0 auto;
+                font-size: 13px;
+                text-align: center;
+                margin-top: 20px;
+                color: white;
+                font-weight: 200;
+                letter-spacing: 2px;
+                opacity: 0;
+                max-height: 0;
+                transition: all 0.3s ease;
+            }
+            .card:hover {
+                height: 270px;
+            }
+            .card:hover .info {
+                height: 90%;
+            }
+            .card:hover .text {
+                transition: all 0.3s ease;
+                opacity: 1;
+                max-height: 40px;
+            }
+            .card:hover .icon {
+                background-position: -120px;
+                transition: all 0.3s ease;
+            }
+            .card:hover .icon i {
+                background: linear-gradient(90deg, #ff7e7e, #ff4848);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                opacity: 1;
+                transition: all 0.3s ease;
+            }
+
+
 
             body {
                 overflow-x: hidden;
@@ -142,11 +372,11 @@ and open the template in the editor.
 
             @media (min-width: 700px) {
                 header {
-                    padding-bottom: 45%;
+                    padding-bottom: 44%;
                 }
             }
 
-            header div video {
+             header div video {
                 width: 100%;
                 max-width: none;
                 position: absolute;
@@ -223,7 +453,7 @@ and open the template in the editor.
                 display: flex;
                 justify-content: center;
             }
-            /*-----------------------------------Table--------------------------------------*/
+             /*-----------------------------------Table--------------------------------------*/
 
             .limiter {
                 width: 100%;
@@ -273,18 +503,7 @@ and open the template in the editor.
                 height: 60px;
                 background: #36304a;
             }
-/*            /-------------------------------/*/
-            table tbody tr:last-of-type{
-                   font-weight: bold;
-                   border-bottom: 2px solid #3b4465;
-               }
-               table tbody tr a:hover{
-                   color: #3b4465;
-               }
-               table tbody tr a{
-                   color: #6e6e6e;
-               }
-/*            /-------------------------------/*/
+
             table tbody tr {
                 height: 50px;
             }
@@ -411,30 +630,116 @@ and open the template in the editor.
                     padding-right: 15px;
                 }
             }
-
-
-            button {
-                /*background: transparent;*/
-                border: none;
-                color: red;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-            }
-
-            button:hover {
+            /*--Drop button--*/
+            .outer {
+                position: relative;
+                margin: auto;
+                width: 25px;
+                margin-top: 0px;
                 cursor: pointer;
             }
+
+            .inner  {
+                width: inherit;
+                text-align: right;
+            }
+
+            label { 
+                font-size: .7em; 
+                line-height: 4em;
+                color: #fff;
+                transition: all .3s ease-in;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            .inner:before, .inner:after {
+                position: absolute;
+                content: '';
+                height: 1.5px;
+                width: inherit;
+                background: #FFC107;
+                left: 0;
+                transition: all .3s ease-in;
+            }
+
+            .inner:before {
+                top: 50%; 
+                transform: rotate(45deg);  
+            }
+
+            .inner:after {  
+                bottom: 50%;
+                transform: rotate(-45deg);  
+            }
+
+            .outer:hover label {
+                opacity: 1;
+            }
+
+            .outer:hover .inner:before,
+            .outer:hover .inner:after {
+                transform: rotate(0);
+            }
+
+            .outer:hover .inner:before {
+                top: 0;
+            }
+
+            .outer:hover .inner:after {
+                bottom: 0;
+            }
+            input{
+                font-size:18px;
+                background-color:transparent ;
+                color:#FFC107;
+                border:none;
+            }
+
+
             h3{
-                font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
                 font-size: 24px;
             }
-            
-/*            // MODAL STARTS HERE //*/
+            /*----class link----*/
 
-.button, .button_edit{
+            .link {
+                position: relative;
+                transition: clip-path 275ms ease;
+            }
+            .link:hover span::before, 
+            .link:focus span::before {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            span {
+                position: relative;
+                display: inline-block;
+                color: #999999;
+            }
+            span::before {
+                position: absolute;
+                content: attr(data-content);
+                text-decoration: underline;
+                text-decoration-color: #FFC107;
+                clip-path: polygon(0 0, 0 0, 0% 100%, 0 100%);
+                transition: clip-path 275ms ease;
+            }
+
+            /*            /-------------------------------/*/
+            table tbody tr:last-of-type{
+                   font-weight: bold;
+                   border-bottom: 2px solid #3b4465;
+               }
+               table tbody tr a:hover{
+                   color: #3b4465;
+               }
+               table tbody tr a{
+                   color: #6e6e6e;
+               }
+/*            /-------------------------------/*/
+            
+/*----------------------- add/edit form---------------------- //*/
+
+.add_button, .button_edit{
 	background-color: #a7e245;
 	border: 2px solid white;
 	border-radius: 30px;
@@ -462,7 +767,7 @@ and open the template in the editor.
 }
 
 .modal-contents {
-	height: 300px;
+	height: 400px;
 	width: 500px;
 	background-color: white;
 	text-align: center;
@@ -474,7 +779,7 @@ and open the template in the editor.
 input,textarea {
 	margin: 15px auto;
 	display: block;
-	width: 50%;
+	width: 80%;
 	padding: 8px;
 	border: 1px solid gray;
 }
@@ -498,73 +803,16 @@ input,textarea {
 .edit {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 80%;
     transform: translate(-50%, -50%);
 }
-
-.edit_btn {
-    color: #3b4465;
-/*    border: 1px solid white;*/
-    padding: 20px 80px;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
+  
     
-     span {
-         font-family: 'Roboto', sans-serif;
-         position: relative;
-         z-index: 100;
-         
-     }
-    
-    &:before, &:after {
-        content:'';
-        position: absolute;
-        display: block;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-    }
-    
-    &:before {
-        transform: translate3d(-100%, 0, 0);
-        background-color: white;
-        border: 1px solid white;
-        
-        transition: transform 300ms $ease-in-cubic;
-    }
-    
-    &:after {
-        background-color: #ffd1d8;
-        border: 1px solid #ffd1d8;
-        transform: translate3d(100%, 0, 0);
-        
-        transition: transform 300ms 300ms cubic-bezier(.16,.73,.58,.62);
-    }
-    
-    &:hover {
-        &:before {
-            transform: translate3d(0,0,0);
-        }
-        
-        &:after {
-            transform: translate3d(0,0,0);
-        }
-    }
-}
-
-
-
-
-    <body>
         </style>
 
     </head>
 
-        <header class="zoom-me">
+        <header class="zoom-me" id="heder">
             <nav class="menu-container">
                 <!-- logo -->
                 <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
@@ -592,12 +840,47 @@ input,textarea {
             <div id="video">
 
             </div>
+
         </header>
+    
         <!-- the content  -->
         <!-- you can use this class at css or you can change everthing here  -->
         <main>
             <div class="contained">
-                <h3>Available Fitness Classes</h3>
+                <!-- title -->
+            <h3 class="Headers" ><del style = "--color: var(--del-color, #FFC107);">Available Fitness Classes </del></h3>
+            <!-- Descraotion cards -->
+            <div class="content">
+                <!-- card 1-->
+                <div class="card">
+
+                    <div class="icon"><i class="material-icons md-36">assistant</i></div>
+                    <p class="title">Name:</p>
+                    <p class="text">Lorem Phtse</p>
+
+                </div>
+                <!-- end card 1 -->
+                <!-- card 2 -->
+                <div class="card">
+
+                    <div class="icon"><i class="material-icons md-36">equalizer</i></div>
+                    <p class="title"> email:</p>
+                    <p class="text">consectetur </p>
+
+                </div>
+                <!-- end card 2 -->
+                <!-- card  3-->
+                <div class="card">
+
+                    <div class="icon"><i class="material-icons md-36">chat</i></div>
+                    <p class="title">Speciality:</p>
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur</p>
+
+                </div>
+                <!-- end card 3 -->
+            </div>
+            <!-- /Descraotion cards -->
+
                 <div class="limiter">
                     <div class="container-table100">
                         <div class="wrap-table100">
@@ -613,34 +896,40 @@ input,textarea {
                                             <td class="column1">Zomba</td>
                                             <td class="column2">Display Trainees list</td>
                                             <td class="column3">
-                                                <div class="edit">
-                                                    <div class="edit_btn">
-                                                        <span><a href="#" class='edit' >Edit</a></span>
-                                                    </div>
-                                                </div>
+                                                <!-- Edite button -->
+                                                <a href="#" class='edit' >
+                                                 <svg width="50" height="50" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="Edit">
+                                                 <path d="M12.1464 1.14645C12.3417 0.951184 12.6583 0.951184 12.8535 1.14645L14.8535 3.14645C15.0488 3.34171 15.0488 3.65829 14.8535 3.85355L10.9109 7.79618C10.8349 7.87218 10.7471 7.93543 10.651 7.9835L6.72359 9.94721C6.53109 10.0435 6.29861 10.0057 6.14643 9.85355C5.99425 9.70137 5.95652 9.46889 6.05277 9.27639L8.01648 5.34897C8.06455 5.25283 8.1278 5.16507 8.2038 5.08907L12.1464 1.14645ZM12.5 2.20711L8.91091 5.79618L7.87266 7.87267L8.12731 8.12732L10.2038 7.08907L13.7929 3.5L12.5 2.20711ZM9.99998 2L8.99998 3H4.9C4.47171 3 4.18056 3.00039 3.95552 3.01877C3.73631 3.03668 3.62421 3.06915 3.54601 3.10899C3.35785 3.20487 3.20487 3.35785 3.10899 3.54601C3.06915 3.62421 3.03669 3.73631 3.01878 3.95552C3.00039 4.18056 3 4.47171 3 4.9V11.1C3 11.5283 3.00039 11.8194 3.01878 12.0445C3.03669 12.2637 3.06915 12.3758 3.10899 12.454C3.20487 12.6422 3.35785 12.7951 3.54601 12.891C3.62421 12.9309 3.73631 12.9633 3.95552 12.9812C4.18056 12.9996 4.47171 13 4.9 13H11.1C11.5283 13 11.8194 12.9996 12.0445 12.9812C12.2637 12.9633 12.3758 12.9309 12.454 12.891C12.6422 12.7951 12.7951 12.6422 12.891 12.454C12.9309 12.3758 12.9633 12.2637 12.9812 12.0445C12.9996 11.8194 13 11.5283 13 11.1V6.99998L14 5.99998V11.1V11.1207C14 11.5231 14 11.8553 13.9779 12.1259C13.9549 12.407 13.9057 12.6653 13.782 12.908C13.5903 13.2843 13.2843 13.5903 12.908 13.782C12.6653 13.9057 12.407 13.9549 12.1259 13.9779C11.8553 14 11.5231 14 11.1207 14H11.1H4.9H4.87934C4.47686 14 4.14468 14 3.87409 13.9779C3.59304 13.9549 3.33469 13.9057 3.09202 13.782C2.7157 13.5903 2.40973 13.2843 2.21799 12.908C2.09434 12.6653 2.04506 12.407 2.0221 12.1259C1.99999 11.8553 1.99999 11.5231 2 11.1207V11.1206V11.1V4.9V4.87935V4.87932V4.87931C1.99999 4.47685 1.99999 4.14468 2.0221 3.87409C2.04506 3.59304 2.09434 3.33469 2.21799 3.09202C2.40973 2.71569 2.7157 2.40973 3.09202 2.21799C3.33469 2.09434 3.59304 2.04506 3.87409 2.0221C4.14468 1.99999 4.47685 1.99999 4.87932 2H4.87935H4.9H9.99998Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                                                 <title>Edit</title>
+                                                 </svg></a>
+                                                 <!-- /Edite button -->
                                             </td>
                                         </tr>
                                       
                                         <tr>
                                             <td class="column1">Aerobic</td>
                                             <td class="column2">Display Trainees list</td>
-                                            <td class="column3">
-                                                <div class="edit">
-                                                    <div class="edit_btn">
-                                                        <span><a href="#" class='edit' >Edit</a></span>
-                                                    </div>
-                                                </div>
+                                            <td class="column3" >
+                                                <!-- Edite button -->
+                                                 <a href="#" class='edit' >
+                                                 <svg width="50" height="50" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="Edit">
+                                                 <path d="M12.1464 1.14645C12.3417 0.951184 12.6583 0.951184 12.8535 1.14645L14.8535 3.14645C15.0488 3.34171 15.0488 3.65829 14.8535 3.85355L10.9109 7.79618C10.8349 7.87218 10.7471 7.93543 10.651 7.9835L6.72359 9.94721C6.53109 10.0435 6.29861 10.0057 6.14643 9.85355C5.99425 9.70137 5.95652 9.46889 6.05277 9.27639L8.01648 5.34897C8.06455 5.25283 8.1278 5.16507 8.2038 5.08907L12.1464 1.14645ZM12.5 2.20711L8.91091 5.79618L7.87266 7.87267L8.12731 8.12732L10.2038 7.08907L13.7929 3.5L12.5 2.20711ZM9.99998 2L8.99998 3H4.9C4.47171 3 4.18056 3.00039 3.95552 3.01877C3.73631 3.03668 3.62421 3.06915 3.54601 3.10899C3.35785 3.20487 3.20487 3.35785 3.10899 3.54601C3.06915 3.62421 3.03669 3.73631 3.01878 3.95552C3.00039 4.18056 3 4.47171 3 4.9V11.1C3 11.5283 3.00039 11.8194 3.01878 12.0445C3.03669 12.2637 3.06915 12.3758 3.10899 12.454C3.20487 12.6422 3.35785 12.7951 3.54601 12.891C3.62421 12.9309 3.73631 12.9633 3.95552 12.9812C4.18056 12.9996 4.47171 13 4.9 13H11.1C11.5283 13 11.8194 12.9996 12.0445 12.9812C12.2637 12.9633 12.3758 12.9309 12.454 12.891C12.6422 12.7951 12.7951 12.6422 12.891 12.454C12.9309 12.3758 12.9633 12.2637 12.9812 12.0445C12.9996 11.8194 13 11.5283 13 11.1V6.99998L14 5.99998V11.1V11.1207C14 11.5231 14 11.8553 13.9779 12.1259C13.9549 12.407 13.9057 12.6653 13.782 12.908C13.5903 13.2843 13.2843 13.5903 12.908 13.782C12.6653 13.9057 12.407 13.9549 12.1259 13.9779C11.8553 14 11.5231 14 11.1207 14H11.1H4.9H4.87934C4.47686 14 4.14468 14 3.87409 13.9779C3.59304 13.9549 3.33469 13.9057 3.09202 13.782C2.7157 13.5903 2.40973 13.2843 2.21799 12.908C2.09434 12.6653 2.04506 12.407 2.0221 12.1259C1.99999 11.8553 1.99999 11.5231 2 11.1207V11.1206V11.1V4.9V4.87935V4.87932V4.87931C1.99999 4.47685 1.99999 4.14468 2.0221 3.87409C2.04506 3.59304 2.09434 3.33469 2.21799 3.09202C2.40973 2.71569 2.7157 2.40973 3.09202 2.21799C3.33469 2.09434 3.59304 2.04506 3.87409 2.0221C4.14468 1.99999 4.47685 1.99999 4.87932 2H4.87935H4.9H9.99998Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                                                 <title>Edit</title>
+                                                 </svg></a>
+                                                 <!-- /Edite button -->
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="column1">beginner</td>
                                             <td class="column2">Display Trainees list</td>
                                             <td class="column3">
-                                                <div class="edit">
-                                                    <div class="edit_btn">
-                                                        <span><a href="#" class='edit' >Edit</a></span>
-                                                    </div>
-                                                </div>
+                                                 <!-- Edite button -->
+                                                 <a href="#" class='edit' >
+                                                 <svg width="50" height="50" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="Edit">
+                                                 <path d="M12.1464 1.14645C12.3417 0.951184 12.6583 0.951184 12.8535 1.14645L14.8535 3.14645C15.0488 3.34171 15.0488 3.65829 14.8535 3.85355L10.9109 7.79618C10.8349 7.87218 10.7471 7.93543 10.651 7.9835L6.72359 9.94721C6.53109 10.0435 6.29861 10.0057 6.14643 9.85355C5.99425 9.70137 5.95652 9.46889 6.05277 9.27639L8.01648 5.34897C8.06455 5.25283 8.1278 5.16507 8.2038 5.08907L12.1464 1.14645ZM12.5 2.20711L8.91091 5.79618L7.87266 7.87267L8.12731 8.12732L10.2038 7.08907L13.7929 3.5L12.5 2.20711ZM9.99998 2L8.99998 3H4.9C4.47171 3 4.18056 3.00039 3.95552 3.01877C3.73631 3.03668 3.62421 3.06915 3.54601 3.10899C3.35785 3.20487 3.20487 3.35785 3.10899 3.54601C3.06915 3.62421 3.03669 3.73631 3.01878 3.95552C3.00039 4.18056 3 4.47171 3 4.9V11.1C3 11.5283 3.00039 11.8194 3.01878 12.0445C3.03669 12.2637 3.06915 12.3758 3.10899 12.454C3.20487 12.6422 3.35785 12.7951 3.54601 12.891C3.62421 12.9309 3.73631 12.9633 3.95552 12.9812C4.18056 12.9996 4.47171 13 4.9 13H11.1C11.5283 13 11.8194 12.9996 12.0445 12.9812C12.2637 12.9633 12.3758 12.9309 12.454 12.891C12.6422 12.7951 12.7951 12.6422 12.891 12.454C12.9309 12.3758 12.9633 12.2637 12.9812 12.0445C12.9996 11.8194 13 11.5283 13 11.1V6.99998L14 5.99998V11.1V11.1207C14 11.5231 14 11.8553 13.9779 12.1259C13.9549 12.407 13.9057 12.6653 13.782 12.908C13.5903 13.2843 13.2843 13.5903 12.908 13.782C12.6653 13.9057 12.407 13.9549 12.1259 13.9779C11.8553 14 11.5231 14 11.1207 14H11.1H4.9H4.87934C4.47686 14 4.14468 14 3.87409 13.9779C3.59304 13.9549 3.33469 13.9057 3.09202 13.782C2.7157 13.5903 2.40973 13.2843 2.21799 12.908C2.09434 12.6653 2.04506 12.407 2.0221 12.1259C1.99999 11.8553 1.99999 11.5231 2 11.1207V11.1206V11.1V4.9V4.87935V4.87932V4.87931C1.99999 4.47685 1.99999 4.14468 2.0221 3.87409C2.04506 3.59304 2.09434 3.33469 2.21799 3.09202C2.40973 2.71569 2.7157 2.40973 3.09202 2.21799C3.33469 2.09434 3.59304 2.04506 3.87409 2.0221C4.14468 1.99999 4.47685 1.99999 4.87932 2H4.87935H4.9H9.99998Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                                                 <title>Edit</title>
+                                                 </svg></a>
+                                                 <!-- /Edite button -->
                                             </td>
                                         </tr>
                                         <tr>
@@ -653,8 +942,8 @@ input,textarea {
                     </div>
                 </div>
             </div>
-            
-            <!-- add class-->
+           
+          
 
 <div class="bg-modal">
 	<div class="modal-contents">
@@ -662,11 +951,11 @@ input,textarea {
 		<div class="close">+</div>
 
 		<form action="">
-                        <h2>Add new fitness class</h2>
+                        <h2><del style = "--color: var(--del-color, #FFC107);">Add Fitness Class</del></h2>
 			<input type="text" placeholder="Title" required id="title" name="title">
                         <input type="number" placeholder="Level" required id="level" name="level">
                         <textarea id="description" name="description" placeholder="Description" rows="4" cols="50"></textarea>
-                        <a  href="#" class="button">Submit</a>
+                        <a  href="#" class="add_button">Submit</a>
 <!--                        onclick="addClass();"-->
 		</form>
 
@@ -681,7 +970,7 @@ input,textarea {
 		<div class="close_edit">+</div>
 
 		<form action="">
-                        <h2>Edit fitness class</h2>
+                        <h2><del style = "--color: var(--del-color, #FFC107);">Edit Fitness Class</del></h2>
 			<input type="text" placeholder="Title" required id="title" name="title">
                         <input type="number" placeholder="Level" required id="level" name="level">
                         <textarea id="description" name="description" placeholder="Description" rows="4" cols="50"></textarea>
@@ -756,13 +1045,17 @@ input,textarea {
              */
             document.getElementById('button').addEventListener("click", function() {
 	document.querySelector('.bg-modal').style.display = "flex";
+        document.querySelector('#video').style.display = "none";
+        document.getElementById("heder").style.paddingBottom = ".1px";
 });
 
 document.querySelector('.close').addEventListener("click", function() {
 	document.querySelector('.bg-modal').style.display = "none";
+        document.querySelector('#video').style.display = "flex";
+        document.getElementById("heder").style.paddingBottom = "50px";
         
 });
-document.querySelector('.button').addEventListener("click", function() {
+document.querySelector('.add_button').addEventListener("click", function() {
     
          var t= document.getElementById("title").value;
                   var  l= document.getElementById("level").value;
@@ -776,9 +1069,10 @@ document.querySelector('.button').addEventListener("click", function() {
                    
             c1.innerHTML= "<span style='color:#fff;'>........</span>"+t;
             c2.innerHTML="Display Trainees list";
-            c3.innerHTML= '<td class="column3"><div class="edit"><div class="edit_btn"><span>Edit</span></div></div> </td>';
-                
+            c3.innerHTML= '<a href="#" class="edit" style="left:80%" ><svg width="50" height="50" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="Edit"><path d="M12.1464 1.14645C12.3417 0.951184 12.6583 0.951184 12.8535 1.14645L14.8535 3.14645C15.0488 3.34171 15.0488 3.65829 14.8535 3.85355L10.9109 7.79618C10.8349 7.87218 10.7471 7.93543 10.651 7.9835L6.72359 9.94721C6.53109 10.0435 6.29861 10.0057 6.14643 9.85355C5.99425 9.70137 5.95652 9.46889 6.05277 9.27639L8.01648 5.34897C8.06455 5.25283 8.1278 5.16507 8.2038 5.08907L12.1464 1.14645ZM12.5 2.20711L8.91091 5.79618L7.87266 7.87267L8.12731 8.12732L10.2038 7.08907L13.7929 3.5L12.5 2.20711ZM9.99998 2L8.99998 3H4.9C4.47171 3 4.18056 3.00039 3.95552 3.01877C3.73631 3.03668 3.62421 3.06915 3.54601 3.10899C3.35785 3.20487 3.20487 3.35785 3.10899 3.54601C3.06915 3.62421 3.03669 3.73631 3.01878 3.95552C3.00039 4.18056 3 4.47171 3 4.9V11.1C3 11.5283 3.00039 11.8194 3.01878 12.0445C3.03669 12.2637 3.06915 12.3758 3.10899 12.454C3.20487 12.6422 3.35785 12.7951 3.54601 12.891C3.62421 12.9309 3.73631 12.9633 3.95552 12.9812C4.18056 12.9996 4.47171 13 4.9 13H11.1C11.5283 13 11.8194 12.9996 12.0445 12.9812C12.2637 12.9633 12.3758 12.9309 12.454 12.891C12.6422 12.7951 12.7951 12.6422 12.891 12.454C12.9309 12.3758 12.9633 12.2637 12.9812 12.0445C12.9996 11.8194 13 11.5283 13 11.1V6.99998L14 5.99998V11.1V11.1207C14 11.5231 14 11.8553 13.9779 12.1259C13.9549 12.407 13.9057 12.6653 13.782 12.908C13.5903 13.2843 13.2843 13.5903 12.908 13.782C12.6653 13.9057 12.407 13.9549 12.1259 13.9779C11.8553 14 11.5231 14 11.1207 14H11.1H4.9H4.87934C4.47686 14 4.14468 14 3.87409 13.9779C3.59304 13.9549 3.33469 13.9057 3.09202 13.782C2.7157 13.5903 2.40973 13.2843 2.21799 12.908C2.09434 12.6653 2.04506 12.407 2.0221 12.1259C1.99999 11.8553 1.99999 11.5231 2 11.1207V11.1206V11.1V4.9V4.87935V4.87932V4.87931C1.99999 4.47685 1.99999 4.14468 2.0221 3.87409C2.04506 3.59304 2.09434 3.33469 2.21799 3.09202C2.40973 2.71569 2.7157 2.40973 3.09202 2.21799C3.33469 2.09434 3.59304 2.04506 3.87409 2.0221C4.14468 1.99999 4.47685 1.99999 4.87932 2H4.87935H4.9H9.99998Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path><title>Edit</title></svg></a>';
         document.querySelector('.bg-modal').style.display = "none";
+        document.querySelector('#video').style.display = "flex";
+        document.getElementById("heder").style.paddingBottom = "50px";
       
 });
 //edit
@@ -787,17 +1081,21 @@ var x = document.getElementsByClassName("edit");
   for (i = 0; i < x.length; i++) {
     x[i].addEventListener("click", function() {
 	document.querySelector('.bg-modal_edit').style.display = "flex";
+        document.querySelector('#video').style.display = "none";
+        document.getElementById("heder").style.paddingBottom = ".1px";
 });
   }
   
   document.querySelector('.close_edit').addEventListener("click", function() {
 	document.querySelector('.bg-modal_edit').style.display = "none";
-        
+        document.querySelector('#video').style.display = "flex";
+        document.getElementById("heder").style.paddingBottom = "50px";
 });
   document.querySelector('.button_edit').addEventListener("click", function() {
       
         document.querySelector('.bg-modal_edit').style.display = "none";
-      
+        document.querySelector('#video').style.display = "flex";
+        document.getElementById("heder").style.paddingBottom = "50px";
 });
  
 
