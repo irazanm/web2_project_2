@@ -12,345 +12,417 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="image/Logo1.png" type="image/gif" sizes="16x16">
-        <link rel="stylesheet" href="newcss.css">
+        <link rel="stylesheet" href="home.css">
+        <script src="https://kit.fontawesome.com/48735e6971.js" crossorigin="anonymous"></script>
         <script src="javaS/home.js"></script>
-        
+
         <style>
-            /*--after we finsh we can put this code at an external css file--*/
-            body {
-                overflow-x: hidden;
-                font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-                margin: 0;
-                line-height: 24px;
-            }
-            /*----header----*/
-            .menu-container {
-                position: relative;
-                display: flex;
-                align-items: center;
-                margin: 0px;
-                background: #3b4465;
-                color: #cdcdcd;
-                padding: 20px;
-                z-index: 1;
-                -webkit-user-select: none;
-                user-select: none;
-                box-sizing: border-box;
-            }
 
-            .menu-logo {
-                line-height: 0;
-                margin: 0 20px;
-            }
+            /*--------------------- Table --------------*/
 
-            .menu-logo img {
-                max-height: 40px;
-                max-width: 100px;
-                flex-shrink: 0;
-            }
-
-            .menu-container a {
-                text-decoration: none;
-                color: #cdcdcd;
-                transition: color 0.3s ease;
-            }
-
-            .menu-container a:hover {
-                color: #a7e245;
-            }
-
-
-            .menu ul {
-                list-style: none;
-            }
-
-            .menu li {
-                padding: 10px 0;
-                font-size: 22px;
-            }
-            .menu {
-                position: relative;
+            .limiter {
                 width: 100%;
-                display: flex;
-                justify-content: space-between;
-            }
-
-            /* --- the content and the video --- */
-            h1{
-                font-size: 50px;
-                line-height: 1.125;
-            }
-            /*--the line above the text--*/
-            del {
-                --color: var(--del-color, teal);
-                text-decoration: none;
-                padding: 0 .5em;
-                background-repeat: no-repeat;
-                background-image: 
-                    linear-gradient(to left, rgba(255, 255, 255, .5), transparent),
-                    linear-gradient(2deg, var(--color) 50%, transparent 50%),
-                    linear-gradient(-.9deg, var(--color) 50%, transparent 50%),
-                    linear-gradient(-60deg, var(--color) 50%, transparent 50%),
-                    linear-gradient(120deg, var(--color) 50%, transparent 50%);
-
-                background-size: 
-                    30% 1.5px,
-                    calc(100% - 20px) 10px, 
-                    calc(100% - 20px) 10px,
-                    10px 10px,
-                    8px 8px; 
-
-                background-position: 
-                    100% calc(50% + 2px),
-                    center center, 
-                    center center, 
-                    2px 50%, 
-                    calc(100% - 3px) calc(50% + 1px);
-            }
-            .contained{
                 margin: 0 auto;
-                width: 90%;
-
-            }
-            @media (min-width: 500px){
-                .contained{
-                    width: 80%;
-                }
-            }
-
-            @media (min-width: 600px){
-                .contained{
-                    width: 60%;
-                }
-            }
-            main{
-                padding: 1em 0;
-                position: relative;
-                background: #f5f5f5;
-                box-shadow: 0px -10px 60px rgba(0,0,0,0.25);
-                z-index: 5;
-            }
-            /*--small scren --*/
-            @media (max-width: 500px){
-                header video{
-                    display:none;
-                }
-            }
-
-            /* --- Important Pen Styles --- */
-            header{
-                overflow: hidden;
-                /*padding-bottom determines the height of the header*/
-                padding-bottom: 55%;
-                z-index: 5;
-            }
-            @media (min-width: 600px){
-                header{
-                    padding-bottom: 50%;
-                }
-            }
-            @media (min-width: 700px){
-                header{
-                    padding-bottom: 45%;
-                }
-            }
-            header video{
-                width: 100%;
-                max-width: none;
-                position: fixed;
-                pandding:0px;
-                margin: 0px ;
-                top: 0%;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: -1;
-            }
-            /*---makeing the sign out icon moves-----*/
-            .hvr-float {
-                -moz-osx-font-smoothing: grayscale;
-                transition-duration: 0.3s;
-                transition-property: transform;
-                transition-timing-function: ease-out;
-            }
-            .hvr-float:hover,
-            .hvr-float:focus,
-            .hvr-float:active {  
-                transform: translateX(8px);
-            }
-
-             .limiter {
-              width: 100%;
-              margin: 0 auto;
             }
 
             .container-table100 {
-              width: 100%;
-              min-height: 70vh;
-              display: -webkit-box;
-              display: -webkit-flex;
-              display: -moz-box;
-              display: -ms-flexbox;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              flex-wrap: wrap;
+                width: 100%;
+                min-height: 70vh;
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
             }
 
             .wrap-table100 {
-              width: 1170px;
+                width: 1170px;
             }
-           /*--------------------- Table --------------*/
             table {  
-              border-spacing: 1;
-              border-collapse: collapse;
-              background-color: white;
-              border-radius: 10px;
-              overflow: hidden;
-              width: 100%;
-              height: 300px;
-              margin: 0 auto;
-              position: relative;
+                border-spacing: 1;
+                border-collapse: collapse;
+                background-color: white;
+                border-radius: 10px;
+                overflow: hidden;
+                width: 100%;
+                height: 300px;
+                margin: 0 auto;
+                position: relative;
             }
-            
+
             table * {
-              position: relative;
+                position: relative;
             }
-            
+
             table td, table th {
-              padding-left: 8px;
+                padding-left: 8px;
             }
-            
+
             table thead tr {
-              height: 60px;
-              background: #36304a;
+                height: 60px;
+                background: #36304a;
             }
-            
+
             table tbody tr {
-              height: 50px;
-              background: #f5f5f5;
-             
+                height: 50px;
+                background: #f5f5f5;
+
             }
-            
+
             table tbody tr:last-child {
-              border: 0;
-              background: #f5f5f5;
+                border: 0;
+                background: #f5f5f5;
             }
-            
+
             table td, table th {
-              text-align: left;
+                text-align: left;
             }
-            
+
             table td.l, table th.l {
-              text-align: right;
+                text-align: right;
             }
-            
+
             table td.c, table th.c {
-              text-align: center;
+                text-align: center;
             }
-            
+
             table td.r, table th.r {
-              text-align: center;
+                text-align: center;
             }
-            
+
             .table100-head th{
-              font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-              font-size: 24px;
-              color: #fff;
-              line-height: 1.2;
-              font-weight: unset;
+                font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+                font-size: 24px;
+                color: #fff;
+                line-height: 1.2;
+                font-weight: unset;
             }
 
             tbody tr:nth-child(even) {
-              background-color: white;
+                background-color: white;
             }
 
             tbody tr {
-              font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-              font-size: 18px;
-              color: #808080;
-              line-height: 1.2;
-              background-color:white;
+                font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+                font-size: 18px;
+                color: #808080;
+                line-height: 1.2;
+                background-color:white;
             }
 
             tbody tr:hover {
-              color: #555555;
-              background-color: #f5f5f5;
+                color: #555555;
+                background-color: #f5f5f5;
             }
 
             .column1 {
-              width: 260px;
-              padding-left: 40px;
-              
+                width: 260px;
+                padding-left: 40px;
+
             }
 
             .column2 {
-              width: 160px;
+                width: 160px;
             }
 
             .column3 {
-              width: 245px;
+                width: 245px;
             }
 
             @media screen and (max-width: 992px) {
-            table {
-              display: block;
+                table {
+                    display: block;
+                }
+                table > *, table tr, table td, table th {
+                    display: block;
+                }
+                table thead {
+                    display: none;
+                }
+                table tbody tr {
+                    height: auto;
+                    padding: 37px 0;
+                }
+                table tbody tr td {
+                    padding-left: 40% !important;
+                    margin-bottom: 24px;
+                }
+                table tbody tr td:last-child {
+                    margin-bottom: 0;
+                }
+                table tbody tr td:before {
+                    font-family: OpenSans-Regular;
+                    font-size: 14px;
+                    color: #999999;
+                    line-height: 1.2;
+                    font-weight: unset;
+                    position: absolute;
+                    width: 40%;
+                    left: 30px;
+                    top: 0;
+                }
+                table tbody tr td:nth-child(1):before {
+                    content: "Course";
+                }
+                table tbody tr td:nth-child(2):before {
+                    content: "Status";
+                }
+                table tbody tr td:nth-child(3):before {
+                    content: "";
+                }
+
+                .column1,
+                .column2,
+                .column3 {
+                    width: 100%;
+                }
+
+                tbody tr {
+                    font-size: 14px;
+                }
             }
-            table > *, table tr, table td, table th {
-              display: block;
+
+            @media (max-width: 576px) {
+                .container-table100 {
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
             }
-            table thead {
-              display: none;
+            /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Lama : Fitness Class Information >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.*/
+
+            svg.Edit{
+                float: right;
+                margin:  2px 18px;  
             }
-            table tbody tr {
-              height: auto;
-              padding: 37px 0;
+            svg.Edit:hover{
+                color: #a7e245;
             }
-            table tbody tr td {
-              padding-left: 40% !important;
-              margin-bottom: 24px;
-            }
-            table tbody tr td:last-child {
-              margin-bottom: 0;
-            }
-            table tbody tr td:before {
-              font-family: OpenSans-Regular;
-              font-size: 14px;
-              color: #999999;
-              line-height: 1.2;
-              font-weight: unset;
-              position: absolute;
-              width: 40%;
-              left: 30px;
-              top: 0;
-            }
-            table tbody tr td:nth-child(1):before {
-              content: "Course";
-            }
-            table tbody tr td:nth-child(2):before {
-              content: "Status";
-            }
-            table tbody tr td:nth-child(3):before {
-              content: "";
+            .Headers{
+                text-align:center;
+                font-size:230%;
             }
             
-            .column1,
-            .column2,
-            .column3 {
-              width: 100%;
+            #E {
+                background-color:transparent;
+                position:relative;
+                padding:2%;
+                width:150px;
+                padding-bottom:12px;
+                padding-top:12px;
+
+                margin:5px;
+                margin-left:85%;
             }
 
-            tbody tr {
-              font-size: 14px;
-            }
-          }
+            #E:hover {
+                transform:scale(1.1);
+                transition: 0.2s;
 
-          @media (max-width: 576px) {
-            .container-table100 {
-              padding-left: 15px;
-              padding-right: 15px;
+                font-weight: 700px;
+
             }
-          }
+
+
+
+            /*-----Delete button------*/
+
+            @import url(//codepen.io/chrisdothtml/pen/ojLzJK.css);
+            .button {
+                display: block;
+                background-color: #c0392b;
+                width: 250px;
+                height: 83px;
+                line-height: 100px;
+                margin: auto;
+                color: #fff;
+                position: relative;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: 5px;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, .3);
+                transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+            }
+            .button span, .button .icon-Delete {
+                display: block;
+                height: 100%;
+                text-align: center;
+                position: absolute;
+            }
+            .button span {
+                width: 72%;
+                line-height: inherit;
+                font-size: 22px;
+                text-transform: uppercase;
+                left: 0;
+                transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+            }
+            .button span:after {
+                content: '';
+                background-color: #a53125;
+                width: 2px;
+                height: 70%;
+                position: absolute;
+                top: 15%;
+                right: -1px;
+            }
+            .button .icon-Delete{
+                width: 28%;
+                right: 0;
+                transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+            }
+            .button .icon-Delete .fa {
+                font-size: 30px;
+                vertical-align: middle;
+                transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4), height 0.25s ease;
+            }
+            .button .icon-Delete .fa-remove {
+                height: 36px;
+            }
+            .button .icon-Delete .fa-check {
+                display: none;
+            }
+            .button.success span, .button:hover span {
+                left: -72%;
+                opacity: 0;
+            }
+            .button.success .icon-Delete, .button:hover .icon-Delete {
+                width: 100%;
+            }
+            .button.success .icon-Delete .fa, .button:hover .icon-Delete .fa {
+                font-size: 45px;
+            }
+            .button.success {
+                background-color: #27ae60;
+            }
+            .button.success .icon-Delete .fa-remove {
+                display: none;
+            }
+            .button.success .icon-Delete .fa-check {
+                display: inline-block;
+            }
+            .button:hover {
+                opacity: 0.9;
+            }
+            .button:hover .icon-Delete .fa-remove {
+                height: 46px;
+            }
+            .button:active {
+                opacity: 1;
+            }
+            /*-----DESCRAPTION CARD-------*/
+            .content {
+                max-width: 1024px;
+                width: 100%;
+                padding: 0 4%;
+                padding-top: 250px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .card {
+                width: 100%;
+                max-width: 300px;
+                min-width: 200px;
+                height: 250px;
+                background-color: #292929;
+                margin: 10px;
+                border-radius: 10px;
+                box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.24);
+                border: 2px solid rgba(7, 7, 7, 0.12);
+                font-size: 16px;
+                transition: all 0.3s ease;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .icon {
+                margin: 0 auto;
+                width: 100%;
+                height: 80px;
+                max-width: 80px;
+                background: linear-gradient(90deg, #ff7e7e 0%, #ff4848 40%, rgba(0, 0, 0, 0.28) 60%);
+                border-radius: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                transition: all 0.8s ease;
+                background-position: 0px;
+                background-size: 200px;
+            }
+            .material-icons.md-18 {
+                font-size: 18px;
+            }
+            .material-icons.md-24 {
+                font-size: 24px;
+            }
+            .material-icons.md-36 {
+                font-size: 36px;
+            }
+            .material-icons.md-48 {
+                font-size: 48px;
+            }
+            .card .title {
+                width: 100%;
+                margin: 0;
+                text-align: center;
+                margin-top: 30px;
+                color: white;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 4px;
+            }
+            .card .text {
+                width: 80%;
+                margin: 0 auto;
+                font-size: 13px;
+                text-align: center;
+                margin-top: 20px;
+                color: white;
+                font-weight: 200;
+                letter-spacing: 2px;
+                opacity: 0;
+                max-height: 0;
+                transition: all 0.3s ease;
+            }
+            .card:hover {
+                height: 270px;
+            }
+            .card:hover .info {
+                height: 90%;
+            }
+            .card:hover .text {
+                transition: all 0.3s ease;
+                opacity: 1;
+                max-height: 40px;
+            }
+            .card:hover .icon {
+                background-position: -120px;
+                transition: all 0.3s ease;
+            }
+            .card:hover .icon i {
+                background: linear-gradient(90deg, #ff7e7e, #ff4848);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                opacity: 1;
+                transition: all 0.3s ease;
+            }
+
+
         </style>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
         <header class="zoom-me">
@@ -362,7 +434,7 @@ and open the template in the editor.
                     <ul>
                         <li>
                             <!-- the user name by java  -->
-                            <del > <strong>Welcome [  ] !</strong></del>
+                            <del> <strong >Welcome User !</strong></del>
                         </li>
                     </ul>
                     <ul>
@@ -378,106 +450,168 @@ and open the template in the editor.
                     </ul>
                 </div>
             </nav>
-            <video height="850"  autoplay  loop>
-                <source src="https://cdn.videvo.net/videvo_files/video/free/2018-05/small_watermarked/180419_Boxing_13_14_preview.webm" type="video/mp4">
-            </video>
+            <div id="video">
+
+            </div>
         </header>
         <!-- the content  -->
         <!-- you can use this class at css or you can change everthing here  -->
-        <main >
-            <button type="submit" id="E"><img src="image/pen-.png" alt="Edit" width="25px;" height="25px"></button>
-           
-            
-            <h3 class="Headers">Fitness Class Information </h3>
-            <div class="contained2">
-                <div class="subInfo"> <img src="image/className1.png" alt="sportIcon" width="70px" height="70px"> <br><strong class="subInfoH">  Name:</strong> <p>Zumba Class</p> </div>
-                    <div class="subInfo"><img src="image/Level.png" alt="Level" width="80px" height="80px"> <br><strong class="subInfoH">  Level:</strong> <p>MEDIUM</p></div>
-                    <div class="subInfo"><img src="image/descrip1.png" alt="Description" width="70px" height="70px"> <br> <strong class="subInfoH">Description:</strong> <p>Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit. Nam accumsan
-                            <br>  </p></div>  
+        <main>
+            <!-- Edite button -->
+            <svg width="50" height="50" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="Edit">
+            <path d="M12.1464 1.14645C12.3417 0.951184 12.6583 0.951184 12.8535 1.14645L14.8535 3.14645C15.0488 3.34171 15.0488 3.65829 14.8535 3.85355L10.9109 7.79618C10.8349 7.87218 10.7471 7.93543 10.651 7.9835L6.72359 9.94721C6.53109 10.0435 6.29861 10.0057 6.14643 9.85355C5.99425 9.70137 5.95652 9.46889 6.05277 9.27639L8.01648 5.34897C8.06455 5.25283 8.1278 5.16507 8.2038 5.08907L12.1464 1.14645ZM12.5 2.20711L8.91091 5.79618L7.87266 7.87267L8.12731 8.12732L10.2038 7.08907L13.7929 3.5L12.5 2.20711ZM9.99998 2L8.99998 3H4.9C4.47171 3 4.18056 3.00039 3.95552 3.01877C3.73631 3.03668 3.62421 3.06915 3.54601 3.10899C3.35785 3.20487 3.20487 3.35785 3.10899 3.54601C3.06915 3.62421 3.03669 3.73631 3.01878 3.95552C3.00039 4.18056 3 4.47171 3 4.9V11.1C3 11.5283 3.00039 11.8194 3.01878 12.0445C3.03669 12.2637 3.06915 12.3758 3.10899 12.454C3.20487 12.6422 3.35785 12.7951 3.54601 12.891C3.62421 12.9309 3.73631 12.9633 3.95552 12.9812C4.18056 12.9996 4.47171 13 4.9 13H11.1C11.5283 13 11.8194 12.9996 12.0445 12.9812C12.2637 12.9633 12.3758 12.9309 12.454 12.891C12.6422 12.7951 12.7951 12.6422 12.891 12.454C12.9309 12.3758 12.9633 12.2637 12.9812 12.0445C12.9996 11.8194 13 11.5283 13 11.1V6.99998L14 5.99998V11.1V11.1207C14 11.5231 14 11.8553 13.9779 12.1259C13.9549 12.407 13.9057 12.6653 13.782 12.908C13.5903 13.2843 13.2843 13.5903 12.908 13.782C12.6653 13.9057 12.407 13.9549 12.1259 13.9779C11.8553 14 11.5231 14 11.1207 14H11.1H4.9H4.87934C4.47686 14 4.14468 14 3.87409 13.9779C3.59304 13.9549 3.33469 13.9057 3.09202 13.782C2.7157 13.5903 2.40973 13.2843 2.21799 12.908C2.09434 12.6653 2.04506 12.407 2.0221 12.1259C1.99999 11.8553 1.99999 11.5231 2 11.1207V11.1206V11.1V4.9V4.87935V4.87932V4.87931C1.99999 4.47685 1.99999 4.14468 2.0221 3.87409C2.04506 3.59304 2.09434 3.33469 2.21799 3.09202C2.40973 2.71569 2.7157 2.40973 3.09202 2.21799C3.33469 2.09434 3.59304 2.04506 3.87409 2.0221C4.14468 1.99999 4.47685 1.99999 4.87932 2H4.87935H4.9H9.99998Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+            <title>Edit</title>
+            </svg>
+            <!-- /Edite button -->
+            <!-- title -->
+            <h3 class="Headers" ><del style = "--color: var(--del-color, #FFC107);">Fitness Class Information </del></h3>
+            <!-- Descraotion cards -->
+            <div class="content">
+                <!-- card 1-->
+                <div class="card">
+
+                    <div class="icon"><i class="material-icons md-36">assistant</i></div>
+                    <p class="title">Class Name:</p>
+                    <p class="text">Zumba Class</p>
+
+                </div>
+                <!-- end card 1 -->
+                <!-- card 2 -->
+                <div class="card">
+
+                    <div class="icon"><i class="material-icons md-36">equalizer</i></div>
+                    <p class="title"> Level:</p>
+                    <p class="text">MEDIUM</p>
+
+                </div>
+                <!-- end card 2 -->
+                <!-- card  3-->
+                <div class="card">
+
+                    <div class="icon"><i class="material-icons md-36">chat</i></div>
+                    <p class="title">Description:</p>
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur</p>
+
+                </div>
+                <!-- end card 3 -->
             </div>
-            
+            <!-- /Descraotion cards -->
+
+            <!-- -----------------------------table------------------------------------ -->
+
+
             <div class="contained">
-                
+
                 <div class="limiter">
                     <div class="container-table100">
-			<div class="wrap-table100">
-            <div class="table100">
-				<table>
+                        <div class="wrap-table100">
+                            <div class="table100">
+                                <table>
                                     <thead>
-					<tr class="table100-head">
+                                        <tr class="table100-head">
                                             <th class="column1">Trainee Name</th>
                                             <th class="column2">Email</th>
                                             <th class="column3">Date of joining</th>
-					</tr>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="column1">Nora</td>
                                             <td class="column2">Nora@gmail.com</td>
                                             <td class="column3">4/3/2019</td>
-					</tr>
-					<tr>
+                                        </tr>
+                                        <tr>
                                             <td class="column1">Areeb</td>
                                             <td class="column2">Areeb@gmail.com</td>
-                                           <td class="column2">6/8/2020</td>
-					</tr>
-					<tr>
+                                            <td class="column2">6/8/2020</td>
+                                        </tr>
+                                        <tr>
                                             <td class="column1">Reem </td>
                                             <td class="column2">Remm@gmail.com</td>
                                             <td class="column2">5/11/2020</td>
-                                            
-					</tr>
+
+                                        </tr>
                                     </tbody>
-				</table>
-            </div>
-                                     </div>
-			</div>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            
-            <button type="submit" id="dropClass"><img src="image/Trash-remove.png" alt="Drop" width="25px" height="25px"></button> 
-            
+            </div>
+
+            <!------------ Delete button ------------->
+            <a class="button" href="index.html" role="button">
+                <span>remove</span>
+                <div class="icon-Delete">	
+                    <i class="fa fa-remove"></i>
+                    <i class="fa fa-check"></i>	     
+                </div>
+            </a>
+            <!------------ /Delete button ------------->
+
         </main>
-            <footer style="">
-                <!-- logo -->
-                <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
+        <footer>
+            <!-- logo -->
+            <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
 
-                <section class="social">
-                    <ul>
-                        <li>
-                            <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
-                                <i class="fab fa-youtube" ></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
-                                <i class="fab fa-youtube" ></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
-                                <i class="fab fa-youtube" ></i>
-                            </a>
-                        </li>
+            <section class="social">
+                <ul>
+                    <li>
+                        <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
 
-                    </ul>
+                </ul>
 
-                </section>
+            </section>
 
-            </footer>
+        </footer>
+        <div id="copyright">
+            &copy; &nbsp; KSU, IT Department.Razan,Lama,Shatha,Yara.
+        </div>
         <script>
-            //it simple keep it. 
-            //unless you will add an extra code , add this to an external file with your code and save it at javaS folder
-            $(window).scroll(function () {
-                var scroll = $(window).scrollTop();
-                $(".zoom-me video").css({
-                    width: (100 + scroll / 5) + "%",
-                    top: -(scroll / 10) + "%",
-                    "-webkit-filter": "blur(" + (scroll / 200) + "px)",
-                    filter: "blur(" + (scroll / 200) + "px)"
+            var number = Math.floor(Math.random() * 4); // 0 - 3 
+            switch (number) {
+                case 0:
+                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2018-05/small_watermarked/180419_Boxing_13_14_preview.webm" type="video/mp4"> </video>';
+                    break;
+                case 1:
+                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_17_10_preview.webm" type="video/mp4"> </video>';
+                    break;
+                case 2:
+                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2018-09/small_watermarked/180419_Boxing_06_01_preview.webm" type="video/mp4"> </video>';
+                    break;
+                case 3:
+                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>';
+                    break;
+            }
+            ;
+            (function () {
+                var removeSuccess;
+
+                removeSuccess = function () {
+                    return $('.button').removeClass('success');
+                };
+
+                $(document).ready(function () {
+                    return $('.button').click(function () {
+                        $(this).addClass('success');
+                        return setTimeout(removeSuccess, 3000);
+                    });
                 });
-            });
+
+            }).call(this);
         </script>
     </body>
 </html>
