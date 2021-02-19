@@ -287,6 +287,64 @@ and open the template in the editor.
                 clip-path: polygon(0 0, 0 0, 0% 100%, 0 100%);
                 transition: clip-path 275ms ease;
             }
+            /*----------------------- add/edit form---------------------- //*/
+
+.button_drop ,.button_no{
+	border: 2px solid white;
+	border-radius: 30px;
+	text-decoration: none;
+	padding: 10px 28px;
+	color: #3b4465;
+	margin-top: 10px;
+	display: inline-block;
+	&:hover {
+		background-color: white;
+		color: #a7e245;
+		border: 2px solid #a7e245;
+	}
+}
+.button_drop{
+    background-color: #a7e245;
+}
+.button_no{
+    background-color: #FFC107;
+}
+
+
+ .bg-modal_drop{
+	background-color: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.modal-contents {
+	height: 150px;
+	width: 250px;
+	background-color: white;
+	text-align: center;
+	padding: 20px;
+	position: relative;
+	border-radius: 4px;
+}
+
+
+.close_drop{
+	position: absolute;
+	top: 0;
+	right: 10px;
+	font-size: 42px;
+	color: #333;
+	transform: rotate(45deg);
+	cursor: pointer;
+	&:hover {
+		color: #666;
+	}
+}
 
         </style>
 
@@ -294,7 +352,7 @@ and open the template in the editor.
 
     <body>
 
-        <header class="zoom-me">
+        <header class="zoom-me" id ="heder">
             <nav class="menu-container">
                 <!-- logo -->
                 <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
@@ -332,7 +390,7 @@ and open the template in the editor.
                     <div class="container-table100">
                         <div class="wrap-table100">
                             <div class="table100">
-                                <table>
+                                <table id="table">
                                     <thead>
                                         <tr class="table100-head">
                                             <th class="column1">Course</th>
@@ -356,11 +414,12 @@ and open the template in the editor.
                                                 <div class="outer">
                                                     <div class="inner">
                                                         <label>
-                                                            <input type="submit" value ="Drop">
+                                                            <input type="submit" value ="Drop" class="drop" >
                                                         </label>
                                                     </div>
                                                 </div>
                                                 <!-- /Drop button -->
+
 
                                         </tr>
                                         <tr>
@@ -377,7 +436,7 @@ and open the template in the editor.
                                                 <div class="outer">
                                                     <div class="inner">
                                                         <label>
-                                                            <input type="submit" value ="Drop">
+                                                            <input type="submit" value ="Drop" class="drop">
                                                         </label>
                                                     </div>
                                                 </div>
@@ -395,6 +454,7 @@ and open the template in the editor.
                                                 Enroll
                                             </td>
                                             <td class="column3">
+                                                <div class="outer"></div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -404,6 +464,21 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
+                 <!-- drop class -->
+
+<div class="bg-modal_drop">
+	<div class="modal-contents">
+
+		<div class="close_drop">+</div>
+
+		<form action="">
+                        <h2 style ="color: #3b4465;"><del style = "--color: var(--del-color, #FFC107);">Are you sure</del></h2>
+                        <a  class="button_drop">yes</a>
+                        <a class="button_no">no</a>
+		</form>
+
+	</div>
+</div>
         </main>
         <footer>
             <!-- logo -->
@@ -430,6 +505,7 @@ and open the template in the editor.
                 </ul>
 
             </section>
+          
 
         </footer>
         <div id="copyright">
@@ -455,7 +531,74 @@ and open the template in the editor.
                     document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>';
                     break;
             }
+//drop
+var x = document.getElementsByClassName("drop");
+  var i,j;
+  for (j= i = 0; i < x.length; i++) {
+    x[i].addEventListener("click", function() {
+	document.querySelector('.bg-modal_drop').style.display = "flex";
+        document.querySelector('#video').style.display = "none";
+        document.getElementById("heder").style.paddingBottom = "0%";
+        // no
+        document.querySelector('.button_no').addEventListener("click", function() {
+      
+        document.querySelector('.bg-modal_drop').style.display = "none";
+        document.querySelector('#video').style.display = "flex";
+        document.getElementById("heder").style.paddingBottom = "44%";
+        });
+        //yes
+        document.querySelector('.button_drop').addEventListener("click", function() {
+        
+        var drop = document.getElementById("table");
+        var x=drop.rows[1].cells; x[1].innerHTML="Enroll";
+        var x=drop.rows[1].cells; x[2].innerHTML="<span style='color:#fff;'>........</span>";
+//        var i, drop = document.getElementById("table");
+//        for(var j=0; j< drop.rows.length;j++){
+//            drop.rows[j].cells[2].onclick = function(){
+//                i= this.parentElement.rowIndex;
+//                drop.deleteRow(i);
+//                console.log(i);
+//            };
+//        }
+//        .innerHTML=
+//        document.getElementById("table").deleteRow(1);
 
+
+        document.querySelector('.bg-modal_drop').style.display = "none";
+        document.querySelector('#video').style.display = "flex";
+        document.getElementById("heder").style.paddingBottom = "44%";
+});
+
+
+ document.querySelector('.close_drop').addEventListener("click", function() {
+	document.querySelector('.bg-modal_drop').style.display = "none";
+        document.querySelector('#video').style.display = "flex";
+        document.getElementById("heder").style.paddingBottom = "44%";
+});
+
+
+
+});
+
+  }
+  
+ 
+  
+
+
+
+
+//var x = document.getElementsByClassName("outer");
+// var i;
+//  for (i = 0; i < x.length; i++) {
+//    x[i].addEventListener("click", function() {
+//        //alert(i);
+//        
+////	document.querySelector('.bg-modal_edit').style.display = "flex";
+////        document.querySelector('#video').style.display = "none";
+////        document.getElementById("heder").style.paddingBottom = "0%";
+//        });
+//  }
 
         </script>
     </body>
