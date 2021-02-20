@@ -637,7 +637,7 @@ input,textarea {
             </div>
 
             <!------------ Delete button ------------->
-            <a class="button" href="index.html" class="remoove" role="button">
+            <a class="button"  class="remoove" id="remoove" role="button">
                 <span>remove</span>
                 <div class="icon-Delete">	
                     <i class="fa fa-remove"></i>
@@ -671,7 +671,7 @@ input,textarea {
 
 		<form action="">
                         <h2 style ="color: #3b4465;"><del style = "--color: var(--del-color, #FFC107);">Are you sure</del></h2>
-                        <a href="index.html" class="button_drop">yes</a>
+                        <a href="Coach_home.html" class="button_drop">yes</a>
                         <a class="button_no">no</a>
 		</form>
 
@@ -748,6 +748,7 @@ var x = document.getElementById("remoove");
         document.querySelector('.bg-modal_drop').style.display = "none";
         document.querySelector('#video').style.display = "flex";
         document.getElementById("heder").style.paddingBottom = "44%";
+        //location.replace("Coach_home.html");
         });
 
         //x
