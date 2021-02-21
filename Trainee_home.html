@@ -579,7 +579,11 @@ and open the template in the editor.
                                                 </a> 
                                             </td>
                                             <td class="column2">
-                                                <a onclick="enroll(3, 'add'); return false;">Enroll</a>
+                                                <a onclick="enroll(3, 'add'); return false;" class="link"> 
+                                                    <span data-content="Enroll"> 
+                                                        Enroll
+                                                    </span>
+                                                </a>
                                             </td>
                                             <td class="column3">
                                                 <!-- Drop button -->
@@ -615,6 +619,7 @@ and open the template in the editor.
         <footer>
             <!-- logo -->
             <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
+            <p style="margin-left:20%; margin-left: 20%;font-family: 'Amatic SC', cursive;"><del id="inside-footer"></del></p>
 
             <section class="social">
                 <ul>
@@ -646,19 +651,25 @@ and open the template in the editor.
             switch (number) {
                 case 0:
                     document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2018-05/small_watermarked/180419_Boxing_13_14_preview.webm" type="video/mp4"> </video>';
+                    document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
                     break;
                 case 1:
                     document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_17_10_preview.webm" type="video/mp4"> </video>';
+                    document.getElementById("inside-footer").innerHTML = "\" Push harder today if you want a different tomorrow\"";
 
                     break;
                 case 2:
                     document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2018-09/small_watermarked/180419_Boxing_06_01_preview.webm" type="video/mp4"> </video>';
+                    document.getElementById("inside-footer").innerHTML = "\" Push harder today if you want a different tomorrow\"";
 
                     break;
                 case 3:
                     document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>';
+                    document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
+
                     break;
             }
+
             //drop
             var i, j;
             function enroll(rr, ok) {
@@ -676,12 +687,13 @@ and open the template in the editor.
                     var drop = document.getElementById("table");
                     if (ok == "add") {
                         var z = drop.rows[rr].cells;
+                        ""
                         z[1].innerHTML = "<a onclick=\'enroll(" + rr + ",\"drop\"); return false;\'>Enrolled</a>";
                         var sh = drop.rows[rr].cells;
                         sh[2].innerHTML = '<div class="outer"> <div class="inner"><label><input type="submit" value ="Drop" class="drop" onclick=\"enroll(' + rr + ',\'drop\'); return false;\"></label></div></div>';
                     } else {
                         var x = drop.rows[rr].cells;
-                        x[1].innerHTML = "<a onclick=\'enroll(" + rr + ",\"add\"); return false;\'>Enroll</a>";
+                        x[1].innerHTML = "<a onclick=\'enroll(" + rr + ",\"add\"); return false;\' class=\"link\"><span data-content=\"Enroll\">Enroll</span></a>";
                         var y = drop.rows[rr].cells;
                         y[2].innerHTML = '<div><div><label><input type="submit" value ="add" class="drop" onclick=\"enroll(' + rr + ',\'add\'); return false;\"></label></div></div>';
                     }
