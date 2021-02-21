@@ -108,7 +108,7 @@ del {
         width: 60%;
     }
 }
-
+/*-----------main-----------------*/
 main {
     padding: 1em 0px;
     position: relative;
@@ -215,7 +215,7 @@ footer li a:hover {
     transform: scale(1.68);
 }
 
-footer section {
+footer section.social{
     margin-left:65%;
 }
 #copyright{
