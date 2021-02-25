@@ -685,18 +685,18 @@ and open the template in the editor.
                 //yes
                 document.querySelector('.button_drop').addEventListener("click", function () {
                     var drop = document.getElementById("table");
-                    if (ok == "add") {
-                        var z = drop.rows[rr].cells;
-                        ""
-                        z[1].innerHTML = "<a onclick=\'enroll(" + rr + ",\"drop\"); return false;\'>Enrolled</a>";
-                        var sh = drop.rows[rr].cells;
-                        sh[2].innerHTML = '<div class="outer"> <div class="inner"><label><input type="submit" value ="Drop" class="drop" onclick=\"enroll(' + rr + ',\'drop\'); return false;\"></label></div></div>';
-                    } else {
-                        var x = drop.rows[rr].cells;
-                        x[1].innerHTML = "<a onclick=\'enroll(" + rr + ",\"add\"); return false;\' class=\"link\"><span data-content=\"Enroll\">Enroll</span></a>";
-                        var y = drop.rows[rr].cells;
-                        y[2].innerHTML = '<div><div><label><input type="submit" value ="add" class="drop" onclick=\"enroll(' + rr + ',\'add\'); return false;\"></label></div></div>';
-                    }
+//                    if (ok == "add") {
+//                        var z = drop.rows[rr].cells;
+//                        ""
+//                        z[1].innerHTML = "<a onclick=\'enroll(" + rr + ",\"drop\"); return false;\'>Enrolled</a>";
+//                        var sh = drop.rows[rr].cells;
+//                        sh[2].innerHTML = '<div class="outer"> <div class="inner"><label><input type="submit" value ="Drop" class="drop" onclick=\"enroll(' + rr + ',\'drop\'); return false;\"></label></div></div>';
+//                    } else {
+//                        var x = drop.rows[rr].cells;
+//                        x[1].innerHTML = "<a onclick=\'enroll(" + rr + ",\"add\"); return false;\' class=\"link\"><span data-content=\"Enroll\">Enroll</span></a>";
+//                        var y = drop.rows[rr].cells;
+//                        y[2].innerHTML = '<div><div><label><input type="submit" value ="add" class="drop" onclick=\"enroll(' + rr + ',\'add\'); return false;\"></label></div></div>';
+//                    }
                     // var i, drop = document.getElementById("table");
                     // for(var j=0; j< drop.rows.length;j++){
                     //      drop.rows[j].cells[2].onclick = function(){
