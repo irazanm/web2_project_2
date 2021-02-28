@@ -9,6 +9,10 @@ font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-se
 for the logo in the bar , must add it at all the pages
 
 -->
+<?php
+require 'configration.php';
+
+?>
 <html>
 
     <head>
@@ -99,16 +103,16 @@ for the logo in the bar , must add it at all the pages
                         Login
                         <span class="underline"></span>
                     </button>
-                    <form class="form form-login" method="Post">
+                    <form class="form form-login" method="POST">
                         <fieldset>
                             <legend>Please, enter your email and password for login.</legend>
                             <div class="input-block">
                                 <label for="login-email">E-mail</label>
-                                <input id="login-email" type="email" required>
+                                <input id="login-email" type="email" name="login-email" required>
                             </div>
                             <div class="input-block">
                                 <label for="login-password">Password</label>
-                                <input id="login-password" type="password" required>
+                                <input id="login-password" type="password" name="login-password" required>
                             </div>
                             <div class="input-block">  
                                 <label>I am : <br> </label>
@@ -124,6 +128,19 @@ for the logo in the bar , must add it at all the pages
                         </fieldset>
                         <button type="submit" class="btn-login" onclick="Redirect_Login(); return false;">Login</button>
                     </form>
+                    <?php
+                    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                        if (isset($_POST['login-email']) && isset($_POST['login-password']) && isset($_POST['Type'])) {
+                            
+                            
+                        } else {
+                            //acually no need becouse the attrbiute required at the input but just to make sure.
+                            echo '<script type="text/JavaScript">  
+                                    alert("Enter All the requirment please !"); 
+                                    </script>';
+                        }
+                    }
+                    ?>
                 </div>
                 <div class="form-wrapper">
                     <button type="button" class="switcher switcher-signup">
@@ -132,7 +149,7 @@ for the logo in the bar , must add it at all the pages
                     </button>
                     <form class="form form-signup"  method="Post">
                         <fieldset>
-                           <!-- INSERT INTO `trainee` (`id`, `username`, `password`, `name`, `email`) VALUES ('1', 't_1', '1234', 'Razan', 'Razan@gmail.com'); -->
+                            <!-- INSERT INTO `trainee` (`id`, `username`, `password`, `name`, `email`) VALUES ('1', 't_1', '1234', 'Razan', 'Razan@gmail.com'); -->
                             <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                             <div class="input-block">
                                 <label for="fullName">Full Name</label>
@@ -159,7 +176,7 @@ for the logo in the bar , must add it at all the pages
         </footer>
         <script type="text/javascript">
             const switchers = [...document.querySelectorAll('.switcher')];
-            
+
             switchers.forEach(item => {
                 item.addEventListener('click', function () {
                     switchers.forEach(item => item.parentElement.classList.remove('is-active'));
@@ -168,7 +185,7 @@ for the logo in the bar , must add it at all the pages
             });
             /*--to make the submit by the enter key at the keybord--*/
             $(document).ready(function () {
-                
+
                 var makeAllFormSubmitOnEnter = function () {
                     $('form input, form select').live('keypress', function (e) {
                         if (e.which && e.which == 13) {
@@ -179,7 +196,7 @@ for the logo in the bar , must add it at all the pages
                         }
                     });
                 };
-                
+
                 makeAllFormSubmitOnEnter();
             });
         </script>
