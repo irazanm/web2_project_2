@@ -132,6 +132,7 @@ for the logo in the bar , must add it at all the pages
                     </button>
                     <form class="form form-signup"  method="Post">
                         <fieldset>
+                           <!-- INSERT INTO `trainee` (`id`, `username`, `password`, `name`, `email`) VALUES ('1', 't_1', '1234', 'Razan', 'Razan@gmail.com'); -->
                             <legend>Please, enter your email, password and password confirmation for sign up.</legend>
                             <div class="input-block">
                                 <label for="fullName">Full Name</label>
@@ -158,7 +159,7 @@ for the logo in the bar , must add it at all the pages
         </footer>
         <script type="text/javascript">
             const switchers = [...document.querySelectorAll('.switcher')];
-
+            
             switchers.forEach(item => {
                 item.addEventListener('click', function () {
                     switchers.forEach(item => item.parentElement.classList.remove('is-active'));
@@ -167,7 +168,7 @@ for the logo in the bar , must add it at all the pages
             });
             /*--to make the submit by the enter key at the keybord--*/
             $(document).ready(function () {
-
+                
                 var makeAllFormSubmitOnEnter = function () {
                     $('form input, form select').live('keypress', function (e) {
                         if (e.which && e.which == 13) {
@@ -178,7 +179,7 @@ for the logo in the bar , must add it at all the pages
                         }
                     });
                 };
-
+                
                 makeAllFormSubmitOnEnter();
             });
         </script>
