@@ -459,6 +459,11 @@ and open the template in the editor.
         <?php
         //from the ssesion you can get information about the user
         session_start();
+        if (!isset($_SESSION['id'])) {
+            //if the user delete the ssesion it will redirect the user to the login again 
+            header("Location:index.html");
+            exit();
+        }
         ?>
         <header class="zoom-me" id ="heder">
             <nav class="menu-container">
@@ -513,7 +518,11 @@ and open the template in the editor.
                     <div class="card">
                         <div class="icon"><i class="material-icons md-36">run_circle</i></div>
                         <p class="title">How many courses:</p>
-                        <p class="text">Lorem ipsum dolor sit amet, consectetur</p>
+                        <p class="text">
+                            <?php
+                            //you have to send qury to get the num of the coureses 
+                            //i think it will use count(*) at the qeury
+                            ?></p>
                     </div>
                     <!-- end card 3 -->
                 </div>
