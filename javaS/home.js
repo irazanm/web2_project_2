@@ -6,9 +6,9 @@
 function Redirect_Login() {
     var TypeOfUser = document.querySelector('input[name="Type"]:checked').value;
     if (TypeOfUser == "Coach") {
-        location.replace("Coach_home.html");
+        location.replace("Coach_home.php");
     } else {
-        location.replace("Trainee_home.html");
+        location.replace("Trainee_home.php");
     }
 }
 function Redirect_Signup() {

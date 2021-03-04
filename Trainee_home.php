@@ -456,6 +456,10 @@ and open the template in the editor.
         </style>
     </head>
     <body>
+        <?php
+        //from the ssesion you can get information about the user
+        session_start();
+        ?>
         <header class="zoom-me" id ="heder">
             <nav class="menu-container">
                 <!-- logo -->
@@ -464,8 +468,8 @@ and open the template in the editor.
                 <div class="menu">
                     <ul>
                         <li>
-                            <!-- the user name by java  -->
-                            <del> <strong >Welcome User !</strong></del>
+                            <!-- the user name by php  -->
+                            <del> <strong >Welcome <?php echo $_SESSION['username']; ?> !</strong></del>
                         </li>
                     </ul>
                     <ul>
@@ -495,14 +499,14 @@ and open the template in the editor.
                     <div class="card">
                         <div class="icon"><i class="material-icons md-36">account_circle</i></div>
                         <p class="title">Name:</p>
-                        <p class="text">Lorem Phtse</p>
+                        <p class="text"><?php echo $_SESSION['name']; ?> </p>
                     </div>
                     <!-- end card 1 -->
                     <!-- card 2 -->
                     <div class="card">
                         <div class="icon"><i class="material-icons md-36">alternate_email</i></div>
                         <p class="title"> email:</p>
-                        <p class="text">consectetur </p>
+                        <p class="text"><?php echo $_SESSION['email']; ?> </p>
                     </div>
                     <!-- end card 2 -->
                     <!-- card  3-->

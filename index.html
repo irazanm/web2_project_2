@@ -9,10 +9,7 @@ font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-se
 for the logo in the bar , must add it at all the pages
 
 -->
-<?php
-require 'configration.php';
 
-?>
 <html>
 
     <head>
@@ -103,7 +100,7 @@ require 'configration.php';
                         Login
                         <span class="underline"></span>
                     </button>
-                    <form class="form form-login" method="POST">
+                    <form class="form form-login" method="POST" action="Login.php">
                         <fieldset>
                             <legend>Please, enter your email and password for login.</legend>
                             <div class="input-block">
@@ -117,30 +114,18 @@ require 'configration.php';
                             <div class="input-block">  
                                 <label>I am : <br> </label>
                                 <label for="Coach" class="container" >Coach &nbsp;&nbsp;
-                                    <input type="radio" id="Coach" name="Type" value="Coach" class="container" required >
+                                    <input type="radio" id="Coach" name="Type" value="coach" class="container" required >
                                     <span class="checkmark"></span>
                                 </label>
                                 <label for="Trainee" class="container" >Trainee 
-                                    <input type="radio" id="Trainee" name="Type" value="Trainee" class="container">
+                                    <input type="radio" id="Trainee" name="Type" value="trainee" class="container">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                         </fieldset>
-                        <button type="submit" class="btn-login" onclick="Redirect_Login(); return false;">Login</button>
+                        <button type="submit" class="btn-login" formaction="Login.php" >Login</button>
                     </form>
-                    <?php
-                    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                        if (isset($_POST['login-email']) && isset($_POST['login-password']) && isset($_POST['Type'])) {
-                            
-                            
-                        } else {
-                            //acually no need becouse the attrbiute required at the input but just to make sure.
-                            echo '<script type="text/JavaScript">  
-                                    alert("Enter All the requirment please !"); 
-                                    </script>';
-                        }
-                    }
-                    ?>
+                  
                 </div>
                 <div class="form-wrapper">
                     <button type="button" class="switcher switcher-signup">
@@ -165,7 +150,7 @@ require 'configration.php';
                             </div>
 
                         </fieldset>
-                        <button type="submit" class="btn-signup" onclick="Redirect_Signup(); return false;">Continue</button>
+                        <button type="submit" class="btn-signup">Continue</button>
                     </form>
                 </div>
             </div>
