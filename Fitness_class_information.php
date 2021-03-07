@@ -4,39 +4,34 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<?php   
- session_start();
-    // Check if the user is logged in, if not then redirect him to login page
-   if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: Login.php");
-    exit;
-   }
-
-   if ($_SESSION['type'] == 'coach') {
-      if($result->num_rows > 0) {
-            $mysqlQ = "SELECT * FROM class WHERE id=(select * FROM coach WHERE id=id);";
-            $result = mysqli_query($connection, $mysqlQ);
-            
-        echo "<table>";
-          echo "<th>Name</th>";
-          echo "<th>Email</th>";
-          echo "<th></th>";
-        while ($row = mysqli_fetch_assoc($result)) {
-           echo "<tr>";
-
-              echo "<td>".$row['name']."<td>";
-              echo "<td>".$row['email']."<td>";
-              echo "<td>"."<td>";
-//              
-           echo "</tr>";
-           
-         echo "</table>";
-       }
-    }
-      else {
-         echo 'No enrolled trainee yet';
+<?php
+//the importent line in php 
+require 'configration.php';
+//-----------------------------------------
+//from the ssesion you can get information about the user
+session_start();
+if (!isset($_SESSION['id'])) {
+    //if the user delete the ssesion it will redirect the user to the login again 
+    header("Location:index.html");
+    exit();
 }
-  if ($_SESSION['type'] == 'trainee') {}
+//----------------------------------------
+//to get class info 
+$mysql_info = "SELECT * FROM `class` WHERE id = '" . $_GET['ClassID'] . "';";
+$result_info = mysqli_query($connection, $mysql_info);
+$row_class = mysqli_fetch_assoc($result_info);
+if (!$result_info) {
+    echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
+}
+//-------------------------------------------
+//to get trainees info for the coach and display it .
+if ($_SESSION['type'] == 'coach') {
+    $sql_trainees = "SELECT * FROM `trainee` WHERE id IN (SELECT trainee_id FROM enrolment WHERE class_id = '" . $_GET['ClassID'] . "');";
+    $result_trainees = mysqli_query($connection, $sql_trainees);
+    if (!$result_trainees) {
+        echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
+    }
+}
 ?>
 <html>
 
@@ -561,13 +556,13 @@ and open the template in the editor.
                     <ul>
                         <li>
                             <!-- the user name by java  -->
-                            <del> <strong >Welcome User !</strong></del>
+                            <del> <strong >Welcome <?php echo $_SESSION['name']; ?> !</strong></del>
                         </li>
                     </ul>
                     <ul>
                         <li>
                             <!--sign out -->
-                            <a href="..html">
+                            <a href="SignOut.php">
                                 <svg class="hvr-float" width="30" height="30" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M3 1C2.44771 1 2 1.44772 2 2V13C2 13.5523 2.44772 14 3 14H10.5C10.7761 14 11 13.7761 11 13.5C11 13.2239 10.7761 13 10.5 13H3V2L10.5 2C10.7761 2 11 1.77614 11 1.5C11 1.22386 10.7761 1 10.5 1H3ZM12.6036 4.89645C12.4083 4.70118 12.0917 4.70118 11.8964 4.89645C11.7012 5.09171 11.7012 5.40829 11.8964 5.60355L13.2929 7H6.5C6.22386 7 6 7.22386 6 7.5C6 7.77614 6.22386 8 6.5 8H13.2929L11.8964 9.39645C11.7012 9.59171 11.7012 9.90829 11.8964 10.1036C12.0917 10.2988 12.4083 10.2988 12.6036 10.1036L14.8536 7.85355C15.0488 7.65829 15.0488 7.34171 14.8536 7.14645L12.6036 4.89645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
                                 <title>sign out</title>
@@ -588,12 +583,18 @@ and open the template in the editor.
             <h3 class="Headers" >
                 <del style = "--color: var(--del-color, #FFC107);">Fitness Class Information </del>  
                 <!-- Edite button -->
-                <a href="#" id='edit' >
+                <?php
+                if ($_SESSION['type'] == 'coach') {
+                    echo
+                    '<a href="#" id="edit" >
                     <svg width="50" height="50" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="Edit">
                     <path d="M12.1464 1.14645C12.3417 0.951184 12.6583 0.951184 12.8535 1.14645L14.8535 3.14645C15.0488 3.34171 15.0488 3.65829 14.8535 3.85355L10.9109 7.79618C10.8349 7.87218 10.7471 7.93543 10.651 7.9835L6.72359 9.94721C6.53109 10.0435 6.29861 10.0057 6.14643 9.85355C5.99425 9.70137 5.95652 9.46889 6.05277 9.27639L8.01648 5.34897C8.06455 5.25283 8.1278 5.16507 8.2038 5.08907L12.1464 1.14645ZM12.5 2.20711L8.91091 5.79618L7.87266 7.87267L8.12731 8.12732L10.2038 7.08907L13.7929 3.5L12.5 2.20711ZM9.99998 2L8.99998 3H4.9C4.47171 3 4.18056 3.00039 3.95552 3.01877C3.73631 3.03668 3.62421 3.06915 3.54601 3.10899C3.35785 3.20487 3.20487 3.35785 3.10899 3.54601C3.06915 3.62421 3.03669 3.73631 3.01878 3.95552C3.00039 4.18056 3 4.47171 3 4.9V11.1C3 11.5283 3.00039 11.8194 3.01878 12.0445C3.03669 12.2637 3.06915 12.3758 3.10899 12.454C3.20487 12.6422 3.35785 12.7951 3.54601 12.891C3.62421 12.9309 3.73631 12.9633 3.95552 12.9812C4.18056 12.9996 4.47171 13 4.9 13H11.1C11.5283 13 11.8194 12.9996 12.0445 12.9812C12.2637 12.9633 12.3758 12.9309 12.454 12.891C12.6422 12.7951 12.7951 12.6422 12.891 12.454C12.9309 12.3758 12.9633 12.2637 12.9812 12.0445C12.9996 11.8194 13 11.5283 13 11.1V6.99998L14 5.99998V11.1V11.1207C14 11.5231 14 11.8553 13.9779 12.1259C13.9549 12.407 13.9057 12.6653 13.782 12.908C13.5903 13.2843 13.2843 13.5903 12.908 13.782C12.6653 13.9057 12.407 13.9549 12.1259 13.9779C11.8553 14 11.5231 14 11.1207 14H11.1H4.9H4.87934C4.47686 14 4.14468 14 3.87409 13.9779C3.59304 13.9549 3.33469 13.9057 3.09202 13.782C2.7157 13.5903 2.40973 13.2843 2.21799 12.908C2.09434 12.6653 2.04506 12.407 2.0221 12.1259C1.99999 11.8553 1.99999 11.5231 2 11.1207V11.1206V11.1V4.9V4.87935V4.87932V4.87931C1.99999 4.47685 1.99999 4.14468 2.0221 3.87409C2.04506 3.59304 2.09434 3.33469 2.21799 3.09202C2.40973 2.71569 2.7157 2.40973 3.09202 2.21799C3.33469 2.09434 3.59304 2.04506 3.87409 2.0221C4.14468 1.99999 4.47685 1.99999 4.87932 2H4.87935H4.9H9.99998Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
                     <title>Edit</title>
                     </svg>
-                </a>
+                     </a>';
+                }
+                ?>
+
                 <!-- /Edite button -->
             </h3>
             <!-- Descraotion cards -->
@@ -602,8 +603,18 @@ and open the template in the editor.
                 <div class="card">
 
                     <div class="icon"><i class="material-icons md-36">assistant</i></div>
-                    <p class="title">Class Name:</p>
-                    <p class="text">Zumba Class</p>
+                    <p class="title">Coach Name:</p>
+                    <p class="text">
+                        <?php
+                        $sql_coach_info = "SELECT * FROM `coach` WHERE id IN (SELECT coach_id FROM class WHERE id ='" . $_GET['ClassID'] . "')";
+                        $result_coach_info = mysqli_query($connection, $sql_coach_info);
+                        if (!$result_coach_info) {
+                            echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
+                        } else {
+                            $row_coach = mysqli_fetch_assoc($result_coach_info);
+                            echo $row_coach['name'];
+                        }
+                        ?></p>
 
                 </div>
                 <!-- end card 1 -->
@@ -612,7 +623,10 @@ and open the template in the editor.
 
                     <div class="icon"><i class="material-icons md-36">equalizer</i></div>
                     <p class="title"> Level:</p>
-                    <p class="text">MEDIUM</p>
+                    <p class="text">
+                        <?php
+                        echo $row_class['level'];
+                        ?></p>
 
                 </div>
                 <!-- end card 2 -->
@@ -621,18 +635,21 @@ and open the template in the editor.
 
                     <div class="icon"><i class="material-icons md-36">chat</i></div>
                     <p class="title">Description:</p>
-                    <p class="text">Lorem ipsum dolor sit amet, consectetur</p>
+                    <p class="text"><?php
+                        echo $row_class['description'];
+                        ?></p>
 
                 </div>
                 <!-- end card 3 -->
             </div>
             <!-- /Descraotion cards -->
 
-            <!-- -----------------------------table------------------------------------ -->
+            <!-- -----------------------------table only for the coach------------------------------------ -->
 
-
-            <div class="contained">
-
+            <?php
+            if ($_SESSION['type'] == 'coach') {
+                //the table head
+                echo '<div class="contained">
                 <div class="limiter">
                     <div class="container-table100">
                         <div class="wrap-table100">
@@ -642,33 +659,31 @@ and open the template in the editor.
                                         <tr class="table100-head">
                                             <th class="column1">Trainee Name</th>
                                             <th class="column2">Email</th>
-                                            <th class="column3">Date of joining</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="column1">Nora</td>
-                                            <td class="column2">Nora@gmail.com</td>
-                                            <td class="column3">4/3/2019</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">Areeb</td>
-                                            <td class="column2">Areeb@gmail.com</td>
-                                            <td class="column2">6/8/2020</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">Reem </td>
-                                            <td class="column2">Remm@gmail.com</td>
-                                            <td class="column2">5/11/2020</td>
-
-                                        </tr>
-                                    </tbody>
+                                     <tbody>';
+                //the table content 
+                if (mysqli_num_rows($result_trainees) == 0) {
+                    echo '<tr><td class="column1"> No Trainers yet </td></tr>';
+                } else {
+                    while ($row = mysqli_fetch_assoc($result_trainees)) {
+                        echo
+                        ' <tr>'
+                        . '<td class="column1">' . $row['name'] . '</td>'
+                        . '<td class="column2">' . $row['email'] . '</td>
+                     </tr>';
+                    }
+                }
+                //the table end 
+                echo '             </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>';
+            }
+            ?>
 
             <!------------ Delete button ------------->
             <a class="button remoove"  id="remoove" role="button" title="Delete the class">
