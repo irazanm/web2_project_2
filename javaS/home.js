@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 function Redirect_Login() {
     var TypeOfUser = document.querySelector('input[name="Type"]:checked').value;
     if (TypeOfUser == "Coach") {
@@ -11,6 +12,7 @@ function Redirect_Login() {
         location.replace("Trainee_home.php");
     }
 }
+
 function Redirect_Signup() {
     location.replace("Trainee_home.html");
 }

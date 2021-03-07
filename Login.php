@@ -3,15 +3,19 @@
 //the importent line in php 
 require 'configration.php';
 //cheack if the server recive requst or not
-//try {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['login-email']) && isset($_POST['login-password']) && isset($_POST['Type'])) {
-        //  mysql_real_escape_string($_POST['login-email']);
-        //  mysql_real_escape_string($_POST['login-email']);
-        $sqlSerch = "SELECT * FROM " . $_POST['Type'] . " WHERE UPPER(email) = UPPER('" . $_POST['login-email'] . "') && UPPER(password) = UPPER('" . $_POST['login-password'] . "')";
+    if (isset($_POST['login-username']) && isset($_POST['login-password']) && isset($_POST['Type'])) {
+//        $_POST['login-email'] = mysql_real_escape_string($_POST['login-email']);
+//        $_POST['login-password'] = mysql_real_escape_string($_POST['login-password']);
+        //  $_POST['login-password'] = password_hash($_POST['login-password'], PASSWORD_BCRYPT); //hashing the password
+        $sqlSerch = "SELECT * FROM " . $_POST['Type'] . " WHERE username = '" . $_POST['login-username'] . "'";
         $result = mysqli_query($connection, $sqlSerch);
-        if (mysqli_num_rows($result) == 1) {
-            $row = mysqli_fetch_assoc($result);
+        $row = mysqli_fetch_assoc($result);
+        $_POST['login-password'] = $_POST['login-password'] . '';
+        $row['password'] = $row['password'] . '';
+        //mysqli_num_rows($result) == 1 && 
+        if (mysqli_num_rows($result) == 1 && password_verify($_POST['login-password'], $row['password'])) {
+
             session_start();
             if (!isset($_SESSION['type'])) {
                 //create session valribale 
@@ -25,43 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['speciality'] = $row['speciality'];
                 }
             }
-//            if (strcasecmp($_POST['login-email'], $row['email']) == 0 and strcasecmp($_POST['login-password'], $row['password']) == 0) {
             if ($_POST['Type'] == "coach") {
-                //echo "<script>window.location.href='Coach_home.php';</script>";
                 header("Location:Coach_home.php");
             } else {
-                // echo "<script>window.location.href='Trainee_home.php';</script>";
                 header("Location:Trainee_home.php");
             }
             exit();
-//            } else {
-//                throw new Exception('
-//                        <script type="text/JavaScript">  
-//              alert("Invalid password/email"); 
-//              </script>');
-//            }
         } else {
-            echo '<script type="text/JavaScript">window.location.href="index.html"; window.alert("Invalid password/email OR Invalid type "); </script>';
-//            echo '<script type="text/JavaScript">window.alert("Invalid password/email"); </script>';
-//            header("Location:index.html");
-//            exit();
-//                throw new Exception('
-//                        <script type="text/JavaScript">  
-//              alert("Invalid access"); 
-//              </script>');
+            echo '<script type="text/JavaScript">window.location.href="index.html"; window.alert("Invalid password/username OR Invalid type "); </script>';
         }
     } else {
         //acually no need becouse the attrbiute required at the input but just to make sure.
         echo '<script type="text/JavaScript">window.location.href="index.html"; window.alert("Enter All the requirment please !"); </script>';
-//        header("Location:index.html");
-//        exit();
     }
 }
-//} catch (Exception $ex) {
-//    echo getMessage($ex);
-//    //echo "<script>window.location.href='index.html';</script>";
-//    header("Location:index.html");
-//    exit();
-//}
 ?>
 
