@@ -14,7 +14,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="home.css">
         <script src="https://kit.fontawesome.com/48735e6971.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <style>
             /*-----DESCRAPTION CARD-------*/
             .content {
@@ -452,7 +452,6 @@ and open the template in the editor.
                     color: #666;
                 }
             }
-
         </style>
     </head>
     <body>
@@ -464,6 +463,7 @@ and open the template in the editor.
             header("Location:index.html");
             exit();
         }
+        $connection = mysqli_connect("localhost","root","root","fitness");
         ?>
         <header class="zoom-me" id ="heder">
             <nav class="menu-container">
@@ -517,11 +517,14 @@ and open the template in the editor.
                     <!-- card  3-->
                     <div class="card">
                         <div class="icon"><i class="material-icons md-36">run_circle</i></div>
-                        <p class="title">How many courses:</p>
+                        <p class="title">How many classes available:</p>
                         <p class="text">
                             <?php
                             //you have to send qury to get the num of the coureses 
                             //i think it will use count(*) at the qeury
+                            $result = mysqli_query($connection, "SELECT * FROM class");
+                            $row = mysqli_num_rows($result);
+                            echo $row;
                             ?></p>
                     </div>
                     <!-- end card 3 -->
@@ -541,75 +544,73 @@ and open the template in the editor.
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="column1">
-                                                <a class="link" href="Fitness_class_information.php">
-                                                    <span data-content="Zomba"> 
-                                                        Zomba
-                                                    </span>
-                                                </a> 
-                                            </td>
-                                            <td class="column2">Enrolled</td>
-                                            <td class="column3">
-                                                <!-- Drop button -->
-                                                <div class="outer">
-                                                    <div class="inner">
-                                                        <label>
-                                                            <input type="submit" value ="Drop" class="drop" onclick="enroll(1, 'drop'); return false;">
-                                                        </label>
+                                        <?php
+                                        //Display Enrolled First
+                                        $sql = "SELECT * FROM `class` WHERE id IN (SELECT class_id FROM `enrolment` WHERE trainee_id =".$_SESSION['id'].")";
+                                        $resultclass = mysqli_query($connection, $sql);
+                                        while($row = mysqli_fetch_assoc($resultclass)){
+                                            echo "<tr>
+                                                <td class='column1'>
+                                                    <a class='link' href='Fitness_class_information.php'>
+                                                        <span data-content='".$row["name"]."'>". 
+                                                            $row["name"]
+                                                        ."</span>
+                                                    </a>
+                                                </td>
+                                                <td class='column2'>
+                                                    Enrolled
+                                                </td>
+                                                <td class='column3'>
+                                                    <!-- Drop button -->
+                                                    <div class='outer'>
+                                                        <div class='inner'>
+                                                            <label>
+                                                                <input type='submit' value ='Drop' class='drop'>
+                                                            </label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <!-- /Drop button -->
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">
-                                                <a class="link" href="Fitness_class_information.php">
-                                                    <span data-content="Aerobic beginner"> 
-                                                        Aerobic beginner
-                                                    </span>
-                                                </a> 
-                                            </td>
-                                            <td class="column2">Enrolled</td>
-                                            <td class="column3"> 
-                                                <!-- Drop button -->
-                                                <div class="outer">
-                                                    <div class="inner">
-                                                        <label>
-                                                            <input type="submit" value ="Drop" class="drop" onclick="enroll(2, 'drop'); return false;">
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <!-- /Drop button -->
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="column1">
-                                                <a class="link" href="..html">
-                                                    <span data-content="Cycling 1"> 
-                                                        Cycling 1
-                                                    </span>
-                                                </a> 
-                                            </td>
-                                            <td class="column2">
-                                                <a onclick="enroll(3, 'add'); return false;" class="link"> 
-                                                    <span data-content="Enroll"> 
-                                                        Enroll
-                                                    </span>
-                                                </a>
-                                            </td>
-                                            <td class="column3">
-                                                <!-- Drop button -->
-                                                <div>
-                                                    <div>
-                                                        <label>
-                                                            <input type="submit" value ="add" class="drop" onclick="enroll(3, 'add'); return false;">
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <!-- /Drop button -->
-                                            </td>
-                                        </tr>
+                                                    <!-- /Drop button -->
+                                                </td>
+                                                </tr>";
+                                        }
+                                        //Display Enroll
+                                        $sqlc = "SELECT * FROM `class` WHERE id NOT IN (SELECT class_id FROM `enrolment` WHERE trainee_id =".$_SESSION['id'].")";
+                                        $classresult = mysqli_query($connection, $sqlc);
+                                        While($Crow = mysqli_fetch_assoc($classresult)){
+                                            echo "<tr>
+                                                <td class='column1'>
+                                                    <a class='link' href='Fitness_class_information.php'>
+                                                        <span data-content='".$Crow["name"]."'>". 
+                                                            $Crow["name"]
+                                                        ."</span>
+                                                    </a>
+                                                </td>
+                                                <td class='column2'>
+                                                            <a class='link' data-value='".$Crow["id"]."' name='Enrollmentid'> 
+                                                                <span data-content='Enroll'> 
+                                                                    Enroll
+                                                                </span>
+                                                            </a>
+                                                </td>
+                                                <td class='column3'>
+                                                </td>
+                                                </tr>";
+                                        }
+                                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                            //count row number for enrollment id 
+                                            $enrolledResult = mysqli_query($connection, "SELECT * FROM enrolment");
+                                            $count=0;
+                                            while($Erow = mysqli_fetch_assoc($enrolledResult)){
+                                                $count++;
+                                            }
+                                            $count++;
+                                            //insert new enrollment row
+                                            $EnrollmentID = $_POST['Enrollmentid'];
+                                            echo "<p>".$EnrollmentID."</p>";
+                                            $sql = "INSERT INTO `enrolment`(`id`, `trainee_id`, `class_id`) VALUES (".$count.",".$_SESSION["id"].",".$EnrollmentID.")";
+                                            $result = mysqli_query($connection, $sql);
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -621,7 +622,7 @@ and open the template in the editor.
             <div class="bg-modal_drop">
                 <div class="modal-contents">
                     <div class="close_drop">+</div>
-                    <form action="">
+                    <form action="Trainee_home.php" method="POST">
                         <h2 style ="color: #3b4465;"><del style = "--color: var(--del-color, #FFC107);">Are you sure</del></h2>
                         <a  class="button_drop">yes</a>
                         <a class="button_no">no</a>
@@ -651,7 +652,6 @@ and open the template in the editor.
                             <i class="fab fa-twitter"></i>    
                         </a>
                     </li>
-
                 </ul>
             </section>
         </footer>
@@ -683,65 +683,15 @@ and open the template in the editor.
 
                     break;
             }
-
-            //drop
-            var i, j;
-            function enroll(rr, ok) {
-                document.querySelector('.bg-modal_drop').style.display = "flex";
-                document.querySelector('#video').style.display = "none";
-                document.getElementById("heder").style.paddingBottom = "0%";
-                // no
-                document.querySelector('.button_no').addEventListener("click", function () {
-                    document.querySelector('.bg-modal_drop').style.display = "none";
-                    document.querySelector('#video').style.display = "flex";
-                    document.getElementById("heder").style.paddingBottom = "44%";
+            $(document).ready(function(){
+                $('td.column2').on('click', function(e){
+                $('form').submit();
                 });
-                //yes
-                document.querySelector('.button_drop').addEventListener("click", function () {
-                    var drop = document.getElementById("table");
-//                    if (ok == "add") {
-//                        var z = drop.rows[rr].cells;
-//                        ""
-//                        z[1].innerHTML = "<a onclick=\'enroll(" + rr + ",\"drop\"); return false;\'>Enrolled</a>";
-//                        var sh = drop.rows[rr].cells;
-//                        sh[2].innerHTML = '<div class="outer"> <div class="inner"><label><input type="submit" value ="Drop" class="drop" onclick=\"enroll(' + rr + ',\'drop\'); return false;\"></label></div></div>';
-//                    } else {
-//                        var x = drop.rows[rr].cells;
-//                        x[1].innerHTML = "<a onclick=\'enroll(" + rr + ",\"add\"); return false;\' class=\"link\"><span data-content=\"Enroll\">Enroll</span></a>";
-//                        var y = drop.rows[rr].cells;
-//                        y[2].innerHTML = '<div><div><label><input type="submit" value ="add" class="drop" onclick=\"enroll(' + rr + ',\'add\'); return false;\"></label></div></div>';
-//                    }
-                    // var i, drop = document.getElementById("table");
-                    // for(var j=0; j< drop.rows.length;j++){
-                    //      drop.rows[j].cells[2].onclick = function(){
-                    //      i= this.parentElement.rowIndex;
-                    //      drop.deleteRow(i);
-                    //      console.log(i);
-                    //      };
-                    // }
-                    // .innerHTML=
-                    // document.getElementById("table").deleteRow(1);
-                    document.querySelector('.bg-modal_drop').style.display = "none";
-                    document.querySelector('#video').style.display = "flex";
-                    document.getElementById("heder").style.paddingBottom = "44%";
-                });
-
-                document.querySelector('.close_drop').addEventListener("click", function () {
-                    document.querySelector('.bg-modal_drop').style.display = "none";
-                    document.querySelector('#video').style.display = "flex";
-                    document.getElementById("heder").style.paddingBottom = "44%";
-                });
+            });
+            //to prevent POST alert from appearing
+            if ( window.history.replaceState ) {
+                window.history.replaceState( null, null, window.location.href );
             }
-            //var x = document.getElementsByClassName("outer");
-            // var i;
-            // for (i = 0; i < x.length; i++) {
-            //      x[i].addEventListener("click", function() {
-            //          //alert(i);  
-            ////        document.querySelector('.bg-modal_edit').style.display = "flex";
-            ////        document.querySelector('#video').style.display = "none";
-            ////        document.getElementById("heder").style.paddingBottom = "0%";
-            //      });
-            // }
         </script>
     </body>
 </html>
