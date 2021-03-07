@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location:Trainee_home.php");
             exit();
         } else {
-            echo '<script type="text/JavaScript">window.location.href="index.html"; window.alert("exist username  \n try again!!"); </script>';
+            echo '<script type="text/JavaScript">window.location.href="index.html"; window.alert("exist email or username  \n try again!!"); </script>';
         }
     }
 }
