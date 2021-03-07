@@ -586,7 +586,7 @@ and open the template in the editor.
                                                     </a>
                                                 </td>
                                                 <td class='column2'>
-                                                            <a class='link' data-value='".$Crow["id"]."' name='Enrollmentid'"; if (isset($Enrollmentid) && $Enrollmentid==$Crow["id"]) echo "checked";"> 
+                                                            <a class='link' data-value='".$Crow["id"]."' name='Enrollmentid'> 
                                                                 <span data-content='Enroll'> 
                                                                     Enroll
                                                                 </span>
@@ -596,18 +596,6 @@ and open the template in the editor.
                                                 </td>
                                                 </tr>";
                                         }
-                                        ////////////////////////////////////////////
-                                        $info_table = array('LBC' => array('price' => 250,'payment' => 'BPI',),
-                                                            'PickUp' => array('price' => 0,'payment' => '',),
-                                        );
-                                        if(isset($_POST['carrier'])){
-                                            echo $_POST['carrier'];
-                                            $price = $info_table[$_POST['carrier']]['price'];
-                                            $payment = $info_table[$_POST['carrier']]['payment'];
-                                            echo '<br/>' . $price . '<br/>';
-                                            echo $payment;
-                                        }
-                                        ////////////////////////////////////////
                                         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             //count row number for enrollment id 
                                             $enrolledResult = mysqli_query($connection, "SELECT * FROM enrolment");
