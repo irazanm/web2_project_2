@@ -4,7 +4,40 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<?php   
+ session_start();
+    // Check if the user is logged in, if not then redirect him to login page
+   if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: Login.php");
+    exit;
+   }
 
+   if ($_SESSION['type'] == 'coach') {
+      if($result->num_rows > 0) {
+            $mysqlQ = "SELECT * FROM class WHERE id=(select * FROM coach WHERE id=id);";
+            $result = mysqli_query($connection, $mysqlQ);
+            
+        echo "<table>";
+          echo "<th>Name</th>";
+          echo "<th>Email</th>";
+          echo "<th></th>";
+        while ($row = mysqli_fetch_assoc($result)) {
+           echo "<tr>";
+
+              echo "<td>".$row['name']."<td>";
+              echo "<td>".$row['email']."<td>";
+              echo "<td>"."<td>";
+//              
+           echo "</tr>";
+           
+         echo "</table>";
+       }
+    }
+      else {
+         echo 'No enrolled trainee yet';
+}
+  if ($_SESSION['type'] == 'trainee') {}
+?>
 <html>
 
     <head>
