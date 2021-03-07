@@ -14,7 +14,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="home.css">
         <script src="https://kit.fontawesome.com/48735e6971.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <style>
             /*-----DESCRAPTION CARD-------*/
             .content {
@@ -586,19 +586,28 @@ and open the template in the editor.
                                                     </a>
                                                 </td>
                                                 <td class='column2'>
-                                                    <form method='POST' action='Trainee_home.php' id='form'>
-                                                            <a class='link' data-value='".$Crow["id"]."' name='Enrollmentid' onclick='document.getElementById('form').submit();'> 
+                                                            <a class='link' data-value='".$Crow["id"]."' name='Enrollmentid'"; if (isset($Enrollmentid) && $Enrollmentid==$Crow["id"]) echo "checked";"> 
                                                                 <span data-content='Enroll'> 
                                                                     Enroll
                                                                 </span>
                                                             </a>
-                                                            <input type='hidden' name='Enrollmentid' value='".$Crow["id"]."' />
-                                                    </form>
                                                 </td>
                                                 <td class='column3'>
                                                 </td>
                                                 </tr>";
                                         }
+                                        ////////////////////////////////////////////
+                                        $info_table = array('LBC' => array('price' => 250,'payment' => 'BPI',),
+                                                            'PickUp' => array('price' => 0,'payment' => '',),
+                                        );
+                                        if(isset($_POST['carrier'])){
+                                            echo $_POST['carrier'];
+                                            $price = $info_table[$_POST['carrier']]['price'];
+                                            $payment = $info_table[$_POST['carrier']]['payment'];
+                                            echo '<br/>' . $price . '<br/>';
+                                            echo $payment;
+                                        }
+                                        ////////////////////////////////////////
                                         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             //count row number for enrollment id 
                                             $enrolledResult = mysqli_query($connection, "SELECT * FROM enrolment");
@@ -686,6 +695,11 @@ and open the template in the editor.
 
                     break;
             }
+            $(document).ready(function(){
+                $('td.column2').on('click', function(e){
+                $('form').submit();
+                });
+            });
             //to prevent POST alert from appearing
             if ( window.history.replaceState ) {
                 window.history.replaceState( null, null, window.location.href );
