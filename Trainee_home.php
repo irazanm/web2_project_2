@@ -463,7 +463,34 @@ and open the template in the editor.
             header("Location:index.html");
             exit();
         }
+        //connection 
         $connection = mysqli_connect("localhost","root","root","fitness");
+        //Trainee edits
+        if ($_SERVER['REQUEST_METHOD'] == "GET"){
+            //drop class
+            if(isset($_GET['Drop'])){
+                $ClassID = $_GET['Drop'];
+                $sqlC = "DELETE FROM `enrolment` WHERE trainee_id=".$_SESSION["id"]." AND class_id =".$ClassID;
+                $resultDelete = mysqli_query($connection, $sqlC);
+            }
+            // enroll into class
+            //count row number for enrollment id 
+            $enrolledResult = mysqli_query($connection, "SELECT * FROM enrolment");
+            $EnrollmentID= mysqli_num_rows($enrolledResult);
+            $EnrollmentID++;
+            //insert new enrollment row
+            if(isset($_GET['Enroll'])){
+                $sql = "SELECT * FROM `enrolment` WHERE trainee_id=".$_SESSION["id"]." AND class_id=".$_GET['Enroll'];
+                $result = mysqli_query($connection, $sql);
+                //check if already enrolled or not
+                $exist = mysqli_num_rows($result);
+                if($exist==0){
+                    $classid =  $_GET['Enroll'];
+                    $sql = "INSERT INTO `enrolment`(`id`, `trainee_id`, `class_id`) VALUES (".$EnrollmentID.",".$_SESSION["id"].",".$classid.")";
+                    $result = mysqli_query($connection, $sql);
+                }
+            }
+        }
         ?>
         <header class="zoom-me" id ="heder">
             <nav class="menu-container">
@@ -551,7 +578,7 @@ and open the template in the editor.
                                         while($row = mysqli_fetch_assoc($resultclass)){
                                             echo "<tr>
                                                 <td class='column1'>
-                                                    <a class='link' href='Fitness_class_information.php'>
+                                                    <a class='link' href='Fitness_class_information.php?ClassID=".$row["id"]."'>
                                                         <span data-content='".$row["name"]."'>". 
                                                             $row["name"]
                                                         ."</span>
@@ -564,9 +591,12 @@ and open the template in the editor.
                                                     <!-- Drop button -->
                                                     <div class='outer'>
                                                         <div class='inner'>
+                                                            <form method='GET' action='Trainee_home.php'>
                                                             <label>
                                                                 <input type='submit' value ='Drop' class='drop'>
+                                                                <input type='hidden' value ='".$row["id"]."' name='Drop'>
                                                             </label>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                     <!-- /Drop button -->
@@ -579,54 +609,30 @@ and open the template in the editor.
                                         While($Crow = mysqli_fetch_assoc($classresult)){
                                             echo "<tr>
                                                 <td class='column1'>
-                                                    <a class='link' href='Fitness_class_information.php'>
+                                                    <a class='link' href='Fitness_class_information.php?ClassID=".$Crow["id"]."'>
                                                         <span data-content='".$Crow["name"]."'>". 
                                                             $Crow["name"]
                                                         ."</span>
                                                     </a>
                                                 </td>
                                                 <td class='column2'>
-                                                            <a class='link' data-value='".$Crow["id"]."' name='Enrollmentid'> 
-                                                                <span data-content='Enroll'> 
-                                                                    Enroll
-                                                                </span>
-                                                            </a>
+                                                    <a class='link' href='Trainee_home.php?Enroll=".$Crow["id"]."'> 
+                                                        <span data-content='Enroll'> 
+                                                            Enroll
+                                                        </span>
+                                                    </a>
                                                 </td>
                                                 <td class='column3'>
                                                 </td>
                                                 </tr>";
                                         }
-                                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                                            //count row number for enrollment id 
-                                            $enrolledResult = mysqli_query($connection, "SELECT * FROM enrolment");
-                                            $count=0;
-                                            while($Erow = mysqli_fetch_assoc($enrolledResult)){
-                                                $count++;
-                                            }
-                                            $count++;
-                                            //insert new enrollment row
-                                            $EnrollmentID = $_POST['Enrollmentid'];
-                                            echo "<p>".$EnrollmentID."</p>";
-                                            $sql = "INSERT INTO `enrolment`(`id`, `trainee_id`, `class_id`) VALUES (".$count.",".$_SESSION["id"].",".$EnrollmentID.")";
-                                            $result = mysqli_query($connection, $sql);
-                                        }
+                                        mysqli_close($connection);
                                         ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- drop class -->
-            <div class="bg-modal_drop">
-                <div class="modal-contents">
-                    <div class="close_drop">+</div>
-                    <form action="Trainee_home.php" method="POST">
-                        <h2 style ="color: #3b4465;"><del style = "--color: var(--del-color, #FFC107);">Are you sure</del></h2>
-                        <a  class="button_drop">yes</a>
-                        <a class="button_no">no</a>
-                    </form>
                 </div>
             </div>
         </main>
@@ -682,15 +688,6 @@ and open the template in the editor.
                     document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
 
                     break;
-            }
-            $(document).ready(function(){
-                $('td.column2').on('click', function(e){
-                $('form').submit();
-                });
-            });
-            //to prevent POST alert from appearing
-            if ( window.history.replaceState ) {
-                window.history.replaceState( null, null, window.location.href );
             }
         </script>
     </body>
