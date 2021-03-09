@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 07, 2021 at 06:05 PM
+-- Generation Time: Mar 07, 2021 at 07:07 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -147,7 +147,8 @@ ALTER TABLE `enrolment`
 --
 ALTER TABLE `trainee`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Constraints for dumped tables
