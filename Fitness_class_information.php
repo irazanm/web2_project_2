@@ -573,7 +573,7 @@ if ($_SESSION['type'] == 'coach') {
                 </div>
             </nav>
             <div id="video">
-
+                <video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>
             </div>
         </header>
         <!-- the content  -->
@@ -730,7 +730,7 @@ if ($_SESSION['type'] == 'coach') {
         <footer>
             <!-- logo -->
             <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
-            <p style="margin-left:20%; margin-left: 20%;font-family: 'Amatic SC', cursive;"><del id="inside-footer"></del></p>
+            <p style="margin-left:20%; margin-left: 20%;font-family: 'Amatic SC', cursive;"><del id="inside-footer">"Fitness is not a destination it is a way of life"</del></p>
             <section class="social">
                 <ul>
                     <li>
@@ -830,6 +830,10 @@ if ($_SESSION['type'] == 'coach') {
                     document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
 
                     break;
+                default:
+                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>';
+                    document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
+
             }
             ;
             (function () {
