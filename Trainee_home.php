@@ -578,7 +578,7 @@ and open the template in the editor.
                                         while($row = mysqli_fetch_assoc($resultclass)){
                                             echo "<tr>
                                                 <td class='column1'>
-                                                    <a class='link' href='Fitness_class_information.php'>
+                                                    <a class='link' href='Fitness_class_information.php?ClassID=".$row["id"]."'>
                                                         <span data-content='".$row["name"]."'>". 
                                                             $row["name"]
                                                         ."</span>
@@ -609,7 +609,7 @@ and open the template in the editor.
                                         While($Crow = mysqli_fetch_assoc($classresult)){
                                             echo "<tr>
                                                 <td class='column1'>
-                                                    <a class='link' href='Fitness_class_information.php'>
+                                                    <a class='link' href='Fitness_class_information.php?ClassID=".$Crow["id"]."'>
                                                         <span data-content='".$Crow["name"]."'>". 
                                                             $Crow["name"]
                                                         ."</span>
