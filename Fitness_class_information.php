@@ -17,19 +17,23 @@ if (!isset($_SESSION['id'])) {
 }
 //----------------------------------------
 //to get class info 
-$mysql_info = "SELECT * FROM `class` WHERE id = '" . $_GET['ClassID'] . "';";
-$result_info = mysqli_query($connection, $mysql_info);
-$row_class = mysqli_fetch_assoc($result_info);
-if (!$result_info) {
-    echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
-}
-//-------------------------------------------
-//to get trainees info for the coach and display it .
-if ($_SESSION['type'] == 'coach') {
-    $sql_trainees = "SELECT * FROM `trainee` WHERE id IN (SELECT trainee_id FROM enrolment WHERE class_id = '" . $_GET['ClassID'] . "');";
-    $result_trainees = mysqli_query($connection, $sql_trainees);
-    if (!$result_trainees) {
+if (isset($_GET['ClassID'])) {
+    $mysql_info = "SELECT * FROM `class` WHERE id = '" . $_GET['ClassID'] . "';";
+    $result_info = mysqli_query($connection, $mysql_info);
+    $row_class = mysqli_fetch_assoc($result_info);
+    if (!$result_info) {
         echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
+    }
+//-------------------------------------------
+//to get trainees info for the coach and display it
+    if ($_GET['Type_Of_Info'] == 'trainees_list') {
+        if ($_SESSION['type'] == 'coach') {
+            $sql_trainees = "SELECT * FROM `trainee` WHERE id IN (SELECT trainee_id FROM enrolment WHERE class_id = '" . $_GET['ClassID'] . "');";
+            $result_trainees = mysqli_query($connection, $sql_trainees);
+            if (!$result_trainees) {
+                echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
+            }
+        }
     }
 }
 ?>
@@ -597,57 +601,61 @@ if ($_SESSION['type'] == 'coach') {
 
                 <!-- /Edite button -->
             </h3>
-            <!-- Descraotion cards -->
-            <div class="content">
-                <!-- card 1-->
-                <div class="card">
+            <?php if ($_GET['Type_Of_Info'] == 'Info' || $_SESSION['type'] == 'trainee') {
+                ?>
+                <!-- Descraotion cards -->
+                <div class="content">
+                    <!-- card 1-->
+                    <div class="card">
 
-                    <div class="icon"><i class="material-icons md-36">assistant</i></div>
-                    <p class="title">Coach Name:</p>
-                    <p class="text">
-                        <?php
-                        $sql_coach_info = "SELECT * FROM `coach` WHERE id IN (SELECT coach_id FROM class WHERE id ='" . $_GET['ClassID'] . "')";
-                        $result_coach_info = mysqli_query($connection, $sql_coach_info);
-                        if (!$result_coach_info) {
-                            echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
-                        } else {
-                            $row_coach = mysqli_fetch_assoc($result_coach_info);
-                            echo $row_coach['name'];
-                        }
-                        ?></p>
+                        <div class="icon"><i class="material-icons md-36">assistant</i></div>
+                        <p class="title">Coach Name:</p>
+                        <p class="text">
+                            <?php
+                            $sql_coach_info = "SELECT * FROM `coach` WHERE id IN (SELECT coach_id FROM class WHERE id ='" . $_GET['ClassID'] . "')";
+                            $result_coach_info = mysqli_query($connection, $sql_coach_info);
+                            if (!$result_coach_info) {
+                                echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
+                            } else {
+                                $row_coach = mysqli_fetch_assoc($result_coach_info);
+                                echo $row_coach['name'];
+                            }
+                            ?></p>
 
+                    </div>
+                    <!-- end card 1 -->
+                    <!-- card 2 -->
+                    <div class="card">
+
+                        <div class="icon"><i class="material-icons md-36">equalizer</i></div>
+                        <p class="title"> Level:</p>
+                        <p class="text">
+                            <?php
+                            echo $row_class['level'];
+                            ?></p>
+
+                    </div>
+                    <!-- end card 2 -->
+                    <!-- card  3-->
+                    <div class="card">
+
+                        <div class="icon"><i class="material-icons md-36">chat</i></div>
+                        <p class="title">Description:</p>
+                        <p class="text"><?php
+                            echo $row_class['description'];
+                            ?></p>
+
+                    </div>
+                    <!-- end card 3 -->
                 </div>
-                <!-- end card 1 -->
-                <!-- card 2 -->
-                <div class="card">
-
-                    <div class="icon"><i class="material-icons md-36">equalizer</i></div>
-                    <p class="title"> Level:</p>
-                    <p class="text">
-                        <?php
-                        echo $row_class['level'];
-                        ?></p>
-
-                </div>
-                <!-- end card 2 -->
-                <!-- card  3-->
-                <div class="card">
-
-                    <div class="icon"><i class="material-icons md-36">chat</i></div>
-                    <p class="title">Description:</p>
-                    <p class="text"><?php
-                        echo $row_class['description'];
-                        ?></p>
-
-                </div>
-                <!-- end card 3 -->
-            </div>
-            <!-- /Descraotion cards -->
-
+                <!-- /Descraotion cards -->
+                <?php
+            }
+            ?>
             <!-- -----------------------------table only for the coach------------------------------------ -->
 
             <?php
-            if ($_SESSION['type'] == 'coach') {
+            if ($_SESSION['type'] == 'coach' && $_GET['Type_Of_Info'] == 'trainees_list') {
                 //the table head
                 echo '<div class="contained">
                 <div class="limiter">
@@ -683,17 +691,29 @@ if ($_SESSION['type'] == 'coach') {
                 </div>
             </div>';
             }
-            ?>
+            if ($_SESSION['type'] == 'trainee') {
+                ?>
 
-            <!------------ Delete button ------------->
-            <a class="button remoove"  id="remoove" role="button" title="Delete the class">
-                <span>remove</span>
-                <div class="icon-Delete">	
-                    <i class="fa fa-remove"></i>
-                    <i class="fa fa-check"></i>	     
-                </div>
-            </a>
-            <!------------ /Delete button ------------->
+                <!------------ Delete button ------------->
+                <a class="button remoove"  id="remoove" role="button" title="Delete the class"   >
+                    <span>Drop</span>
+                    <div class="icon-Delete">
+                        <i class="fa fa-remove"> </i>
+                        <i class="fa fa-check"></i>	     
+                    </div>
+                </a>
+                <!------------ /Delete button ------------->
+                <?php
+            }
+//            if ($_SERVER['REQUEST_METHOD'] == "GET") {
+//                //drop class
+//                if (isset($_GET['Drop'])) {
+//                    $ClassID = $_GET['Drop'];
+//                    $sqlC = "DELETE FROM `enrolment` WHERE trainee_id=" . $_SESSION["id"] . " AND class_id =" . $ClassID;
+//                    $resultDelete = mysqli_query($connection, $sqlC);
+//                }
+//            }
+            ?>
             <!-- edit class -->
 
             <div class="bg-modal_edit"><!---->
