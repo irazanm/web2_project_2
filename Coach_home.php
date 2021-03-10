@@ -467,7 +467,6 @@ and open the template in the editor.
                                             }
                                         }
                                         if (isset($_POST['edit']) && isset($_POST['title']) && isset($_POST['level']) && isset($_POST['description']) && isset($_FILES['image']['name'])) {
-                                            $classid = $_POST['classid'];
                                             $Title = $_POST['title'];
                                             $Level = $_POST['level'];
                                             $Description = $_POST['description'];
