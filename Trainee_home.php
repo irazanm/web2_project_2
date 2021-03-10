@@ -474,20 +474,18 @@ and open the template in the editor.
                 $sqlC = "DELETE FROM `enrolment` WHERE trainee_id=" . $_SESSION["id"] . " AND class_id =" . $ClassID;
                 $resultDelete = mysqli_query($connection, $sqlC);
             }
-            // enroll into class
-            //count row number for enrollment id 
-            $enrolledResult = mysqli_query($connection, "SELECT * FROM enrolment");
-            $EnrollmentID = mysqli_num_rows($enrolledResult);
-            $EnrollmentID++;
             //insert new enrollment row
             if (isset($_GET['Enroll'])) {
                 $sql = "SELECT * FROM `enrolment` WHERE trainee_id=" . $_SESSION["id"] . " AND class_id=" . $_GET['Enroll'];
                 $result = mysqli_query($connection, $sql);
+                $sql1 = "SELECT id + 1 AS gap FROM `enrolment` mo WHERE NOT EXISTS(SELECT NULL FROM `enrolment` mi WHERE mi.id = mo.id + 1)ORDER BY id";
+                $result1 = mysqli_query($connection, $sql1);
+                $row = mysqli_fetch_assoc($result1);
                 //check if already enrolled or not
                 $exist = mysqli_num_rows($result);
                 if ($exist == 0) {
                     $classid = $_GET['Enroll'];
-                    $sql = "INSERT INTO `enrolment`(`id`, `trainee_id`, `class_id`) VALUES (" . $EnrollmentID . "," . $_SESSION["id"] . "," . $classid . ")";
+                    $sql = "INSERT INTO `enrolment`(`id`,`trainee_id`, `class_id`) VALUES (".$row["gap"]. "," . $_SESSION["id"] . "," . $classid . ")";
                     $result = mysqli_query($connection, $sql);
                 }
             }

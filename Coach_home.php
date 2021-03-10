@@ -448,17 +448,30 @@ and open the template in the editor.
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $connection = mysqli_connect("localhost","root","root","fitness");
                                     if ($_SERVER['REQUEST_METHOD'] == "GET") {
-                                        if (isset($_GET['title']) && isset($_GET['level']) && isset($_GET['description'])) {
+                                        if (isset($_GET['add']) && isset($_GET['title']) && isset($_GET['level']) && isset($_GET['description']) && isset($_GET['image'])) {
+                                            $Result = mysqli_query($connection, "SELECT * FROM `class`");
+                                            $IDno = mysqli_num_rows($Result);
+                                            $IDno++;
                                             $Title = $_GET['title'];
                                             $Level = $_GET['level'];
                                             $Description = $_GET['description'];
-                                            $Result = mysqli_query($connection, "SELECT * FROM class");
-                                            $IDno = mysqli_num_rows($Result);
-                                            $IDno++;
-                                            $sql = "INSERT INTO `class`(`id`, `coach_id`, `name`, `level`, `description`, `class_image`) VALUES (" . $IDno . "," . $_SESSION['id'] . "," . $Title . "," . $Level . "," . $Description . ",---)";
+                                            $image = $_GET['image'];
+                                            $sql = "INSERT INTO `class`(`id`, `coach_id`, `name`, `level`, `description`, `class_image`) VALUES ( $IDno ," . $_SESSION['id'] . " , '".$Title."' , $Level , '".$Description."' , '".$image."' )";
+                                            //$result = mysqli_query($connection, $sql);
                                             $result = mysqli_query($connection, $sql);
+                                            
+                                        }
+                                        if (isset($_GET['edit']) && isset($_GET['title']) && isset($_GET['level']) && isset($_GET['description']) && isset($_GET['image'])) {
+                                            
+                                            $Title = $_GET['title'];
+                                            $Level = $_GET['level'];
+                                            $Description = $_GET['description'];
+                                            $image = $_GET['image'];
+                                            $sql = "UPDATE INTO `class`(`id`, `coach_id`, `name`, `level`, `description`, `class_image`) VALUES ( $IDno ," . $_SESSION['id'] . " , '".$Title."' , $Level , '".$Description."' , '".$image."' )";
+                                            //$result = mysqli_query($connection, $sql);
+                                            $result = mysqli_query($connection, $sql);
+                                            
                                         }
                                     }
                                     $resultclass = mysqli_query($connection, "SELECT * FROM `class`");
@@ -492,7 +505,7 @@ and open the template in the editor.
                                         ?>
                                     <tr>
                                         <td class="column1" colspan="3">
-                                            <a  id="button"class="add_class" >+ Add fitness class</a>
+                                            <a  id="button" class="add_class" >+ Add fitness class</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -514,10 +527,11 @@ and open the template in the editor.
                     <h2><del style = "--color: var(--del-color, #FFC107);">Add Fitness Class</del></h2>
                     <input type="text" placeholder="Title" required id="title" name="title">
                     <input type="number" placeholder="Level" required id="level" name="level">
+                    <input type="file" name="image">
                     <textarea id="description" name="description" placeholder="Description" rows="4" cols="50"></textarea>
-                    <input  type="submit" value="Submit" class="add_button"><!--onclick="addClass();"-->
+                    <input  type="submit" value="Submit" class="add_button">
+                    <input type="hidden" value ="add" name="add">
                 </form>
-
             </div>
         </div>
         <!--/  add class-->
@@ -528,12 +542,14 @@ and open the template in the editor.
 
                 <div class="close_edit">+</div>
 
-                <form action="">
+                <form action="Coach_home.php" method="GET">
                     <h2><del style = "--color: var(--del-color, #FFC107);">Edit Fitness Class</del></h2>
                     <input type="text" placeholder="Title" required id="title" name="title">
                     <input type="number" placeholder="Level" required id="level" name="level">
+                    <input type="file" name="image">
                     <textarea id="description" name="description" placeholder="Description" rows="4" cols="50"></textarea>
-                    <a  class="button_edit">Submit</a>                <!--  onclick="addClass();"-->
+                    <input  type="submit" value="Submit" class="button_edit">
+                    <input type="hidden" value ="edit" name="edit">
                 </form>
 
             </div>
