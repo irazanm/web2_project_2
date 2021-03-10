@@ -448,13 +448,12 @@ and open the template in the editor.
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $connection = mysqli_connect("localhost","root","root","fitness");
                                     if ($_SERVER['REQUEST_METHOD'] == "GET") {
                                         if (isset($_GET['title']) && isset($_GET['level']) && isset($_GET['description'])) {
                                             $Title = $_GET['title'];
                                             $Level = $_GET['level'];
                                             $Description = $_GET['description'];
-                                            $Result = mysqli_query($connection, "SELECT * FROM class");
+                                            $Result = mysqli_query($connection, "SELECT * FROM `class`");
                                             $IDno = mysqli_num_rows($Result);
                                             $IDno++;
                                             $sql = "INSERT INTO `class`(`id`, `coach_id`, `name`, `level`, `description`, `class_image`) VALUES (" . $IDno . "," . $_SESSION['id'] . "," . $Title . "," . $Level . "," . $Description . ",---)";
