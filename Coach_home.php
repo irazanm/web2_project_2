@@ -448,26 +448,31 @@ and open the template in the editor.
                                 </thead>
                                 <tbody>
                                     <?php
-                                    if ($_SERVER['REQUEST_METHOD'] == "GET") {
-                                        if (isset($_GET['add']) && isset($_GET['title']) && isset($_GET['level']) && isset($_GET['description']) && isset($_GET['image'])) {
-                                            $Result = mysqli_query($connection, "SELECT * FROM `class`");
-                                            $IDno = mysqli_num_rows($Result);
-                                            $IDno++;
-                                            $Title = $_GET['title'];
-                                            $Level = $_GET['level'];
-                                            $Description = $_GET['description'];
-                                            $image = $_GET['image'];
-                                            $sql = "INSERT INTO `class`(`id`, `coach_id`, `name`, `level`, `description`, `class_image`) VALUES ( $IDno ," . $_SESSION['id'] . " , '".$Title."' , $Level , '".$Description."' , '".$image."' )";
-                                            //$result = mysqli_query($connection, $sql);
-                                            $result = mysqli_query($connection, $sql);
-                                            
+                                    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                                        if (isset($_POST['add']) && isset($_POST['title']) && isset($_POST['level']) && isset($_POST['description']) && isset($_FILES['image']['name'])) {
+                                            $sql = "SELECT * FROM `class` WHERE name='".$_POST['title']."' AND coach_id=".$_SESSION['id'];
+                                            $Result = mysqli_query($connection,$sql );
+                                            $row = mysqli_fetch_assoc($Result);
+                                            if($row==0){
+                                                $Result = mysqli_query($connection, "SELECT * FROM `class`");
+                                                $IDno = mysqli_num_rows($Result);
+                                                $IDno++;
+                                                $Title = $_POST['title'];
+                                                $Level = $_POST['level'];
+                                                $Description = $_POST['description'];
+                                                $image = $_FILES['image']['tmp_name'];
+                                                $image = base64_encode(file_get_contents($image));
+                                                $sql = "INSERT INTO `class`(`id`, `coach_id`, `name`, `level`, `description`, `class_image`) VALUES ( $IDno ," . $_SESSION['id'] . " , '".$Title."' , $Level , '".$Description."' , '".$image."' )";
+                                                $result = mysqli_query($connection, $sql);
+                                            }
                                         }
-                                        if (isset($_GET['edit']) && isset($_GET['title']) && isset($_GET['level']) && isset($_GET['description']) && isset($_GET['image'])) {
+                                        if (isset($_GET['edit']) && isset($_GET['title']) && isset($_GET['level']) && isset($_GET['description']) && isset($_FILES['image']['name'])) {
                                             
                                             $Title = $_GET['title'];
                                             $Level = $_GET['level'];
                                             $Description = $_GET['description'];
-                                            $image = $_GET['image'];
+                                            $image = $_FILES['image']['tmp_name'];
+                                            $image = base64_encode(file_get_contents($image));
                                             $sql = "UPDATE INTO `class`(`id`, `coach_id`, `name`, `level`, `description`, `class_image`) VALUES ( $IDno ," . $_SESSION['id'] . " , '".$Title."' , $Level , '".$Description."' , '".$image."' )";
                                             //$result = mysqli_query($connection, $sql);
                                             $result = mysqli_query($connection, $sql);
@@ -523,7 +528,7 @@ and open the template in the editor.
 
                 <div class="close">+</div>
                 
-                <form action="Coach_home.php" method="GET">
+                <form action="" method="POST" enctype="multipart/form-data" >
                     <h2><del style = "--color: var(--del-color, #FFC107);">Add Fitness Class</del></h2>
                     <input type="text" placeholder="Title" required id="title" name="title">
                     <input type="number" placeholder="Level" required id="level" name="level">
@@ -542,7 +547,7 @@ and open the template in the editor.
 
                 <div class="close_edit">+</div>
 
-                <form action="Coach_home.php" method="GET">
+                <form method="GET" enctype="multipart/form-data" >
                     <h2><del style = "--color: var(--del-color, #FFC107);">Edit Fitness Class</del></h2>
                     <input type="text" placeholder="Title" required id="title" name="title">
                     <input type="number" placeholder="Level" required id="level" name="level">
