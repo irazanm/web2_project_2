@@ -464,29 +464,30 @@ and open the template in the editor.
             exit();
         }
         //connection 
-        $connection = mysqli_connect("localhost","root","root","fitness");
+        require 'configration.php';
+
         //Trainee edits
-        if ($_SERVER['REQUEST_METHOD'] == "GET"){
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
             //drop class
-            if(isset($_GET['Drop'])){
+            if (isset($_GET['Drop'])) {
                 $ClassID = $_GET['Drop'];
-                $sqlC = "DELETE FROM `enrolment` WHERE trainee_id=".$_SESSION["id"]." AND class_id =".$ClassID;
+                $sqlC = "DELETE FROM `enrolment` WHERE trainee_id=" . $_SESSION["id"] . " AND class_id =" . $ClassID;
                 $resultDelete = mysqli_query($connection, $sqlC);
             }
             // enroll into class
             //count row number for enrollment id 
             $enrolledResult = mysqli_query($connection, "SELECT * FROM enrolment");
-            $EnrollmentID= mysqli_num_rows($enrolledResult);
+            $EnrollmentID = mysqli_num_rows($enrolledResult);
             $EnrollmentID++;
             //insert new enrollment row
-            if(isset($_GET['Enroll'])){
-                $sql = "SELECT * FROM `enrolment` WHERE trainee_id=".$_SESSION["id"]." AND class_id=".$_GET['Enroll'];
+            if (isset($_GET['Enroll'])) {
+                $sql = "SELECT * FROM `enrolment` WHERE trainee_id=" . $_SESSION["id"] . " AND class_id=" . $_GET['Enroll'];
                 $result = mysqli_query($connection, $sql);
                 //check if already enrolled or not
                 $exist = mysqli_num_rows($result);
-                if($exist==0){
-                    $classid =  $_GET['Enroll'];
-                    $sql = "INSERT INTO `enrolment`(`id`, `trainee_id`, `class_id`) VALUES (".$EnrollmentID.",".$_SESSION["id"].",".$classid.")";
+                if ($exist == 0) {
+                    $classid = $_GET['Enroll'];
+                    $sql = "INSERT INTO `enrolment`(`id`, `trainee_id`, `class_id`) VALUES (" . $EnrollmentID . "," . $_SESSION["id"] . "," . $classid . ")";
                     $result = mysqli_query($connection, $sql);
                 }
             }
@@ -573,15 +574,15 @@ and open the template in the editor.
                                     <tbody>
                                         <?php
                                         //Display Enrolled First
-                                        $sql = "SELECT * FROM `class` WHERE id IN (SELECT class_id FROM `enrolment` WHERE trainee_id =".$_SESSION['id'].")";
+                                        $sql = "SELECT * FROM `class` WHERE id IN (SELECT class_id FROM `enrolment` WHERE trainee_id =" . $_SESSION['id'] . ")";
                                         $resultclass = mysqli_query($connection, $sql);
-                                        while($row = mysqli_fetch_assoc($resultclass)){
+                                        while ($row = mysqli_fetch_assoc($resultclass)) {
                                             echo "<tr>
                                                 <td class='column1'>
-                                                    <a class='link' href='Fitness_class_information.php?ClassID=".$row["id"]."'>
-                                                        <span data-content='".$row["name"]."'>". 
-                                                            $row["name"]
-                                                        ."</span>
+                                                    <a class='link' href='Fitness_class_information.php?ClassID=" . $row["id"] . "'>
+                                                        <span data-content='" . $row["name"] . "'>" .
+                                            $row["name"]
+                                            . "</span>
                                                     </a>
                                                 </td>
                                                 <td class='column2'>
@@ -594,7 +595,7 @@ and open the template in the editor.
                                                             <form method='GET' action='Trainee_home.php'>
                                                             <label>
                                                                 <input type='submit' value ='Drop' class='drop'>
-                                                                <input type='hidden' value ='".$row["id"]."' name='Drop'>
+                                                                <input type='hidden' value ='" . $row["id"] . "' name='Drop'>
                                                             </label>
                                                             </form>
                                                         </div>
@@ -604,19 +605,19 @@ and open the template in the editor.
                                                 </tr>";
                                         }
                                         //Display Enroll
-                                        $sqlc = "SELECT * FROM `class` WHERE id NOT IN (SELECT class_id FROM `enrolment` WHERE trainee_id =".$_SESSION['id'].")";
+                                        $sqlc = "SELECT * FROM `class` WHERE id NOT IN (SELECT class_id FROM `enrolment` WHERE trainee_id =" . $_SESSION['id'] . ")";
                                         $classresult = mysqli_query($connection, $sqlc);
-                                        While($Crow = mysqli_fetch_assoc($classresult)){
+                                        While ($Crow = mysqli_fetch_assoc($classresult)) {
                                             echo "<tr>
                                                 <td class='column1'>
-                                                    <a class='link' href='Fitness_class_information.php?ClassID=".$Crow["id"]."'>
-                                                        <span data-content='".$Crow["name"]."'>". 
-                                                            $Crow["name"]
-                                                        ."</span>
+                                                    <a class='link' href='Fitness_class_information.php?ClassID=" . $Crow["id"] . "'>
+                                                        <span data-content='" . $Crow["name"] . "'>" .
+                                            $Crow["name"]
+                                            . "</span>
                                                     </a>
                                                 </td>
                                                 <td class='column2'>
-                                                    <a class='link' href='Trainee_home.php?Enroll=".$Crow["id"]."'> 
+                                                    <a class='link' href='Trainee_home.php?Enroll=" . $Crow["id"] . "'> 
                                                         <span data-content='Enroll'> 
                                                             Enroll
                                                         </span>
@@ -638,7 +639,7 @@ and open the template in the editor.
         <footer>
             <!-- logo -->
             <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
-            <p style="margin-left:20%; margin-left: 20%;font-family: 'Amatic SC', cursive;"><del id="inside-footer"></del></p>
+            <p style="margin-left:20%; margin-left: 20%;font-family: 'Amatic SC', cursive;"><del id="inside-footer">"Fitness is not a destination it is a way of life"</del></p>
 
             <section class="social">
                 <ul>
@@ -687,6 +688,10 @@ and open the template in the editor.
                     document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
 
                     break;
+                default:
+                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>';
+                    document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
+
             }
         </script>
     </body>
