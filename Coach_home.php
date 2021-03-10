@@ -466,17 +466,15 @@ and open the template in the editor.
                                                 $result = mysqli_query($connection, $sql);
                                             }
                                         }
-                                        if (isset($_GET['edit']) && isset($_GET['title']) && isset($_GET['level']) && isset($_GET['description']) && isset($_FILES['image']['name'])) {
-                                            
-                                            $Title = $_GET['title'];
-                                            $Level = $_GET['level'];
-                                            $Description = $_GET['description'];
+                                        if (isset($_POST['edit']) && isset($_POST['title']) && isset($_POST['level']) && isset($_POST['description']) && isset($_FILES['image']['name'])) {
+                                            $classid = $_POST['classid'];
+                                            $Title = $_POST['title'];
+                                            $Level = $_POST['level'];
+                                            $Description = $_POST['description'];
                                             $image = $_FILES['image']['tmp_name'];
                                             $image = base64_encode(file_get_contents($image));
-                                            $sql = "UPDATE INTO `class`(`id`, `coach_id`, `name`, `level`, `description`, `class_image`) VALUES ( $IDno ," . $_SESSION['id'] . " , '".$Title."' , $Level , '".$Description."' , '".$image."' )";
-                                            //$result = mysqli_query($connection, $sql);
+                                            $sql = "UPDATE `class` SET `name`=['".$Title."'],`level`=['".$Level."'],`description`=['".$Description."'],`class_image`=['".$image."'] WHERE id =" .$classid ."AND coach_id =". $_SESSION['id'];
                                             $result = mysqli_query($connection, $sql);
-                                            
                                         }
                                     }
                                     $resultclass = mysqli_query($connection, "SELECT * FROM `class`");
@@ -547,7 +545,7 @@ and open the template in the editor.
 
                 <div class="close_edit">+</div>
 
-                <form method="GET" enctype="multipart/form-data" >
+                <form action="" method="POST" enctype="multipart/form-data" >
                     <h2><del style = "--color: var(--del-color, #FFC107);">Edit Fitness Class</del></h2>
                     <input type="text" placeholder="Title" required id="title" name="title">
                     <input type="number" placeholder="Level" required id="level" name="level">
