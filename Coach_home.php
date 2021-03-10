@@ -448,6 +448,7 @@ and open the template in the editor.
                                 </thead>
                                 <tbody>
                                     <?php
+                                    
                                     if ($_SERVER['REQUEST_METHOD'] == "GET") {
                                         if (isset($_GET['title']) && isset($_GET['level']) && isset($_GET['description'])) {
                                             $Title = $_GET['title'];
