@@ -491,7 +491,7 @@ and open the template in the editor.
                                         ?>
                                     <tr>
                                         <td class="column1" colspan="3">
-                                            <a  id="button"class="add_class" >+ Add fitness class</a>
+                                            <a  id="button" class="add_class" >+ Add fitness class</a>
                                         </td>
                                     </tr>
                                 </tbody>
