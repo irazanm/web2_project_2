@@ -11,5 +11,8 @@ $connection = mysqli_connect(HOST_NAME, USER, PASS, DATABASE);
 if (mysqli_connect_error() != null) {
     die(mysqli_connect_error());
 }
+//do not display the errors
+ini_set('display_errors', '0');
+
 ?>
 
