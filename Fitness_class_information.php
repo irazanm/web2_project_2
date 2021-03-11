@@ -7,16 +7,16 @@ and open the template in the editor.
 <?php
 //the importent line in php 
 require 'configration.php';
-//-----------------------------------------
-//from the ssesion you can get information about the user
+
+//------------------from the ssesion you can get information about the user------------------
 session_start();
 if (!isset($_SESSION['id'])) {
     //if the user delete the ssesion it will redirect the user to the login again 
     header("Location:index.html");
     exit();
 }
-//----------------------------------------
-//to get class info 
+
+//-----------------to get info about the class----------------- 
 if (isset($_GET['ClassID'])) {
     $mysql_info = "SELECT * FROM `class` WHERE id = '" . $_GET['ClassID'] . "';";
     $result_info = mysqli_query($connection, $mysql_info);
@@ -24,10 +24,10 @@ if (isset($_GET['ClassID'])) {
     if (!$result_info) {
         echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
     }
-//-------------------------------------------
-//to get trainees info for the coach and display it
-    if ($_GET['Type_Of_Info'] == 'trainees_list') {
-        if ($_SESSION['type'] == 'coach') {
+
+//-----------------------------to get trainees list only for the coach and display it-----------------------------
+    if ($_SESSION['type'] == 'coach') {
+        if ($_GET['Type_Of_Info'] == 'trainees_list') {
             $sql_trainees = "SELECT * FROM `trainee` WHERE id IN (SELECT trainee_id FROM enrolment WHERE class_id = '" . $_GET['ClassID'] . "');";
             $result_trainees = mysqli_query($connection, $sql_trainees);
             if (!$result_trainees) {
@@ -257,7 +257,7 @@ if (isset($_GET['ClassID'])) {
 
 
 
-            /*-----Delete button------*/
+            /*-----Drop button------*/
 
 
             .button {
@@ -545,12 +545,17 @@ if (isset($_GET['ClassID'])) {
                 border-radius: 4px;
             }
 
-
+            /*---------some edited code for the img-----------*/
+            header {
+                overflow: hidden;
+                padding-bottom: 0;
+            }
 
 
         </style>
     </head>
     <body>
+        <!--  class="zoom-me "--> 
         <header class="zoom-me" id="heder">
             <nav class="menu-container">
                 <!-- logo -->
@@ -559,7 +564,7 @@ if (isset($_GET['ClassID'])) {
                 <div class="menu">
                     <ul>
                         <li>
-                            <!-- the user name by java  -->
+                            <!-- the user name by php  -->
                             <del> <strong >Welcome <?php echo $_SESSION['name']; ?> !</strong></del>
                         </li>
                     </ul>
@@ -577,8 +582,11 @@ if (isset($_GET['ClassID'])) {
                 </div>
             </nav>
             <div id="video">
-<!--                <img src='<?php //echo $row_class;                                  ?>' alt="class image"/>-->
-                <video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>
+                <img class="class_image_" height="850" alt="" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/927610/pexels-photo-587409.jpeg"  style="z-index:50;">
+
+                <!--<img src='' alt="class image"/>-->
+                <!--<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>-->
+                <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/927610/pexels-photo-587409.jpeg">-->
             </div>
         </header>
         <!-- the content  -->
@@ -587,7 +595,7 @@ if (isset($_GET['ClassID'])) {
             <!-- title and  Edite button-->
             <h3 class="Headers" >
                 <del style = "--color: var(--del-color, #FFC107);">Fitness Class Information </del>  
-                <!-- Edite button -->
+                <!-- Edite button only for the coach-->
                 <?php
                 if ($_SESSION['type'] == 'coach') {
                     ?>
@@ -604,7 +612,7 @@ if (isset($_GET['ClassID'])) {
             }
             if ($_GET['Type_Of_Info'] == 'info' || $_SESSION['type'] == 'trainee') {
                 ?>
-                <!-- Descraotion cards -->
+                <!-- Descraotion cards only by requst from the cotch and defult for the traineers -->
                 <div class="content">
                     <!-- card 1-->
                     <div class="card">
@@ -613,6 +621,7 @@ if (isset($_GET['ClassID'])) {
                         <p class="title">Coach Name:</p>
                         <p class="text">
                             <?php
+                            //to get the coach name by hes id that related to the class
                             $sql_coach_info = "SELECT * FROM `coach` WHERE id = (SELECT coach_id FROM class WHERE id ='" . $_GET['ClassID'] . "')";
                             $result_coach_info = mysqli_query($connection, $sql_coach_info);
                             if (!$result_coach_info) {
@@ -633,7 +642,8 @@ if (isset($_GET['ClassID'])) {
                         <p class="text">
                             <?php
                             echo $row_class['level'];
-                            ?></p>
+                            ?>
+                        </p>
 
                     </div>
                     <!-- end card 2 -->
@@ -644,7 +654,8 @@ if (isset($_GET['ClassID'])) {
                         <p class="title">Description:</p>
                         <p class="text"><?php
                             echo $row_class['description'];
-                            ?></p>
+                            ?>
+                        </p>
 
                     </div>
                     <!-- end card 3 -->
@@ -673,7 +684,7 @@ if (isset($_GET['ClassID'])) {
                                      <tbody>';
                 //the table content 
                 if (mysqli_num_rows($result_trainees) == 0) {
-                    echo '<tr><td class="column1"> No Trainers yet </td></tr>';
+                    echo '<tr><td class="column1"> No Trainers yet </td><td class="column2"></td></tr>';
                 } else {
                     while ($row = mysqli_fetch_assoc($result_trainees)) {
                         echo
@@ -692,7 +703,7 @@ if (isset($_GET['ClassID'])) {
                 </div>
             </div>';
             }
-
+             //drop button for only the trineers that have enrolled the class
             if ($_SESSION['type'] == 'trainee') {
 
                 $sql_isEnrol = "SELECT * FROM `enrolment` WHERE trainee_id = " . $_SESSION['id'] . ";";
@@ -707,7 +718,7 @@ if (isset($_GET['ClassID'])) {
                     if ($_GET['ClassID'] == $row_isEnrol['class_id']) {
                         ?>
 
-                        <!------------ Delete button ------------->
+                        <!------------ Drop button ------------->
                         <a class="button remoove"  id="remoove" role="button" title="Delete the class"  href="Fitness_class_information.php?ClassID=<?php echo $_GET['ClassID'] . "&drop=yes"; ?>" >
                             <span>Drop</span>
                             <div class="icon-Delete">
@@ -715,15 +726,14 @@ if (isset($_GET['ClassID'])) {
                                 <i class="fa fa-check"></i>	     
                             </div>
                         </a>
-                        <!------------ /Delete button ------------->
+                        <!------------ /Drop button ------------->
                         <?php
                     }
                 }
             }
 
-            //drop class
+            //drop class - execution 
             if ($_GET['drop'] == 'yes') {
-
                 $ClassID = $_GET['ClassID'];
                 $sql_Drop = "DELETE FROM `enrolment` WHERE trainee_id=" . $_SESSION["id"] . " AND class_id =" . $ClassID;
                 $result_Drop = mysqli_query($connection, $sql_Drop);
@@ -754,6 +764,7 @@ if (isset($_GET['ClassID'])) {
                 </div>
             </div>
             <?php
+            //this form show only for the coach and execute onle if you heet the edit button
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 if ($_GET['edit'] == 'yes') {
                     $ClassID = $_GET['ClassID'];
@@ -761,10 +772,8 @@ if (isset($_GET['ClassID'])) {
                     $level = $_GET['level'];
                     $description = $_GET['description'];
                     $image = $_GET['image'];
-                    //"UPDATE `class` SET `name`='" . $name . "',`level`=" . $level . ",`description`='" . $description . "',`class_image`='" . $image . "' WHERE id=" . $ClassID;
                     $sql_edit = "UPDATE `class` SET `name`='" . $name . "',`level`=" . $level . ",`description`='" . $description . "',`class_image`='" . $image . "' WHERE id=" . $ClassID;
                     $result_edit = mysqli_query($connection, $sql_edit);
-                    //  echo '<h1>' . mysqli_affected_rows($connection) . '</h1>';
                     if (mysqli_connect_errno()) {
                         echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
                     } else {
@@ -776,8 +785,8 @@ if (isset($_GET['ClassID'])) {
             }
             ?>
             <!-- drop class -->
-
-            <div class="bg-modal_drop">
+       
+            <!--<div class="bg-modal_drop">
                 <div class="modal-contents_drop">
 
                     <div class="close_drop">+</div>
@@ -789,7 +798,7 @@ if (isset($_GET['ClassID'])) {
                     </form>
 
                 </div>
-            </div>
+            </div>-->
         </main>
         <footer>
             <!-- logo -->

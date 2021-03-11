@@ -126,10 +126,10 @@ main {
     footer section ,footer *  {
         margin:0px auto;
     }
-    header div video {
+    header div video , header div .class_image_ {
         display: none;
     }
-   
+
 }
 /* --- Important Pen Styles --- */
 
@@ -150,7 +150,8 @@ header {
     }
 }
 
-header div video {
+header div video,
+ .class_image_{
     width: 100%;
     max-width: none;
     position: absolute;
