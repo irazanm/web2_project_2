@@ -1,8 +1,9 @@
 <?php
 
 require 'configration.php';
-mysqli_close($connection);
+
 session_destroy();
+mysqli_close($connection);
 header("Location:index.html");
 exit();
 ?>

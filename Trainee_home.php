@@ -485,7 +485,7 @@ and open the template in the editor.
                 $exist = mysqli_num_rows($result);
                 if ($exist == 0) {
                     $classid = $_GET['Enroll'];
-                    $sql = "INSERT INTO `enrolment`(`id`,`trainee_id`, `class_id`) VALUES (".$row["gap"]. "," . $_SESSION["id"] . "," . $classid . ")";
+                    $sql = "INSERT INTO `enrolment`(`id`,`trainee_id`, `class_id`) VALUES (" . $row["gap"] . "," . $_SESSION["id"] . "," . $classid . ")";
                     $result = mysqli_query($connection, $sql);
                 }
             }
@@ -500,7 +500,7 @@ and open the template in the editor.
                     <ul>
                         <li>
                             <!-- the user name by php  -->
-                            <del> <strong >Welcome <?php echo $_SESSION['username']; ?> !</strong></del>
+                            <del> <strong >Welcome <?php echo $_SESSION['name']; ?> !</strong></del>
                         </li>
                     </ul>
                     <ul>
@@ -529,8 +529,8 @@ and open the template in the editor.
                     <!-- card 1-->
                     <div class="card">
                         <div class="icon"><i class="material-icons md-36">account_circle</i></div>
-                        <p class="title">Name:</p>
-                        <p class="text"><?php echo $_SESSION['name']; ?> </p>
+                        <p class="title">UserName:</p>
+                        <p class="text"><?php echo $_SESSION['username']; ?></p>
                     </div>
                     <!-- end card 1 -->
                     <!-- card 2 -->
