@@ -17,19 +17,23 @@ if (!isset($_SESSION['id'])) {
 }
 //----------------------------------------
 //to get class info 
-$mysql_info = "SELECT * FROM `class` WHERE id = '" . $_GET['ClassID'] . "';";
-$result_info = mysqli_query($connection, $mysql_info);
-$row_class = mysqli_fetch_assoc($result_info);
-if (!$result_info) {
-    echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
-}
-//-------------------------------------------
-//to get trainees info for the coach and display it .
-if ($_SESSION['type'] == 'coach') {
-    $sql_trainees = "SELECT * FROM `trainee` WHERE id IN (SELECT trainee_id FROM enrolment WHERE class_id = '" . $_GET['ClassID'] . "');";
-    $result_trainees = mysqli_query($connection, $sql_trainees);
-    if (!$result_trainees) {
+if (isset($_GET['ClassID'])) {
+    $mysql_info = "SELECT * FROM `class` WHERE id = '" . $_GET['ClassID'] . "';";
+    $result_info = mysqli_query($connection, $mysql_info);
+    $row_class = mysqli_fetch_assoc($result_info);
+    if (!$result_info) {
         echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
+    }
+//-------------------------------------------
+//to get trainees info for the coach and display it
+    if ($_GET['Type_Of_Info'] == 'trainees_list') {
+        if ($_SESSION['type'] == 'coach') {
+            $sql_trainees = "SELECT * FROM `trainee` WHERE id IN (SELECT trainee_id FROM enrolment WHERE class_id = '" . $_GET['ClassID'] . "');";
+            $result_trainees = mysqli_query($connection, $sql_trainees);
+            if (!$result_trainees) {
+                echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
+            }
+        }
     }
 }
 ?>
@@ -573,6 +577,7 @@ if ($_SESSION['type'] == 'coach') {
                 </div>
             </nav>
             <div id="video">
+<!--                <img src='<?php //echo $row_class;                                  ?>' alt="class image"/>-->
                 <video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>
             </div>
         </header>
@@ -585,69 +590,73 @@ if ($_SESSION['type'] == 'coach') {
                 <!-- Edite button -->
                 <?php
                 if ($_SESSION['type'] == 'coach') {
-                    echo
-                    '<a href="#" id="edit" >
-                    <svg width="50" height="50" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="Edit">
-                    <path d="M12.1464 1.14645C12.3417 0.951184 12.6583 0.951184 12.8535 1.14645L14.8535 3.14645C15.0488 3.34171 15.0488 3.65829 14.8535 3.85355L10.9109 7.79618C10.8349 7.87218 10.7471 7.93543 10.651 7.9835L6.72359 9.94721C6.53109 10.0435 6.29861 10.0057 6.14643 9.85355C5.99425 9.70137 5.95652 9.46889 6.05277 9.27639L8.01648 5.34897C8.06455 5.25283 8.1278 5.16507 8.2038 5.08907L12.1464 1.14645ZM12.5 2.20711L8.91091 5.79618L7.87266 7.87267L8.12731 8.12732L10.2038 7.08907L13.7929 3.5L12.5 2.20711ZM9.99998 2L8.99998 3H4.9C4.47171 3 4.18056 3.00039 3.95552 3.01877C3.73631 3.03668 3.62421 3.06915 3.54601 3.10899C3.35785 3.20487 3.20487 3.35785 3.10899 3.54601C3.06915 3.62421 3.03669 3.73631 3.01878 3.95552C3.00039 4.18056 3 4.47171 3 4.9V11.1C3 11.5283 3.00039 11.8194 3.01878 12.0445C3.03669 12.2637 3.06915 12.3758 3.10899 12.454C3.20487 12.6422 3.35785 12.7951 3.54601 12.891C3.62421 12.9309 3.73631 12.9633 3.95552 12.9812C4.18056 12.9996 4.47171 13 4.9 13H11.1C11.5283 13 11.8194 12.9996 12.0445 12.9812C12.2637 12.9633 12.3758 12.9309 12.454 12.891C12.6422 12.7951 12.7951 12.6422 12.891 12.454C12.9309 12.3758 12.9633 12.2637 12.9812 12.0445C12.9996 11.8194 13 11.5283 13 11.1V6.99998L14 5.99998V11.1V11.1207C14 11.5231 14 11.8553 13.9779 12.1259C13.9549 12.407 13.9057 12.6653 13.782 12.908C13.5903 13.2843 13.2843 13.5903 12.908 13.782C12.6653 13.9057 12.407 13.9549 12.1259 13.9779C11.8553 14 11.5231 14 11.1207 14H11.1H4.9H4.87934C4.47686 14 4.14468 14 3.87409 13.9779C3.59304 13.9549 3.33469 13.9057 3.09202 13.782C2.7157 13.5903 2.40973 13.2843 2.21799 12.908C2.09434 12.6653 2.04506 12.407 2.0221 12.1259C1.99999 11.8553 1.99999 11.5231 2 11.1207V11.1206V11.1V4.9V4.87935V4.87932V4.87931C1.99999 4.47685 1.99999 4.14468 2.0221 3.87409C2.04506 3.59304 2.09434 3.33469 2.21799 3.09202C2.40973 2.71569 2.7157 2.40973 3.09202 2.21799C3.33469 2.09434 3.59304 2.04506 3.87409 2.0221C4.14468 1.99999 4.47685 1.99999 4.87932 2H4.87935H4.9H9.99998Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
-                    <title>Edit</title>
-                    </svg>
-                     </a>';
-                }
+                    ?>
+                    <a href="Fitness_class_information.php?ClassID=<?php echo $_GET['ClassID'] . "&Type_Of_Info=" . $_GET['Type_Of_Info']; ?>#" id="edit" >
+                        <svg width="50" height="50" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="Edit">
+                        <path d="M12.1464 1.14645C12.3417 0.951184 12.6583 0.951184 12.8535 1.14645L14.8535 3.14645C15.0488 3.34171 15.0488 3.65829 14.8535 3.85355L10.9109 7.79618C10.8349 7.87218 10.7471 7.93543 10.651 7.9835L6.72359 9.94721C6.53109 10.0435 6.29861 10.0057 6.14643 9.85355C5.99425 9.70137 5.95652 9.46889 6.05277 9.27639L8.01648 5.34897C8.06455 5.25283 8.1278 5.16507 8.2038 5.08907L12.1464 1.14645ZM12.5 2.20711L8.91091 5.79618L7.87266 7.87267L8.12731 8.12732L10.2038 7.08907L13.7929 3.5L12.5 2.20711ZM9.99998 2L8.99998 3H4.9C4.47171 3 4.18056 3.00039 3.95552 3.01877C3.73631 3.03668 3.62421 3.06915 3.54601 3.10899C3.35785 3.20487 3.20487 3.35785 3.10899 3.54601C3.06915 3.62421 3.03669 3.73631 3.01878 3.95552C3.00039 4.18056 3 4.47171 3 4.9V11.1C3 11.5283 3.00039 11.8194 3.01878 12.0445C3.03669 12.2637 3.06915 12.3758 3.10899 12.454C3.20487 12.6422 3.35785 12.7951 3.54601 12.891C3.62421 12.9309 3.73631 12.9633 3.95552 12.9812C4.18056 12.9996 4.47171 13 4.9 13H11.1C11.5283 13 11.8194 12.9996 12.0445 12.9812C12.2637 12.9633 12.3758 12.9309 12.454 12.891C12.6422 12.7951 12.7951 12.6422 12.891 12.454C12.9309 12.3758 12.9633 12.2637 12.9812 12.0445C12.9996 11.8194 13 11.5283 13 11.1V6.99998L14 5.99998V11.1V11.1207C14 11.5231 14 11.8553 13.9779 12.1259C13.9549 12.407 13.9057 12.6653 13.782 12.908C13.5903 13.2843 13.2843 13.5903 12.908 13.782C12.6653 13.9057 12.407 13.9549 12.1259 13.9779C11.8553 14 11.5231 14 11.1207 14H11.1H4.9H4.87934C4.47686 14 4.14468 14 3.87409 13.9779C3.59304 13.9549 3.33469 13.9057 3.09202 13.782C2.7157 13.5903 2.40973 13.2843 2.21799 12.908C2.09434 12.6653 2.04506 12.407 2.0221 12.1259C1.99999 11.8553 1.99999 11.5231 2 11.1207V11.1206V11.1V4.9V4.87935V4.87932V4.87931C1.99999 4.47685 1.99999 4.14468 2.0221 3.87409C2.04506 3.59304 2.09434 3.33469 2.21799 3.09202C2.40973 2.71569 2.7157 2.40973 3.09202 2.21799C3.33469 2.09434 3.59304 2.04506 3.87409 2.0221C4.14468 1.99999 4.47685 1.99999 4.87932 2H4.87935H4.9H9.99998Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                        <title>Edit</title>
+                        </svg>
+                    </a>
+                    <!-- /Edite button -->
+                </h3>
+
+                <?php
+            }
+            if ($_GET['Type_Of_Info'] == 'info' || $_SESSION['type'] == 'trainee') {
                 ?>
+                <!-- Descraotion cards -->
+                <div class="content">
+                    <!-- card 1-->
+                    <div class="card">
 
-                <!-- /Edite button -->
-            </h3>
-            <!-- Descraotion cards -->
-            <div class="content">
-                <!-- card 1-->
-                <div class="card">
+                        <div class="icon"><i class="material-icons md-36">assistant</i></div>
+                        <p class="title">Coach Name:</p>
+                        <p class="text">
+                            <?php
+                            $sql_coach_info = "SELECT * FROM `coach` WHERE id = (SELECT coach_id FROM class WHERE id ='" . $_GET['ClassID'] . "')";
+                            $result_coach_info = mysqli_query($connection, $sql_coach_info);
+                            if (!$result_coach_info) {
+                                echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
+                            } else {
+                                $row_coach = mysqli_fetch_assoc($result_coach_info);
+                                echo $row_coach['name'];
+                            }
+                            ?></p>
 
-                    <div class="icon"><i class="material-icons md-36">assistant</i></div>
-                    <p class="title">Coach Name:</p>
-                    <p class="text">
-                        <?php
-                        $sql_coach_info = "SELECT * FROM `coach` WHERE id IN (SELECT coach_id FROM class WHERE id ='" . $_GET['ClassID'] . "')";
-                        $result_coach_info = mysqli_query($connection, $sql_coach_info);
-                        if (!$result_coach_info) {
-                            echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
-                        } else {
-                            $row_coach = mysqli_fetch_assoc($result_coach_info);
-                            echo $row_coach['name'];
-                        }
-                        ?></p>
+                    </div>
+                    <!-- end card 1 -->
+                    <!-- card 2 -->
+                    <div class="card">
 
+                        <div class="icon"><i class="material-icons md-36">equalizer</i></div>
+                        <p class="title"> Level:</p>
+                        <p class="text">
+                            <?php
+                            echo $row_class['level'];
+                            ?></p>
+
+                    </div>
+                    <!-- end card 2 -->
+                    <!-- card  3-->
+                    <div class="card">
+
+                        <div class="icon"><i class="material-icons md-36">chat</i></div>
+                        <p class="title">Description:</p>
+                        <p class="text"><?php
+                            echo $row_class['description'];
+                            ?></p>
+
+                    </div>
+                    <!-- end card 3 -->
                 </div>
-                <!-- end card 1 -->
-                <!-- card 2 -->
-                <div class="card">
-
-                    <div class="icon"><i class="material-icons md-36">equalizer</i></div>
-                    <p class="title"> Level:</p>
-                    <p class="text">
-                        <?php
-                        echo $row_class['level'];
-                        ?></p>
-
-                </div>
-                <!-- end card 2 -->
-                <!-- card  3-->
-                <div class="card">
-
-                    <div class="icon"><i class="material-icons md-36">chat</i></div>
-                    <p class="title">Description:</p>
-                    <p class="text"><?php
-                        echo $row_class['description'];
-                        ?></p>
-
-                </div>
-                <!-- end card 3 -->
-            </div>
-            <!-- /Descraotion cards -->
-
+                <!-- /Descraotion cards -->
+                <?php
+            }
+            ?>
             <!-- -----------------------------table only for the coach------------------------------------ -->
 
             <?php
-            if ($_SESSION['type'] == 'coach') {
+            if ($_SESSION['type'] == 'coach' && $_GET['Type_Of_Info'] == 'trainees_list') {
                 //the table head
                 echo '<div class="contained">
                 <div class="limiter">
@@ -683,19 +692,51 @@ if ($_SESSION['type'] == 'coach') {
                 </div>
             </div>';
             }
+
+            if ($_SESSION['type'] == 'trainee') {
+
+                $sql_isEnrol = "SELECT * FROM `enrolment` WHERE trainee_id = " . $_SESSION['id'] . ";";
+                $result_isEnrol = mysqli_query($connection, $sql_isEnrol);
+
+                if (!$result_isEnrol) {
+                    echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
+                }
+                $row_isEnrol = mysqli_fetch_assoc($result_isEnrol);
+                if (!empty($row_isEnrol)) {
+
+                    if ($_GET['ClassID'] == $row_isEnrol['class_id']) {
+                        ?>
+
+                        <!------------ Delete button ------------->
+                        <a class="button remoove"  id="remoove" role="button" title="Delete the class"  href="Fitness_class_information.php?ClassID=<?php echo $_GET['ClassID'] . "&drop=yes"; ?>" >
+                            <span>Drop</span>
+                            <div class="icon-Delete">
+                                <i class="fa fa-remove"> </i>
+                                <i class="fa fa-check"></i>	     
+                            </div>
+                        </a>
+                        <!------------ /Delete button ------------->
+                        <?php
+                    }
+                }
+            }
+
+            //drop class
+            if ($_GET['drop'] == 'yes') {
+
+                $ClassID = $_GET['ClassID'];
+                $sql_Drop = "DELETE FROM `enrolment` WHERE trainee_id=" . $_SESSION["id"] . " AND class_id =" . $ClassID;
+                $result_Drop = mysqli_query($connection, $sql_Drop);
+                if ($result_Drop) {
+                    header("Location:Trainee_home.php");
+                    exit();
+                } else {
+                    echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
+                }
+            }
             ?>
-
-            <!------------ Delete button ------------->
-            <a class="button remoove"  id="remoove" role="button" title="Delete the class">
-                <span>remove</span>
-                <div class="icon-Delete">	
-                    <i class="fa fa-remove"></i>
-                    <i class="fa fa-check"></i>	     
-                </div>
-            </a>
-            <!------------ /Delete button ------------->
-            <!-- edit class -->
-
+            <!-- edit class form -->
+            <?php ini_set('file_uploads', 'on') ?>
             <div class="bg-modal_edit"><!---->
                 <div class="modal-contents"><!---->
 
@@ -705,12 +746,35 @@ if ($_SESSION['type'] == 'coach') {
                         <h2><del style = "--color: var(--del-color, #FFC107);">Edit Fitness Class</del></h2>
                         <input type="text" placeholder="Title" required id="title" name="title">
                         <input type="number" placeholder="Level" required id="level" name="level">
+                        <input type="file" name="image" >
                         <textarea id="description" name="description" placeholder="Description" rows="4" cols="50"></textarea>
-                        <a  href="#" class="button_edit">Submit</a>
+                        <a href="Fitness_class_information.php?ClassID=<?php echo $_GET['ClassID'] . "&Type_Of_Info=" . $_GET['Type_Of_Info']; ?>&edit=yes" class="button_edit">Submit</a>
                     </form>
 
                 </div>
             </div>
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                if ($_GET['edit'] == 'yes') {
+                    $ClassID = $_GET['ClassID'];
+                    $name = $_GET['title'];
+                    $level = $_GET['level'];
+                    $description = $_GET['description'];
+                    $image = $_GET['image'];
+                    //"UPDATE `class` SET `name`='" . $name . "',`level`=" . $level . ",`description`='" . $description . "',`class_image`='" . $image . "' WHERE id=" . $ClassID;
+                    $sql_edit = "UPDATE `class` SET `name`='" . $name . "',`level`=" . $level . ",`description`='" . $description . "',`class_image`='" . $image . "' WHERE id=" . $ClassID;
+                    $result_edit = mysqli_query($connection, $sql_edit);
+                    //  echo '<h1>' . mysqli_affected_rows($connection) . '</h1>';
+                    if (mysqli_connect_errno()) {
+                        echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
+                    } else {
+                        header("Location:Coach_home.php");
+                    }
+                }
+            } else {
+                echo '<script type="text/JavaScript"> window.alert("requst not arrive!! \n"); </script>';
+            }
+            ?>
             <!-- drop class -->
 
             <div class="bg-modal_drop">
@@ -809,32 +873,32 @@ if ($_SESSION['type'] == 'coach') {
             });
 
 
-            var number = Math.floor(Math.random() * 4); // 0 - 3 
-            switch (number) {
-                case 0:
-                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2018-05/small_watermarked/180419_Boxing_13_14_preview.webm" type="video/mp4"> </video>';
-                    document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
-                    break;
-                case 1:
-                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_17_10_preview.webm" type="video/mp4"> </video>';
-                    document.getElementById("inside-footer").innerHTML = "\" Push harder today if you want a different tomorrow\"";
-
-                    break;
-                case 2:
-                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2018-09/small_watermarked/180419_Boxing_06_01_preview.webm" type="video/mp4"> </video>';
-                    document.getElementById("inside-footer").innerHTML = "\" Push harder today if you want a different tomorrow\"";
-
-                    break;
-                case 3:
-                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>';
-                    document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
-
-                    break;
-                default:
-                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>';
-                    document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
-
-            }
+//            var number = Math.floor(Math.random() * 4); // 0 - 3 
+//            switch (number) {
+//                case 0:
+//                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2018-05/small_watermarked/180419_Boxing_13_14_preview.webm" type="video/mp4"> </video>';
+//                    document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
+//                    break;
+//                case 1:
+//                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_17_10_preview.webm" type="video/mp4"> </video>';
+//                    document.getElementById("inside-footer").innerHTML = "\" Push harder today if you want a different tomorrow\"";
+//
+//                    break;
+//                case 2:
+//                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2018-09/small_watermarked/180419_Boxing_06_01_preview.webm" type="video/mp4"> </video>';
+//                    document.getElementById("inside-footer").innerHTML = "\" Push harder today if you want a different tomorrow\"";
+//
+//                    break;
+//                case 3:
+//                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>';
+//                    document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
+//
+//                    break;
+//                default:
+//                    document.getElementById("video").innerHTML = '<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>';
+//                    document.getElementById("inside-footer").innerHTML = "\" Fitness is not a destination it is a way of life\"";
+//
+//            }
             ;
             (function () {
                 var removeSuccess;
@@ -859,4 +923,5 @@ if ($_SESSION['type'] == 'coach') {
         </script>
     </body>
 </html>
+
 
