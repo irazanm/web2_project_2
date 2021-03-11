@@ -4,9 +4,18 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-
+<?php
+    //from the ssesion you can get information about the user
+    session_start();
+    if (!isset($_SESSION['id'])) {
+        //if the user delete the ssesion it will redirect the user to the login again 
+        header("Location:index.html");
+        exit();
+    }
+    //connection 
+    require 'configration.php';
+?>
 <html>
-
     <head>
         <title>Coach</title>
         <meta charset="UTF-8">
@@ -16,7 +25,6 @@ and open the template in the editor.
         <script src="javaS/home.js"></script>
         <link rel="stylesheet" href="home.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
         <style>
             /*--after we finsh we can put this code at an external css file--*/
 
@@ -352,20 +360,8 @@ and open the template in the editor.
 
 
         </style>
-
     </head>
     <body>
-        <?php
-        //from the ssesion you can get information about the user
-        session_start();
-        if (!isset($_SESSION['id'])) {
-            //if the user delete the ssesion it will redirect the user to the login again 
-            header("Location:index.html");
-            exit();
-        }
-        //connection 
-        require 'configration.php';
-        ?>
         <header class="zoom-me" id="heder">
             <nav class="menu-container">
                 <!-- logo -->
@@ -408,7 +404,7 @@ and open the template in the editor.
                     <div class="card">
 
                         <div class="icon"><i class="material-icons md-36">account_circle</i></div>
-                        <p class="title">UserName:</p>
+                        <p class="title">Username:</p>
                         <p class="text"><?php echo $_SESSION['username']; ?></p>
 
                     </div>
@@ -448,42 +444,59 @@ and open the template in the editor.
                                     </thead>
                                     <tbody>
                                         <?php
-                                        if ($_SERVER['REQUEST_METHOD'] == "GET") {
-                                            if (isset($_GET['add']) && isset($_GET['title']) && isset($_GET['level']) && isset($_GET['description']) && isset($_GET['image'])) {
-                                                $Result = mysqli_query($connection, "SELECT * FROM `class`");
-                                                $IDno = mysqli_num_rows($Result);
-                                                $IDno++;
-                                                $Title = $_GET['title'];
-                                                $Level = $_GET['level'];
-                                                $Description = $_GET['description'];
-                                                $image = $_GET['image'];
-                                                $sql = "INSERT INTO `class`(`id`, `coach_id`, `name`, `level`, `description`, `class_image`) VALUES ( $IDno ," . $_SESSION['id'] . " , '" . $Title . "' , $Level , '" . $Description . "' , '" . $image . "' )";
-                                                //$result = mysqli_query($connection, $sql);
-                                                $result = mysqli_query($connection, $sql);
+                                        //Form php
+                                        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                                            //Add Form
+                                            if (isset($_POST['add']) && isset($_POST['title']) && isset($_POST['level']) && isset($_POST['description']) && isset($_FILES['image']['name'])) {
+                                                $sql = "SELECT * FROM `class` WHERE name='" . $_POST['title'] . "' AND coach_id=" . $_SESSION['id'];
+                                                $Result = mysqli_query($connection, $sql);
+                                                $row = mysqli_fetch_assoc($Result);
+                                                if ($row == 0) {
+                                                    $Result = mysqli_query($connection, "SELECT * FROM `class`");
+                                                    $IDno = mysqli_num_rows($Result);
+                                                    $IDno++;
+                                                    $Title = $_POST['title'];
+                                                    $Level = $_POST['level'];
+                                                    $Description = $_POST['description'];
+                                                    $image = $_FILES['image']['tmp_name'];
+                                                    $image = base64_encode(file_get_contents($image));
+                                                    $sql = "INSERT INTO `class`(`id`, `coach_id`, `name`, `level`, `description`, `class_image`) VALUES ( $IDno ," . $_SESSION['id'] . " , '" . $Title . "' , $Level , '" . $Description . "' , '" . $image . "' )";
+                                                    $result = mysqli_query($connection, $sql);
+                                                }
                                             }
-                                            if (isset($_GET['edit']) && isset($_GET['title']) && isset($_GET['level']) && isset($_GET['description']) && isset($_GET['image'])) {
-
-                                                $Title = $_GET['title'];
-                                                $Level = $_GET['level'];
-                                                $Description = $_GET['description'];
-                                                $image = $_FILES['image']['name'];
-                                                $sql = "UPDATE INTO `class`(`id`, `coach_id`, `name`, `level`, `description`, `class_image`) VALUES ( $IDno ," . $_SESSION['id'] . " , '" . $Title . "' , $Level , '" . $Description . "' , '" . $image . "' )";
-                                                //$result = mysqli_query($connection, $sql);
-                                                $result = mysqli_query($connection, $sql);
+                                            //Edit Form
+                                            if (isset($_POST['edit']) && isset($_POST['title']) && isset($_POST['level']) && isset($_POST['description'])) {
+                                                if($_FILES['image']['name'] != null){
+                                                    $Title = $_POST['title'];
+                                                    $Level = $_POST['level'];
+                                                    $Description = $_POST['description'];
+                                                    $image = $_FILES['image']['tmp_name'];
+                                                    $image = base64_encode(file_get_contents($image));
+                                                    $sql = "UPDATE `class` SET `name`='" . $Title . "',`level`=" . $Level . ",`description`='" . $Description . "',`class_image`='" . $image . "' WHERE id =" . $_POST['classid'] ;
+                                                    $result = mysqli_query($connection, $sql);
+                                                }
+                                                else{
+                                                    $Title = $_POST['title'];
+                                                    $Level = $_POST['level'];
+                                                    $Description = $_POST['description'];
+                                                    $sql = "UPDATE `class` SET `name`='" . $Title . "',`level`=" . $Level . ",`description`='" . $Description . "' WHERE id =" . $_POST['classid'] ;
+                                                    $result = mysqli_query($connection, $sql);
+                                                }
                                             }
                                         }
+                                        //Display all classes
                                         $resultclass = mysqli_query($connection, "SELECT * FROM `class`");
                                         while ($row = mysqli_fetch_assoc($resultclass)) {
                                             echo '<tr>
                                         <td class="column1">
-                                            <a class="link" href="Fitness_class_information.php?ClassID=' . $row["id"] . '&Type_Of_Info=info">
+                                            <a class="link" href="Fitness_class_information.php?ClassID="' . $row["id"] . '&Type_Of_Info=info">
                                                 <span data-content="' . $row["name"] . '"> 
                                                     ' . $row["name"] . '
                                                 </span>
                                             </a>
                                         </td>
                                         <td class="column2">
-                                            <a  class="link" href="Fitness_class_information.php?ClassID=' . $row["id"] . '&Type_Of_Info=trainees_list">
+                                            <a  class="link" href="Fitness_class_information.php?ClassID="' . $row["id"] . '&Type_Of_Info=trainees_list">
                                                 <span data-content="Display Trainees list"> 
                                                     Display Trainees list
                                                 </span>
@@ -491,7 +504,7 @@ and open the template in the editor.
                                         </td>
                                         <td class="column3">
                                             <!-- Edite button -->
-                                            <a  class="edit" >
+                                            <a href="coach_home.php?ClassID='.$row["id"].'" class="edit">
                                                 <svg width="35" height="35" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="Edit">
                                                 <path d="M12.1464 1.14645C12.3417 0.951184 12.6583 0.951184 12.8535 1.14645L14.8535 3.14645C15.0488 3.34171 15.0488 3.65829 14.8535 3.85355L10.9109 7.79618C10.8349 7.87218 10.7471 7.93543 10.651 7.9835L6.72359 9.94721C6.53109 10.0435 6.29861 10.0057 6.14643 9.85355C5.99425 9.70137 5.95652 9.46889 6.05277 9.27639L8.01648 5.34897C8.06455 5.25283 8.1278 5.16507 8.2038 5.08907L12.1464 1.14645ZM12.5 2.20711L8.91091 5.79618L7.87266 7.87267L8.12731 8.12732L10.2038 7.08907L13.7929 3.5L12.5 2.20711ZM9.99998 2L8.99998 3H4.9C4.47171 3 4.18056 3.00039 3.95552 3.01877C3.73631 3.03668 3.62421 3.06915 3.54601 3.10899C3.35785 3.20487 3.20487 3.35785 3.10899 3.54601C3.06915 3.62421 3.03669 3.73631 3.01878 3.95552C3.00039 4.18056 3 4.47171 3 4.9V11.1C3 11.5283 3.00039 11.8194 3.01878 12.0445C3.03669 12.2637 3.06915 12.3758 3.10899 12.454C3.20487 12.6422 3.35785 12.7951 3.54601 12.891C3.62421 12.9309 3.73631 12.9633 3.95552 12.9812C4.18056 12.9996 4.47171 13 4.9 13H11.1C11.5283 13 11.8194 12.9996 12.0445 12.9812C12.2637 12.9633 12.3758 12.9309 12.454 12.891C12.6422 12.7951 12.7951 12.6422 12.891 12.454C12.9309 12.3758 12.9633 12.2637 12.9812 12.0445C12.9996 11.8194 13 11.5283 13 11.1V6.99998L14 5.99998V11.1V11.1207C14 11.5231 14 11.8553 13.9779 12.1259C13.9549 12.407 13.9057 12.6653 13.782 12.908C13.5903 13.2843 13.2843 13.5903 12.908 13.782C12.6653 13.9057 12.407 13.9549 12.1259 13.9779C11.8553 14 11.5231 14 11.1207 14H11.1H4.9H4.87934C4.47686 14 4.14468 14 3.87409 13.9779C3.59304 13.9549 3.33469 13.9057 3.09202 13.782C2.7157 13.5903 2.40973 13.2843 2.21799 12.908C2.09434 12.6653 2.04506 12.407 2.0221 12.1259C1.99999 11.8553 1.99999 11.5231 2 11.1207V11.1206V11.1V4.9V4.87935V4.87932V4.87931C1.99999 4.47685 1.99999 4.14468 2.0221 3.87409C2.04506 3.59304 2.09434 3.33469 2.21799 3.09202C2.40973 2.71569 2.7157 2.40973 3.09202 2.21799C3.33469 2.09434 3.59304 2.04506 3.87409 2.0221C4.14468 1.99999 4.47685 1.99999 4.87932 2H4.87935H4.9H9.99998Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
                                                 <title>Edit</title>
@@ -513,15 +526,12 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-
-
+            
             <!--add class-->
             <div class="bg-modal">
                 <div class="modal-contents">
-
                     <div class="close">+</div>
-
-                    <form action="Coach_home.php" method="GET">
+                    <form action="" method="POST" enctype="multipart/form-data" >
                         <h2><del style = "--color: var(--del-color, #FFC107);">Add Fitness Class</del></h2>
                         <input type="text" placeholder="Title" required id="title" name="title">
                         <input type="number" placeholder="Level" required id="level" name="level">
@@ -534,32 +544,36 @@ and open the template in the editor.
             </div>
             <!--/  add class-->
             <!-- edit class -->
-
-            <div class="bg-modal_edit">
-                <div class="modal-contents">
-
-                    <div class="close_edit">+</div>
-                    <?php ini_set('file_uploads', 'on') ?>
-                    <form action="Coach_home.php" method="GET">
-                        <h2><del style = "--color: var(--del-color, #FFC107);">Edit Fitness Class</del></h2>
-                        <input type="text" placeholder="Title" required id="title" name="title">
-                        <input type="number" placeholder="Level" required id="level" name="level">
-                        <input type="file" name="image" >
-                        <textarea id="description" name="description" placeholder="Description" rows="4" cols="50"></textarea>
-                        <input  type="submit" value="Submit" class="button_edit">
-                        <input type="hidden" value ="edit" name="edit">
-                    </form>
-
-                </div>
-            </div>
-
+            <?php
+            if($_SERVER['REQUEST_METHOD'] == "GET"){
+                if(isset($_GET['ClassID'])){
+                    $sql = "SELECT * FROM `class` WHERE id=".$_GET['ClassID'];
+                    $Result = mysqli_query($connection, $sql);
+                    $row = mysqli_fetch_assoc($Result);
+                    echo '<div class="bg-modal_edit">
+                        <div class="modal-contents">
+                            <div class="close_edit">+</div>
+                            <form action="coach_home.php" method="POST" enctype="multipart/form-data" >
+                                <h2><del style = "--color: var(--del-color, #FFC107);">Edit Fitness Class</del></h2>
+                                <input type="text" placeholder="Title" required id="title" name="title" value="'.$row["name"].'">
+                                <input type="number" placeholder="Level" required id="level" name="level" value="'.$row["level"].'">
+                                <input type="file" name="image">
+                                <textarea id="description" name="description" placeholder="Description" rows="4" cols="50">'.$row["description"].'</textarea>
+                                <input  type="submit" value="Submit" class="button_edit">
+                                <input type="hidden" value ="'.$_GET['ClassID'].'" name="classid">
+                                <input type="hidden" value ="edit" name="edit">
+                            </form>
+                        </div>
+                    </div>';
+                }
+            }
+            ?>
             <!--/edit class-->
         </main>
         <footer>
             <!-- logo -->
             <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
             <p style="margin-left:20%; margin-left: 20%;font-family: 'Amatic SC', cursive;"><del id="inside-footer"></del></p>
-
             <section class="social">
                 <ul>
                     <li>
@@ -576,11 +590,8 @@ and open the template in the editor.
                         <a href="https://www.youtube.com/user/FitnessBlender" target="_blank">
                             <i class="fab fa-twitter"></i>                    </a>
                     </li>
-
                 </ul>
-
             </section>
-
         </footer>
         <div id="copyright">
             &copy; &nbsp; KSU, IT Department.Razan,Lama,Shatha,Yara.
@@ -610,19 +621,7 @@ and open the template in the editor.
 
                     break;
             }
-
-
-            /*
-             $(window).scroll(function () {
-             var scroll = $(window).scrollTop();
-             $(".zoom-me div video").css({
-             width: (100 + scroll / 5) + "%",
-             top: -(scroll / 10) + "%",
-             "-webkit-filter": "blur(" + (scroll / 200) + "px)",
-             filter: "blur(" + (scroll / 200) + "px)"
-             });
-             });
-             */
+            
             //           -----------------------------add button form------------------------------------
             document.getElementById('button').addEventListener("click", function () {
                 document.querySelector('.bg-modal').style.display = "flex";
@@ -635,40 +634,17 @@ and open the template in the editor.
                 document.querySelector('#video').style.display = "flex";
                 document.getElementById("heder").style.paddingBottom = "44%";
             });
-            //           -----------------------------add class button ------------------------------------     
-            //        document.querySelector('.add_button').addEventListener("click", function () {
-            ////                take info from form
-            //            var t = document.getElementById("title").value;
-            //            var l = document.getElementById("level").value;
-            //            var d = document.getElementById("description").value;
-            //            var tt = document.querySelector('table');
-            ////                creat row
-            //            var rowCount = tt.rows.length;
-            //            var newRow = tt.insertRow(rowCount - 1);
-            //            var c1 = newRow.insertCell(0);
-            //            var c2 = newRow.insertCell(1);
-            //            var c3 = newRow.insertCell(2);
-            ////               full the row    
-            //            c1.innerHTML = "<span style='color:#fff;'>........</span>" + '<a class="link" href="Fitness_class_information.html"><span data-content="' + t + '">' + t + "</span></a>";
-            //            c2.innerHTML = '<a class="link" href="Fitness_class_information.html"><span data-content="Display Trainees list">Display Trainees list</span></a>';
-            //            c3.innerHTML = '<a href="#" class="edit" style="left:80%" ><svg width="35" height="35" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="Edit"><path d="M12.1464 1.14645C12.3417 0.951184 12.6583 0.951184 12.8535 1.14645L14.8535 3.14645C15.0488 3.34171 15.0488 3.65829 14.8535 3.85355L10.9109 7.79618C10.8349 7.87218 10.7471 7.93543 10.651 7.9835L6.72359 9.94721C6.53109 10.0435 6.29861 10.0057 6.14643 9.85355C5.99425 9.70137 5.95652 9.46889 6.05277 9.27639L8.01648 5.34897C8.06455 5.25283 8.1278 5.16507 8.2038 5.08907L12.1464 1.14645ZM12.5 2.20711L8.91091 5.79618L7.87266 7.87267L8.12731 8.12732L10.2038 7.08907L13.7929 3.5L12.5 2.20711ZM9.99998 2L8.99998 3H4.9C4.47171 3 4.18056 3.00039 3.95552 3.01877C3.73631 3.03668 3.62421 3.06915 3.54601 3.10899C3.35785 3.20487 3.20487 3.35785 3.10899 3.54601C3.06915 3.62421 3.03669 3.73631 3.01878 3.95552C3.00039 4.18056 3 4.47171 3 4.9V11.1C3 11.5283 3.00039 11.8194 3.01878 12.0445C3.03669 12.2637 3.06915 12.3758 3.10899 12.454C3.20487 12.6422 3.35785 12.7951 3.54601 12.891C3.62421 12.9309 3.73631 12.9633 3.95552 12.9812C4.18056 12.9996 4.47171 13 4.9 13H11.1C11.5283 13 11.8194 12.9996 12.0445 12.9812C12.2637 12.9633 12.3758 12.9309 12.454 12.891C12.6422 12.7951 12.7951 12.6422 12.891 12.454C12.9309 12.3758 12.9633 12.2637 12.9812 12.0445C12.9996 11.8194 13 11.5283 13 11.1V6.99998L14 5.99998V11.1V11.1207C14 11.5231 14 11.8553 13.9779 12.1259C13.9549 12.407 13.9057 12.6653 13.782 12.908C13.5903 13.2843 13.2843 13.5903 12.908 13.782C12.6653 13.9057 12.407 13.9549 12.1259 13.9779C11.8553 14 11.5231 14 11.1207 14H11.1H4.9H4.87934C4.47686 14 4.14468 14 3.87409 13.9779C3.59304 13.9549 3.33469 13.9057 3.09202 13.782C2.7157 13.5903 2.40973 13.2843 2.21799 12.908C2.09434 12.6653 2.04506 12.407 2.0221 12.1259C1.99999 11.8553 1.99999 11.5231 2 11.1207V11.1206V11.1V4.9V4.87935V4.87932V4.87931C1.99999 4.47685 1.99999 4.14468 2.0221 3.87409C2.04506 3.59304 2.09434 3.33469 2.21799 3.09202C2.40973 2.71569 2.7157 2.40973 3.09202 2.21799C3.33469 2.09434 3.59304 2.04506 3.87409 2.0221C4.14468 1.99999 4.47685 1.99999 4.87932 2H4.87935H4.9H9.99998Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path><title>Edit</title></svg></a>';
-            ////                close tha add form
-            //            document.querySelector('.bg-modal').style.display = "none";
-            //            document.querySelector('#video').style.display = "flex";
-            //            document.getElementById("heder").style.paddingBottom = "44%";
-            //
-            //        });//end add class button
-
             //         --------------------show edit form--------------------------
-            var x = document.getElementsByClassName("edit");
-            var i;
-            for (i = 0; i < x.length; i++) {
-                x[i].addEventListener("click", function () {
-                    document.querySelector('.bg-modal_edit').style.display = "flex";
-                    document.querySelector('#video').style.display = "none";
-                    document.getElementById("heder").style.paddingBottom = "0%";
-                });
+            <?php
+            if($_SERVER['REQUEST_METHOD'] == "GET"){
+                if(isset($_GET['ClassID'])){
+                    echo "document.querySelector('.bg-modal_edit').style.display = 'flex';
+                          document.querySelector('#video').style.display = 'none';
+                          document.getElementById('heder').style.paddingBottom = '0%';
+                       ";
+                }
             }
+            ?>
             //            -------------------------close edit form------------------------------
             document.querySelector('.close_edit').addEventListener("click", function () {
                 document.querySelector('.bg-modal_edit').style.display = "none";
