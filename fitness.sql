@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 07, 2021 at 07:07 PM
+-- Generation Time: Mar 11, 2021 at 12:47 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -34,7 +34,7 @@ CREATE TABLE `class` (
   `name` varchar(200) NOT NULL,
   `level` int(13) NOT NULL,
   `description` varchar(200) NOT NULL,
-  `class_image` varchar(200) NOT NULL
+  `class_image` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -42,9 +42,10 @@ CREATE TABLE `class` (
 --
 
 INSERT INTO `class` (`id`, `coach_id`, `name`, `level`, `description`, `class_image`) VALUES
-(1, 2, 'Zumba', 1, 'Zumba is a fitness program that combines Latin and international music with dance moves.', '---'),
-(2, 2, 'Aerobic beginner', 1, 'Aerobics is a form of physical exercise that combines rhythmic aerobic exercise with stretching and strength training routines with the goal of improving all elements of fitness.', '---'),
-(3, 2, 'cycling ', 3, 'Cycling is mainly an aerobic activity, which means that your heart, blood vessels and lungs all get a workout. ', '---');
+(1, 2, 'Zumba', 1, 'Zumba is a fitness program that combines Latin and international music with dance moves.', 0x2d2d2d),
+(2, 2, 'Aerobic beginner', 1, 'Aerobics is a form of physical exercise that combines rhythmic aerobic exercise with stretching and strength training routines with the goal of improving all elements of fitness.', 0x2d2d2d),
+(3, 2, 'cycling ', 3, 'Cycling is mainly an aerobic activity, which means that your heart, blood vessels and lungs all get a workout. ', 0x2d2d2d),
+(4, 2, 'm', 8, 'hhhcukdukduk', 0x77736564726667686a);
 
 -- --------------------------------------------------------
 
@@ -85,12 +86,13 @@ CREATE TABLE `enrolment` (
 --
 
 INSERT INTO `enrolment` (`id`, `trainee_id`, `class_id`) VALUES
-(1, 1, 1),
 (2, 1, 2),
 (3, 2, 3),
 (4, 2, 1),
 (5, 4, 2),
-(6, 3, 1);
+(6, 3, 1),
+(7, 2, 4),
+(8, 5, 4);
 
 -- --------------------------------------------------------
 
@@ -114,7 +116,8 @@ INSERT INTO `trainee` (`id`, `username`, `password`, `name`, `email`) VALUES
 (1, 'razan', '$2y$10$BQeY6bRusRYuLLlG1dKnyuHnmYJrfYNWyxWN4N5/w777bGCrYLZaO', 'Razan', 'razan@gmail.com'),
 (2, 'Lama', '$2y$10$eCFoNLSqM/qqS0Xsq/HB9OejByx.mKYIiDTM.FgPFX0Hnfm7x8sty', 'Lama', 'lama@gmail.com'),
 (3, 'yara', '$2y$10$aTUnjLj6wLq4g7m/EaPGPuQ8m.GRBdACWsBcCfoOZU8l.TRBmBBgC', 'Yara', 'yara@gmail.com'),
-(4, 'shatha', '$2y$10$7Z9avihWGhQlgDbFBdhkeecAD1q0mZTuGc3xqtHm8TfJKHkugFabS', 'shatha', 'shatha@gmail.com');
+(4, 'shatha', '$2y$10$7Z9avihWGhQlgDbFBdhkeecAD1q0mZTuGc3xqtHm8TfJKHkugFabS', 'shatha', 'shatha@gmail.com'),
+(5, 'rawan', '$2y$10$ijPcnUN9b5XjtLDrTOIeZuF6RuZTdk7HVVVgGE4IUVRx73ssZM/2a', 'Rawan', 'rawan@gmail.com');
 
 --
 -- Indexes for dumped tables

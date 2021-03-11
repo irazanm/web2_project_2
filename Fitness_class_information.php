@@ -577,7 +577,7 @@ if (isset($_GET['ClassID'])) {
                 </div>
             </nav>
             <div id="video">
-<!--                <img src='<?php //echo $row_class;                                 ?>' alt="class image"/>-->
+<!--                <img src='<?php //echo $row_class;                                  ?>' alt="class image"/>-->
                 <video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>
             </div>
         </header>
@@ -764,7 +764,7 @@ if (isset($_GET['ClassID'])) {
                     //"UPDATE `class` SET `name`='" . $name . "',`level`=" . $level . ",`description`='" . $description . "',`class_image`='" . $image . "' WHERE id=" . $ClassID;
                     $sql_edit = "UPDATE `class` SET `name`='" . $name . "',`level`=" . $level . ",`description`='" . $description . "',`class_image`='" . $image . "' WHERE id=" . $ClassID;
                     $result_edit = mysqli_query($connection, $sql_edit);
-                    echo '<h1>' . mysqli_affected_rows($connection) . '</h1>';
+                    //  echo '<h1>' . mysqli_affected_rows($connection) . '</h1>';
                     if (mysqli_connect_errno()) {
                         echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
                     } else {
