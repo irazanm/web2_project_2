@@ -489,7 +489,7 @@ and open the template in the editor.
                                         while ($row = mysqli_fetch_assoc($resultclass)) {
                                             echo '<tr>
                                         <td class="column1">
-                                            <a class="link" href="Fitness_class_information.php?ClassID="' . $row["id"] . '&Type_Of_Info=info">
+                                            <a class="link" href="Fitness_class_information.php?ClassID=' . $row["id"] . '&Type_Of_Info=info">
                                                 <span data-content="' . $row["name"] . '"> 
                                                     ' . $row["name"] . '
                                                 </span>
