@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result && mysqli_num_rows($result) == 1 && password_verify($_POST['login-password'], $row['password'])) {
             //after athoruzation start sesstion 
             session_start();
-            if (!isset($_SESSION['type'])) {
+            if (!isset($_POST['type'])) {
                 //create session valribale 
                 $_SESSION['type'] = $_POST['Type'];
                 $_SESSION['id'] = $row['id'];
