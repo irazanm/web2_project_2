@@ -463,7 +463,7 @@
         }
         //connection 
         require 'configration.php';
-
+        
         //Trainee edits
         if ($_SERVER['REQUEST_METHOD'] == "GET") {
             //drop class
@@ -575,7 +575,7 @@
                                         while ($row = mysqli_fetch_assoc($resultclass)) {
                                             echo "<tr>
                                                 <td class='column1'>
-                                                    <a class='link' href='Fitness_class_information.php?ClassID=" . $row["id"] . "'>
+                                                    <a class='link' href='Fitness_class_information.php?ClassID=" . $row["id"] . "&Type_Of_Info=info'>
                                                         <span data-content='" . $row["name"] . "'>" .
                                             $row["name"]
                                             . "</span>
@@ -606,7 +606,7 @@
                                         While ($Crow = mysqli_fetch_assoc($classresult)) {
                                             echo "<tr>
                                                 <td class='column1'>
-                                                    <a class='link' href='Fitness_class_information.php?ClassID=" . $Crow["id"] . "'>
+                                                    <a class='link' href='Fitness_class_information.php?ClassID=" . $Crow["id"] . "&Type_Of_Info=info'>
                                                         <span data-content='" . $Crow["name"] . "'>" .
                                             $Crow["name"]
                                             . "</span>
