@@ -582,8 +582,7 @@ if (isset($_GET['ClassID'])) {
                 </div>
             </nav>
             <div id="video">
-                <img class="class_image_" height="850" alt="" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/927610/pexels-photo-587409.jpeg"  style="z-index:50;">
-
+                <img class="class_image_" height="850" alt="class image" src="data:image;base64,<?php echo $row_class['class_image']; ?>" >
                 <!--<img src='' alt="class image"/>-->
                 <!--<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>-->
                 <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/927610/pexels-photo-587409.jpeg">-->
@@ -703,7 +702,7 @@ if (isset($_GET['ClassID'])) {
                 </div>
             </div>';
             }
-             //drop button for only the trineers that have enrolled the class
+            //drop button for only the trineers that have enrolled the class
             if ($_SESSION['type'] == 'trainee') {
 
                 $sql_isEnrol = "SELECT * FROM `enrolment` WHERE trainee_id = " . $_SESSION['id'] . ";";
@@ -751,13 +750,12 @@ if (isset($_GET['ClassID'])) {
                 <div class="modal-contents"><!---->
 
                     <div class="close_edit">+</div><!---->
-
-                    <form action="">
+                    <form  method="POST">
                         <h2><del style = "--color: var(--del-color, #FFC107);">Edit Fitness Class</del></h2>
-                        <input type="text" placeholder="Title" required id="title" name="title">
-                        <input type="number" placeholder="Level" required id="level" name="level">
-                        <input type="file" name="image" >
-                        <textarea id="description" name="description" placeholder="Description" rows="4" cols="50"></textarea>
+                        <input type="text" placeholder="Title" required id="title" name="title" value="<?PHP echo $row_class['name']; ?>">
+                        <?PHP echo '<input type="number" placeholder="Level" required id="level" name="level" value="' . $row_class['level'] . '">'; ?>        
+                        <input type="file" name="image">
+                        <textarea id="description" name="description" placeholder="Description" rows="4" cols="50"><?PHP echo $row_class['description']; ?></textarea>
                         <a href="Fitness_class_information.php?ClassID=<?php echo $_GET['ClassID'] . "&Type_Of_Info=" . $_GET['Type_Of_Info']; ?>&edit=yes" class="button_edit">Submit</a>
                     </form>
 
@@ -765,27 +763,36 @@ if (isset($_GET['ClassID'])) {
             </div>
             <?php
             //this form show only for the coach and execute onle if you heet the edit button
-            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-                if ($_GET['edit'] == 'yes') {
-                    $ClassID = $_GET['ClassID'];
-                    $name = $_GET['title'];
-                    $level = $_GET['level'];
-                    $description = $_GET['description'];
-                    $image = $_GET['image'];
-                    $sql_edit = "UPDATE `class` SET `name`='" . $name . "',`level`=" . $level . ",`description`='" . $description . "',`class_image`='" . $image . "' WHERE id=" . $ClassID;
+            //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            if ($_GET['edit'] == 'yes') {
+                if (isset($_POST['title']) && isset($_POST['level']) && isset($_POST['description'])) {
+                    $Title = $_POST['title'];
+                    $Level = $_POST['level'];
+                    $Description = $_POST['description'];
+                    if ($_FILES['image']['name'] != null) {
+                        $image = $_FILES['image']['tmp_name'];
+                        $image = base64_encode(file_get_contents($image));
+                        $sql_edit = "UPDATE `class` SET `name`='" . $Title . "',`level`=" . $Level . ",`description`='" . $Description . "',`class_image`='" . $image . "' WHERE id =" . $_GET['ClassID'];
+                    } else {
+
+                        $sql_edit = "UPDATE `class` SET `name`='" . $Title . "',`level`=" . $Level . ",`description`='" . $Description . "' WHERE id =" . $_GET['ClassID'];
+                    }
                     $result_edit = mysqli_query($connection, $sql_edit);
+                    echo '1';
                     if (mysqli_connect_errno()) {
                         echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
                     } else {
-                        header("Location:Coach_home.php");
+                        //header("Location:Coach_home.php");
                     }
+                } else {
+                    echo '2';    
                 }
-            } else {
-                echo '<script type="text/JavaScript"> window.alert("requst not arrive!! \n"); </script>';
             }
+            //  } 
             ?>
             <!-- drop class -->
-       
+
             <!--<div class="bg-modal_drop">
                 <div class="modal-contents_drop">
 
@@ -837,6 +844,8 @@ if (isset($_GET['ClassID'])) {
                 document.querySelector('#video').style.display = "none";
                 document.getElementById("heder").style.paddingBottom = "0%";
             });
+//         --------------------show edit form--------------------------
+
 
             document.querySelector('.close_edit').addEventListener("click", function () {
                 document.querySelector('.bg-modal_edit').style.display = "none";
