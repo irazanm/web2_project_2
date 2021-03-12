@@ -702,7 +702,7 @@ if (isset($_GET['ClassID'])) {
             //drop button for only the trineers that have enrolled the class
             if ($_SESSION['type'] == 'trainee') {
 
-                $sql_isEnrol = "SELECT * FROM `enrolment` WHERE trainee_id = " . $_SESSION['id']."AND class_id=".$_GET['ClassID'];
+                $sql_isEnrol = "SELECT * FROM `enrolment` WHERE trainee_id = " . $_SESSION['id'];
                 $result_isEnrol = mysqli_query($connection, $sql_isEnrol);
 
                 if (!$result_isEnrol) {
