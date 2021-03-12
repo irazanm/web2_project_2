@@ -28,7 +28,7 @@ if (isset($_GET['ClassID'])) {
 //-----------------------------to get trainees list only for the coach and display it-----------------------------
     if ($_SESSION['type'] == 'coach') {
         if ($_GET['Type_Of_Info'] == 'trainees_list') {
-            $sql_trainees = "SELECT * FROM `trainee` WHERE id IN (SELECT trainee_id FROM enrolment WHERE class_id = '" . $_GET['ClassID'] . "');";
+            $sql_trainees = "SELECT * FROM `trainee` WHERE id IN (SELECT trainee_id FROM enrolment WHERE class_id = " . $_GET['ClassID'] . ");";
             $result_trainees = mysqli_query($connection, $sql_trainees);
             if (!$result_trainees) {
                 echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
@@ -583,9 +583,6 @@ if (isset($_GET['ClassID'])) {
             </nav>
             <div id="video">
                 <img class="class_image_" height="850" alt="class image" src="data:image;base64,<?php echo $row_class['class_image']; ?>" >
-                <!--<img src='' alt="class image"/>-->
-                <!--<video height="850"  autoplay  loop><source src="https://cdn.videvo.net/videvo_files/video/free/2019-03/small_watermarked/180419_Boxing_20_15_preview.webm" type="video/mp4"> </video>-->
-                <!--<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/927610/pexels-photo-587409.jpeg">-->
             </div>
         </header>
         <!-- the content  -->
@@ -621,7 +618,7 @@ if (isset($_GET['ClassID'])) {
                         <p class="text">
                             <?php
                             //to get the coach name by hes id that related to the class
-                            $sql_coach_info = "SELECT * FROM `coach` WHERE id = (SELECT coach_id FROM class WHERE id ='" . $_GET['ClassID'] . "')";
+                            $sql_coach_info = "SELECT * FROM `coach` WHERE id = (SELECT coach_id FROM class WHERE id =" . $_GET['ClassID'] . ")";
                             $result_coach_info = mysqli_query($connection, $sql_coach_info);
                             if (!$result_coach_info) {
                                 echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
@@ -705,7 +702,7 @@ if (isset($_GET['ClassID'])) {
             //drop button for only the trineers that have enrolled the class
             if ($_SESSION['type'] == 'trainee') {
 
-                $sql_isEnrol = "SELECT * FROM `enrolment` WHERE trainee_id = " . $_SESSION['id'] . ";";
+                $sql_isEnrol = "SELECT * FROM `enrolment` WHERE trainee_id = " . $_SESSION['id']."AND class_id=".$_GET['ClassID'];
                 $result_isEnrol = mysqli_query($connection, $sql_isEnrol);
 
                 if (!$result_isEnrol) {
@@ -750,13 +747,13 @@ if (isset($_GET['ClassID'])) {
                 <div class="modal-contents"><!---->
 
                     <div class="close_edit">+</div><!---->
-                    <form  method="POST">
+                    <form  action="<?php echo "Fitness_class_information.php?ClassID=".$row_class['id']."&Type_Of_Info=info&edit=yes";?>" method="POST" enctype="multipart/form-data">
                         <h2><del style = "--color: var(--del-color, #FFC107);">Edit Fitness Class</del></h2>
                         <input type="text" placeholder="Title" required id="title" name="title" value="<?PHP echo $row_class['name']; ?>">
-                        <?PHP echo '<input type="number" placeholder="Level" required id="level" name="level" value="' . $row_class['level'] . '">'; ?>        
+                        <input type="number" placeholder="Level" required id="level" name="level" value="<?PHP echo  $row_class['level']; ?>">        
                         <input type="file" name="image">
                         <textarea id="description" name="description" placeholder="Description" rows="4" cols="50"><?PHP echo $row_class['description']; ?></textarea>
-                        <a href="Fitness_class_information.php?ClassID=<?php echo $_GET['ClassID'] . "&Type_Of_Info=" . $_GET['Type_Of_Info']; ?>&edit=yes" class="button_edit">Submit</a>
+                        <input  type="submit" value="Submit" class="button_edit">
                     </form>
 
                 </div>
@@ -764,8 +761,7 @@ if (isset($_GET['ClassID'])) {
             <?php
             //this form show only for the coach and execute onle if you heet the edit button
             //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            if ($_GET['edit'] == 'yes') {
+                if(isset($_GET['edit'])){
                 if (isset($_POST['title']) && isset($_POST['level']) && isset($_POST['description'])) {
                     $Title = $_POST['title'];
                     $Level = $_POST['level'];
@@ -779,16 +775,13 @@ if (isset($_GET['ClassID'])) {
                         $sql_edit = "UPDATE `class` SET `name`='" . $Title . "',`level`=" . $Level . ",`description`='" . $Description . "' WHERE id =" . $_GET['ClassID'];
                     }
                     $result_edit = mysqli_query($connection, $sql_edit);
-                    echo '1';
                     if (mysqli_connect_errno()) {
                         echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
                     } else {
-                        //header("Location:Coach_home.php");
+                        header("Location:Coach_home.php");
                     }
-                } else {
-                    echo '2';    
                 }
-            }
+                }
             //  } 
             ?>
             <!-- drop class -->
