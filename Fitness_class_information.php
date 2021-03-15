@@ -550,7 +550,15 @@ if (isset($_GET['ClassID'])) {
                 overflow: hidden;
                 padding-bottom: 0;
             }
-
+             .class_image_{
+                width: 100%;
+                max-width: none;
+                padding: 0px;
+                margin: 0px;
+                top: 0%;
+                left: 50%;
+                z-index: -1;
+            }
 
         </style>
     </head>
@@ -702,16 +710,13 @@ if (isset($_GET['ClassID'])) {
             //drop button for only the trineers that have enrolled the class
             if ($_SESSION['type'] == 'trainee') {
 
-                $sql_isEnrol = "SELECT * FROM `enrolment` WHERE trainee_id = " . $_SESSION['id'];
+                $sql_isEnrol = "SELECT * FROM `enrolment` WHERE trainee_id = ". $_SESSION['id']." AND class_id=".$_GET['ClassID'];
                 $result_isEnrol = mysqli_query($connection, $sql_isEnrol);
 
                 if (!$result_isEnrol) {
                     echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
                 }
-                $row_isEnrol = mysqli_fetch_assoc($result_isEnrol);
-                if (!empty($row_isEnrol)) {
-
-                    if ($_GET['ClassID'] == $row_isEnrol['class_id']) {
+                if (mysqli_num_rows($result_isEnrol)==1) {
                         ?>
 
                         <!------------ Drop button ------------->
@@ -725,9 +730,7 @@ if (isset($_GET['ClassID'])) {
                         <!------------ /Drop button ------------->
                         <?php
                     }
-                }
             }
-
             //drop class - execution 
             if ($_GET['drop'] == 'yes') {
                 $ClassID = $_GET['ClassID'];
