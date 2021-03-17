@@ -150,8 +150,7 @@ header {
     }
 }
 
-header div video,
- .class_image_{
+header div video{
     width: 100%;
     max-width: none;
     position: absolute;
