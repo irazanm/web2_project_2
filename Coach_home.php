@@ -7,7 +7,7 @@ and open the template in the editor.
 <?php
     //from the ssesion you can get information about the user
     session_start();
-    if (!isset($_SESSION['id'])) {
+    if (!isset($_SESSION['logIn'])) {
         //if the user delete the ssesion it will redirect the user to the login again 
         header("Location:index.html");
         exit();
@@ -496,7 +496,7 @@ and open the template in the editor.
                                             </a>
                                         </td>
                                         <td class="column2">
-                                            <a  class="link" href="Fitness_class_information.php?ClassID="' . $row["id"] . '&Type_Of_Info=trainees_list">
+                                            <a  class="link" href="Fitness_class_information.php?ClassID=' . $row["id"] . '&Type_Of_Info=trainees_list">
                                                 <span data-content="Display Trainees list"> 
                                                     Display Trainees list
                                                 </span>
