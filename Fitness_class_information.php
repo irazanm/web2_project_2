@@ -10,7 +10,7 @@ require 'configration.php';
 
 //------------------from the ssesion you can get information about the user------------------
 session_start();
-if (!isset($_SESSION['id'])) {
+if (!isset($_SESSION['logIn'])) {
     //if the user delete the ssesion it will redirect the user to the login again 
     header("Location:index.html");
     exit();
@@ -559,7 +559,17 @@ if (isset($_GET['ClassID'])) {
                 left: 50%;
                 z-index: -1;
             }
-
+            .class_image_{
+                width: 100%;
+                max-width: none;
+                position: static;
+                padding: 0px;
+                margin: 0px;
+                top: 0%;
+                left: 50%;
+                transform: translateX(0%);
+                z-index: -1;
+            }
         </style>
     </head>
     <body>
@@ -567,8 +577,16 @@ if (isset($_GET['ClassID'])) {
         <header class="zoom-me" id="heder">
             <nav class="menu-container">
                 <!-- logo -->
-                <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
-                <!-- menu items -->
+                <a href="
+                <?php
+                if ($_SESSION['type'] == 'coach') {
+                    echo 'Coach_home.php';
+                } else {
+                    echo 'Trainee_home.php';
+                }
+                ?>">
+                    <img src="image/Logo1.png" alt="logo" title="Fitness Logo" class="menu-logo" width="200">
+                </a>                <!-- menu items -->
                 <div class="menu">
                     <ul>
                         <li>
