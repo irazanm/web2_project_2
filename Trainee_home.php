@@ -474,20 +474,29 @@
             }
             //insert new enrollment row
             if (isset($_GET['Enroll'])) {
-                $sql = "SELECT * FROM `enrolment` WHERE trainee_id=" . $_SESSION["id"] . " AND class_id=" . $_GET['Enroll'];
-                $result = mysqli_query($connection, $sql);
-                $sql1 = "SELECT id + 1 AS gap FROM `enrolment` mo WHERE NOT EXISTS(SELECT NULL FROM `enrolment` mi WHERE mi.id = mo.id + 1)ORDER BY id";
-                $result1 = mysqli_query($connection, $sql1);
-                $row = mysqli_fetch_assoc($result1);
-                //check if already enrolled or not
-                $exist = mysqli_num_rows($result);
-                if ($exist == 0) {
-                    $classid = $_GET['Enroll'];
-                    $sql = "INSERT INTO `enrolment`(`id`,`trainee_id`, `class_id`) VALUES (" . $row["gap"] . "," . $_SESSION["id"] . "," . $classid . ")";
+                $classid = $_GET['Enroll'];
+                $sql = "SELECT * FROM `enrolment`";
+                $r = mysqli_num_rows(mysqli_query($connection, $sql));
+                if($r == 0){
+                    $sql = "INSERT INTO `enrolment`(`id`,`trainee_id`, `class_id`) VALUES (1," . $_SESSION["id"] . "," . $classid . ")";
                     $result = mysqli_query($connection, $sql);
+                }
+                else{
+                    $sql = "SELECT * FROM `enrolment` WHERE trainee_id=" . $_SESSION["id"] . " AND class_id=" . $_GET['Enroll'];
+                    $result = mysqli_query($connection, $sql);
+                    $sql1 = "SELECT id + 1 AS gap FROM `enrolment` mo WHERE NOT EXISTS(SELECT NULL FROM `enrolment` mi WHERE mi.id = mo.id + 1)ORDER BY id";
+                    $result1 = mysqli_query($connection, $sql1);
+                    $row = mysqli_fetch_assoc($result1);
+                    //check if already enrolled or not
+                    $exist = mysqli_num_rows($result);
+                    if ($exist == 0) {
+                        $sql = "INSERT INTO `enrolment`(`id`,`trainee_id`, `class_id`) VALUES (" . $row["gap"] . "," . $_SESSION["id"] . "," . $classid . ")";
+                        $result = mysqli_query($connection, $sql);
+                    }
                 }
             }
         }
+        
         ?>
         <header class="zoom-me" id ="heder">
             <nav class="menu-container">
