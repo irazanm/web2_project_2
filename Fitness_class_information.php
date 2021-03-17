@@ -865,6 +865,7 @@ if (isset($_GET['ClassID'])) {
                 document.querySelector('.bg-modal_edit').style.display = "none";
                 document.querySelector('#video').style.display = "flex";
                 document.getElementById("heder").style.paddingBottom = "44%";
+                window.location.href = <?php echo "\"Fitness_class_information.php?ClassID=".$_GET['ClassID'] . "&Type_Of_Info=" . $_GET['Type_Of_Info']."\"" ;?>;
             });
             document.querySelector('.button_edit').addEventListener("click", function () {
 
