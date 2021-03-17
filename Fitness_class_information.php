@@ -608,7 +608,7 @@ if (isset($_GET['ClassID'])) {
                 </div>
             </nav>
             <div id="video">
-                <img class="class_image_" height="850" alt="class image" src="data:image;base64,<?php echo $row_class['class_image']; ?>" >
+                <img class="class_image_" alt="class image" src="data:image;base64,<?php echo $row_class['class_image']; ?>" >
             </div>
         </header>
         <!-- the content  -->
