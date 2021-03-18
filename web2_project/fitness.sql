@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 17, 2021 at 04:38 PM
+-- Generation Time: Mar 18, 2021 at 01:33 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -82,6 +82,19 @@ CREATE TABLE `enrolment` (
   `class_id` int(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `enrolment`
+--
+
+INSERT INTO `enrolment` (`id`, `trainee_id`, `class_id`) VALUES
+(1, 5, 1),
+(2, 5, 2),
+(3, 1, 1),
+(4, 2, 1),
+(5, 3, 1),
+(6, 6, 2),
+(7, 6, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -105,7 +118,12 @@ INSERT INTO `trainee` (`id`, `username`, `password`, `name`, `email`) VALUES
 (2, 'Lama', '$2y$10$eCFoNLSqM/qqS0Xsq/HB9OejByx.mKYIiDTM.FgPFX0Hnfm7x8sty', 'Lama', 'lama@gmail.com'),
 (3, 'yara', '$2y$10$aTUnjLj6wLq4g7m/EaPGPuQ8m.GRBdACWsBcCfoOZU8l.TRBmBBgC', 'Yara', 'yara@gmail.com'),
 (4, 'shatha', '$2y$10$7Z9avihWGhQlgDbFBdhkeecAD1q0mZTuGc3xqtHm8TfJKHkugFabS', 'shatha', 'shatha@gmail.com'),
-(5, 'rawan', '$2y$10$ijPcnUN9b5XjtLDrTOIeZuF6RuZTdk7HVVVgGE4IUVRx73ssZM/2a', 'Rawan', 'rawan@gmail.com');
+(5, 'rawan', '$2y$10$ijPcnUN9b5XjtLDrTOIeZuF6RuZTdk7HVVVgGE4IUVRx73ssZM/2a', 'Rawan', 'rawan@gmail.com'),
+(6, 'omar', '$2y$10$QN8b9/Dt.mWCGc58IDf0guPH4GaUebaUsycgrMwohSF83pG.8IUBS', 'omar', 'omar@gmail.com'),
+(7, 'majed', '$2y$10$1TjVErdW0uryM2F2BrgXCu5vDBHPstvke/gyOyfe8Kmy8q1NH8B4O', 'majed', 'majed@gmail.com'),
+(8, 'saltan', '$2y$10$oqYb6iCfzr9lC8s2jwvSzONlHA00HeSonJ0Ko7lj.pRU8KZNE4LA6', 'saltan', 'saltan@gmail.com'),
+(9, 'faisal', '$2y$10$n3fjfEWEQDQHH/z.LJ14EuYa6v86pTzmjqod7gmhv/eLgk.9uOa9.', 'faisal', 'faisal@gmail.com'),
+(10, 'salha', '$2y$10$MdKDQK/Vpi0E9XAK4ARGQ.L5pr9RfViyhLsbIoUMJwoyRlPxWX8o2', 'salha', 'salha@gmail.com');
 
 --
 -- Indexes for dumped tables
