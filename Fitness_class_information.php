@@ -550,7 +550,7 @@ if (isset($_GET['ClassID'])) {
                 overflow: hidden;
                 padding-bottom: 0;
             }
-             .class_image_{
+            .class_image_{
                 width: 100%;
                 max-width: none;
                 padding: 0px;
@@ -728,26 +728,26 @@ if (isset($_GET['ClassID'])) {
             //drop button for only the trineers that have enrolled the class
             if ($_SESSION['type'] == 'trainee') {
 
-                $sql_isEnrol = "SELECT * FROM `enrolment` WHERE trainee_id = ". $_SESSION['id']." AND class_id=".$_GET['ClassID'];
+                $sql_isEnrol = "SELECT * FROM `enrolment` WHERE trainee_id = " . $_SESSION['id'] . " AND class_id=" . $_GET['ClassID'];
                 $result_isEnrol = mysqli_query($connection, $sql_isEnrol);
 
                 if (!$result_isEnrol) {
                     echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
                 }
-                if (mysqli_num_rows($result_isEnrol)==1) {
-                        ?>
+                if (mysqli_num_rows($result_isEnrol) == 1) {
+                    ?>
 
-                        <!------------ Drop button ------------->
-                        <a class="button remoove"  id="remoove" role="button" title="Delete the class"  href="Fitness_class_information.php?ClassID=<?php echo $_GET['ClassID'] . "&drop=yes"; ?>" >
-                            <span>Drop</span>
-                            <div class="icon-Delete">
-                                <i class="fa fa-remove"> </i>
-                                <i class="fa fa-check"></i>	     
-                            </div>
-                        </a>
-                        <!------------ /Drop button ------------->
-                        <?php
-                    }
+                    <!------------ Drop button ------------->
+                    <a class="button remoove"  id="remoove" role="button" title="Delete the class"  href="Fitness_class_information.php?ClassID=<?php echo $_GET['ClassID'] . "&Type_Of_Info=" . $_GET['Type_Of_Info'] . "&drop=yes"; ?>" >
+                        <span>Drop</span>
+                        <div class="icon-Delete">
+                            <i class="fa fa-remove"> </i>
+                            <i class="fa fa-check"></i>	     
+                        </div>
+                    </a>
+                    <!------------ /Drop button ------------->
+                    <?php
+                }
             }
             //drop class - execution 
             if ($_GET['drop'] == 'yes') {
@@ -755,7 +755,9 @@ if (isset($_GET['ClassID'])) {
                 $sql_Drop = "DELETE FROM `enrolment` WHERE trainee_id=" . $_SESSION["id"] . " AND class_id =" . $ClassID;
                 $result_Drop = mysqli_query($connection, $sql_Drop);
                 if ($result_Drop) {
-                    header("Location:Trainee_home.php");
+//                    ob_start();
+//                    header("Location:Trainee_home.php");
+                    echo "<script>window.location.href='Trainee_home.php';</script>";
                     exit();
                 } else {
                     echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
@@ -768,10 +770,10 @@ if (isset($_GET['ClassID'])) {
                 <div class="modal-contents"><!---->
 
                     <div class="close_edit">+</div><!---->
-                    <form  action="<?php echo "Fitness_class_information.php?ClassID=".$row_class['id']."&Type_Of_Info=info&edit=yes";?>" method="POST" enctype="multipart/form-data">
+                    <form  action="<?php echo "Fitness_class_information.php?ClassID=" . $row_class['id'] . "&Type_Of_Info=" . $_GET['Type_Of_Info'] . "&edit=yes"; ?>" method="POST" enctype="multipart/form-data">
                         <h2><del style = "--color: var(--del-color, #FFC107);">Edit Fitness Class</del></h2>
                         <input type="text" placeholder="Title" required id="title" name="title" value="<?PHP echo $row_class['name']; ?>">
-                        <input type="number" placeholder="Level" required id="level" name="level" value="<?PHP echo  $row_class['level']; ?>">        
+                        <input type="number" placeholder="Level" required id="level" name="level" value="<?PHP echo $row_class['level']; ?>">        
                         <input type="file" name="image">
                         <textarea id="description" name="description" placeholder="Description" rows="4" cols="50"><?PHP echo $row_class['description']; ?></textarea>
                         <input  type="submit" value="Submit" class="button_edit">
@@ -782,7 +784,7 @@ if (isset($_GET['ClassID'])) {
             <?php
             //this form show only for the coach and execute onle if you heet the edit button
             //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                if(isset($_GET['edit'])){
+            if (isset($_GET['edit'])) {
                 if (isset($_POST['title']) && isset($_POST['level']) && isset($_POST['description'])) {
                     $Title = $_POST['title'];
                     $Level = $_POST['level'];
@@ -799,10 +801,11 @@ if (isset($_GET['ClassID'])) {
                     if (mysqli_connect_errno()) {
                         echo '<script type="text/JavaScript"> window.alert("Something want wrong!! \n' . mysql_error($connection) . '"); </script>';
                     } else {
-                        header("Location:Coach_home.php");
+                        echo "<script>window.location.href='Coach_home.php';</script>";
+//                        header("Location:Coach_home.php");
                     }
                 }
-                }
+            }
             //  } 
             ?>
             <!-- drop class -->
@@ -865,7 +868,7 @@ if (isset($_GET['ClassID'])) {
                 document.querySelector('.bg-modal_edit').style.display = "none";
                 document.querySelector('#video').style.display = "flex";
                 document.getElementById("heder").style.paddingBottom = "44%";
-                window.location.href = <?php echo "\"Fitness_class_information.php?ClassID=".$_GET['ClassID'] . "&Type_Of_Info=" . $_GET['Type_Of_Info']."\"" ;?>;
+                window.location.href = <?php echo "\"Fitness_class_information.php?ClassID=" . $_GET['ClassID'] . "&Type_Of_Info=" . $_GET['Type_Of_Info'] . "\""; ?>;
             });
             document.querySelector('.button_edit').addEventListener("click", function () {
 
