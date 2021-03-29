@@ -23,15 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result) {
             //after the insertion start new session for new trainee 
             session_start();
-            if (!isset($_SESSION['logIn'])) {
-                //create session valribale 
-                $_SESSION['logIn'] = 'yes';
-                $_SESSION['type'] = "trainee";
-                $_SESSION['id'] = $numberOfRows;
-                $_SESSION['username'] = $_POST['Username'];
-                $_SESSION['name'] = $_POST['fullName'];
-                $_SESSION['email'] = $_POST['signup-email'];
-            }
+
+            //create session valribale 
+            $_SESSION['logIn'] = 'yes';
+            $_SESSION['type'] = "trainee";
+            $_SESSION['id'] = $numberOfRows;
+            $_SESSION['username'] = $_POST['Username'];
+            $_SESSION['name'] = $_POST['fullName'];
+            $_SESSION['email'] = $_POST['signup-email'];
+
             //after creation redirect the user to the home page
             header("Location:Trainee_home.php");
             exit();
