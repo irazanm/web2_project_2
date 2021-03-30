@@ -15,7 +15,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
-                $("input").click(function(){
+                $("table").on("click", "input", function(){
                     var StateName = $(this).attr("state");
                     var classID = parseInt(StateName.substring(0, StateName.indexOf(",")));
                     var ID = parseInt(StateName.substring(StateName.indexOf(",")+1));
@@ -37,7 +37,7 @@
                                 }
                             });
                 });
-                $("a").click(function() {
+                $("table").on("click", "a", function() {
                     var StateName = $(this).attr("state");
                     var classID = parseInt(StateName.substring(0, StateName.indexOf(",")));
                     var ID = parseInt(StateName.substring(StateName.indexOf(",")+1));
@@ -58,7 +58,7 @@
                                    alert("The class does not Enrolled successfuly"); 
                                 }
                             });
-                });                
+                });
             });
         </script>
         <style>
