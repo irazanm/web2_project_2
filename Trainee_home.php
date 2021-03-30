@@ -13,6 +13,54 @@
         <script src="https://kit.fontawesome.com/48735e6971.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("input").click(function(){
+                    var StateName = $(this).attr("state");
+                    var classID = parseInt(StateName.substring(0, StateName.indexOf(",")));
+                    var ID = parseInt(StateName.substring(StateName.indexOf(",")+1));
+                    var e = "#e"+classID;
+                    var d = "#d"+classID;
+                    var Enrollbutton = "<a class='link' state='" + classID + "," + ID + "'> <span data-content='Enroll'> Enroll</span></a>";
+                    $.post("Drop.php",
+                           { Drop: classID, 
+                             ID: ID
+                           },
+                           function(data , state){
+                               if(state){
+                                    alert("The class droped successfuly");
+                                    $(d).html("");
+                                    $(e).html("");
+                                    $(e).append(Enrollbutton);
+                                }else{
+                                    alert("The class does not Droped successfuly");
+                                }
+                            });
+                });
+                $("a").click(function() {
+                    var StateName = $(this).attr("state");
+                    var classID = parseInt(StateName.substring(0, StateName.indexOf(",")));
+                    var ID = parseInt(StateName.substring(StateName.indexOf(",")+1));
+                    var e = "#e"+classID;
+                    var d = "#d"+classID;
+                    var dropbutton = "<div class='outer'><div class='inner'><label><input type='submit' value ='Drop' class='drop' state='"+classID+","+ID+"'></label></div></div>";
+                    $.post("Enroll.php",
+                           { Enroll: classID, 
+                             ID: ID
+                           },
+                           function(data , state){
+                               if(state){
+                                    alert("The class Enrolled successfuly");
+                                    $(e).html("");
+                                    $(e).append("Enrolled");
+                                    $(d).append(dropbutton);
+                                }else{
+                                   alert("The class does not Enrolled successfuly"); 
+                                }
+                            });
+                });                
+            });
+        </script>
         <style>
             /*-----DESCRAPTION CARD-------*/
             .content {
@@ -464,40 +512,6 @@
         }
         //connection 
         require 'configration.php';
-        
-        //Trainee edits
-        if ($_SERVER['REQUEST_METHOD'] == "GET") {
-            //drop class
-            if (isset($_GET['Drop'])) {
-                $ClassID = $_GET['Drop'];
-                $sqlC = "DELETE FROM `enrolment` WHERE trainee_id=" . $_SESSION["id"] . " AND class_id =" . $ClassID;
-                $resultDelete = mysqli_query($connection, $sqlC);
-            }
-            //insert new enrollment row
-            if (isset($_GET['Enroll'])) {
-                $classid = $_GET['Enroll'];
-                $sql = "SELECT * FROM `enrolment`";
-                $r = mysqli_num_rows(mysqli_query($connection, $sql));
-                if($r == 0){
-                    $sql = "INSERT INTO `enrolment`(`id`,`trainee_id`, `class_id`) VALUES (1," . $_SESSION["id"] . "," . $classid . ")";
-                    $result = mysqli_query($connection, $sql);
-                }
-                else{
-                    $sql = "SELECT * FROM `enrolment` WHERE trainee_id=" . $_SESSION["id"] . " AND class_id=" . $_GET['Enroll'];
-                    $result = mysqli_query($connection, $sql);
-                    $sql1 = "SELECT id + 1 AS gap FROM `enrolment` mo WHERE NOT EXISTS(SELECT NULL FROM `enrolment` mi WHERE mi.id = mo.id + 1)ORDER BY id";
-                    $result1 = mysqli_query($connection, $sql1);
-                    $row = mysqli_fetch_assoc($result1);
-                    //check if already enrolled or not
-                    $exist = mysqli_num_rows($result);
-                    if ($exist == 0) {
-                        $sql = "INSERT INTO `enrolment`(`id`,`trainee_id`, `class_id`) VALUES (" . $row["gap"] . "," . $_SESSION["id"] . "," . $classid . ")";
-                        $result = mysqli_query($connection, $sql);
-                    }
-                }
-            }
-        }
-        
         ?>
         <header class="zoom-me" id ="heder">
             <nav class="menu-container">
@@ -586,24 +600,19 @@
                                             echo "<tr>
                                                 <td class='column1'>
                                                     <a class='link' href='Fitness_class_information.php?ClassID=" . $row["id"] . "&Type_Of_Info=info'>
-                                                        <span data-content='" . $row["name"] . "'>" .
-                                            $row["name"]
-                                            . "</span>
+                                                        <span data-content='" . $row["name"] . "'>" .$row["name"]. "</span>
                                                     </a>
                                                 </td>
-                                                <td class='column2'>
+                                                <td class='column2' id='e" . $row["id"] . "'>
                                                     Enrolled
                                                 </td>
-                                                <td class='column3'>
+                                                <td class='column3' id='d" . $row["id"] . "'>
                                                     <!-- Drop button -->
                                                     <div class='outer'>
                                                         <div class='inner'>
-                                                            <form method='GET' action='Trainee_home.php'>
                                                             <label>
-                                                                <input type='submit' value ='Drop' class='drop'>
-                                                                <input type='hidden' value ='" . $row["id"] . "' name='Drop'>
+                                                                <input type='submit' value ='Drop' class='drop' state='" . $row["id"] . ",".$_SESSION["id"]."'>
                                                             </label>
-                                                            </form>
                                                         </div>
                                                     </div>
                                                     <!-- /Drop button -->
@@ -613,23 +622,23 @@
                                         //Display Enroll
                                         $sqlc = "SELECT * FROM `class` WHERE id NOT IN (SELECT class_id FROM `enrolment` WHERE trainee_id =" . $_SESSION['id'] . ")";
                                         $classresult = mysqli_query($connection, $sqlc);
-                                        While ($Crow = mysqli_fetch_assoc($classresult)) {
+                                        While ($row = mysqli_fetch_assoc($classresult)) {
                                             echo "<tr>
                                                 <td class='column1'>
-                                                    <a class='link' href='Fitness_class_information.php?ClassID=" . $Crow["id"] . "&Type_Of_Info=info'>
-                                                        <span data-content='" . $Crow["name"] . "'>" .
-                                            $Crow["name"]
+                                                    <a class='link' href='Fitness_class_information.php?ClassID=" . $row["id"] . "&Type_Of_Info=info'>
+                                                        <span data-content='" . $row["name"] . "'>" .
+                                            $row["name"]
                                             . "</span>
                                                     </a>
                                                 </td>
-                                                <td class='column2'>
-                                                    <a class='link' href='Trainee_home.php?Enroll=" . $Crow["id"] . "'> 
+                                                <td class='column2' id='e" . $row["id"] . "'>
+                                                    <a class='link' state='" . $row["id"] . ",".$_SESSION["id"]."'> 
                                                         <span data-content='Enroll'> 
                                                             Enroll
                                                         </span>
                                                     </a>
                                                 </td>
-                                                <td class='column3'>
+                                                <td class='column3' id='d" . $row["id"] . "'>
                                                 </td>
                                                 </tr>";
                                         }
