@@ -25,6 +25,29 @@ and open the template in the editor.
         <script src="javaS/home.js"></script>
         <link rel="stylesheet" href="home.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script>
+            $(document).ready(function(){
+                $("a").click(function(){
+                    var StateName = $(this).attr("state");
+                    var classID = classID = parseInt(StateName);
+                    var r = "#List"+ classID;
+                    $.post("GetTraineeList.php",
+                           { Show: classID },
+                           function(data){
+                               var obj = JSON.parse(data);
+                               $(r).html("");
+                               var List ="";
+                                for(i=0; i<obj.length; i++){
+                                    List = List + obj[i].name+"<br>";
+                                }
+                                $(r).append(List);
+                            });
+                });
+            });
+        </script>
         <style>
             /*--after we finsh we can put this code at an external css file--*/
 
@@ -496,11 +519,15 @@ and open the template in the editor.
                                             </a>
                                         </td>
                                         <td class="column2">
-                                            <a  class="link" href="Fitness_class_information.php?ClassID=' . $row["id"] . '&Type_Of_Info=trainees_list">
+                                            <a  class="link" data-toggle="collapse" href="#collapse'.$row["id"].'" state="' . $row["id"].'">
                                                 <span data-content="Display Trainees list"> 
                                                     Display Trainees list
                                                 </span>
                                             </a>
+                                            <div id="collapse'.$row["id"].'" class="panel-collapse collapse">
+                                                <div id="List'.$row["id"].'">
+                                                </div>
+                                            </div>
                                         </td>
                                         <td class="column3">
                                             <!-- Edite button -->
