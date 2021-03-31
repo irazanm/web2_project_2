@@ -27,7 +27,7 @@ if (isset($_GET['ClassID'])) {
 
 //-----------------------------to get trainees list only for the coach and display it-----------------------------
     if ($_SESSION['type'] == 'coach') {
-        if ($_GET['Type_Of_Info'] == 'trainees_list') {
+        if ($_GET['Type_Of_Info'] == 'info') {
             $sql_trainees = "SELECT * FROM `trainee` WHERE id IN (SELECT trainee_id FROM enrolment WHERE class_id = " . $_GET['ClassID'] . ");";
             $result_trainees = mysqli_query($connection, $sql_trainees);
             if (!$result_trainees) {
@@ -689,7 +689,7 @@ if (isset($_GET['ClassID'])) {
             <!-- -----------------------------table only for the coach------------------------------------ -->
 
             <?php
-            if ($_SESSION['type'] == 'coach' && $_GET['Type_Of_Info'] == 'trainees_list') {
+            if ($_SESSION['type'] == 'coach' && $_GET['Type_Of_Info'] == 'info') {
                 //the table head
                 echo '<div class="contained">
                 <div class="limiter">
