@@ -7,7 +7,7 @@ and open the template in the editor.
 <?php
     //from the ssesion you can get information about the user
     session_start();
-    if (!isset($_SESSION['logIn'])) {
+    if (!isset($_SESSION['logIn']) || $_SESSION['type'] != "coach") {
         //if the user delete the ssesion it will redirect the user to the login again 
         header("Location:index.html");
         exit();
@@ -37,13 +37,18 @@ and open the template in the editor.
                     $.post("GetTraineeList.php",
                            { Show: classID },
                            function(data){
-                               var obj = JSON.parse(data);
-                               $(r).html("");
-                               var List ="";
-                                for(i=0; i<obj.length; i++){
-                                    List = List + obj[i].name+"<br>";
+                                if(data == 0){
+                                   $(r).html("");
+                                   $(r).append("No Trainee yet");
+                                }else{
+                                    var obj = JSON.parse(data);
+                                    $(r).html("");
+                                    var List ="";
+                                     for(i=0; i<obj.length; i++){
+                                         List = List + obj[i].name+"<br>";
+                                     }
+                                     $(r).append(List);
                                 }
-                                $(r).append(List);
                             });
                 });
             });
