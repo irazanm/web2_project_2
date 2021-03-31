@@ -505,7 +505,7 @@
         <?php
         //from the ssesion you can get information about the user
         session_start();
-        if (!isset($_SESSION['logIn'])){
+        if (!isset($_SESSION['logIn']) || $_SESSION['type'] != "trainee"){
             //if the user delete the ssesion it will redirect the user to the login again 
             header("Location:index.html");
             exit();
