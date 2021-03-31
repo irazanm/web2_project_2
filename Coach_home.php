@@ -346,7 +346,7 @@ and open the template in the editor.
             }
 
             .modal-contents {
-                height: 400px;
+                height: 450px;
                 width: 500px;
                 background-color: white;
                 text-align: center;
